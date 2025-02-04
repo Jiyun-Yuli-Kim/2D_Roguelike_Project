@@ -6,8 +6,7 @@ using UnityEngine.Tilemaps;
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField] Vector2Int _mapSize; // 기본 맵 사이즈
-    private int _curDepth = 1;
-    [SerializeField] int _maxDepth = 30; // 트리의 높이 -> 방 16개
+    [SerializeField] int _maxDepth = 4; // 트리의 높이 -> 방 16개
     [SerializeField] float _minRate; // 이등분할 때의 최소비율
     [SerializeField] float _maxRate; // 이등분할 때의 최대비율
     [SerializeField] Tile _roomTile; // 방 안쪽 타일
@@ -25,7 +24,7 @@ public class MapGenerator : MonoBehaviour
         _mapSize = new Vector2Int(90,60);
         Node RootNode = new Node(new RectInt(-_mapSize.x/2,-_mapSize.y/2,_mapSize.x,_mapSize.y));
         DrawRootNode();
-        Partition(RootNode);
+        SplitNode(RootNode, 1);
     }
 
     private void DrawRootNode()
@@ -57,17 +56,15 @@ public class MapGenerator : MonoBehaviour
         */
     }
 
-    private void Partition(Node node)
+    private void SplitNode(Node node, int depth)
     {
-        if (_curDepth >= _maxDepth)
+        if (depth >= _maxDepth)
         {
             return;
         }
         
         var lineRenderer = Instantiate(_line).GetComponent<LineRenderer>();
         lineRenderer.useWorldSpace = true;
-        lineRenderer.positionCount = 2;
-        _curDepth++;
 
         if (node.nodeRect.height > node.nodeRect.width)
         {
@@ -77,14 +74,15 @@ public class MapGenerator : MonoBehaviour
             int split = Mathf.RoundToInt(maxLength * Random.Range(_minRate, _maxRate));
             Debug.Log(split);
             
+            lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, new Vector3(node.nodeRect.xMin, node.nodeRect.yMin+split, 0));
             lineRenderer.SetPosition(1, new Vector3(node.nodeRect.xMin+minLength, node.nodeRect.yMin+split, 0));
             node.node1 = new Node(new RectInt(node.nodeRect.xMin, node.nodeRect.yMin+split, minLength, maxLength-split));
             node.node2 = new Node(new RectInt(node.nodeRect.xMin, node.nodeRect.yMin, minLength, split));
             node.node1.parNode = node;
             node.node2.parNode = node;
-            Partition(node.node1);
-            Partition(node.node2);
+            SplitNode(node.node1, depth+1);
+            SplitNode(node.node2, depth+1);
         }
         
         else if (node.nodeRect.width >= node.nodeRect.height)
@@ -95,14 +93,15 @@ public class MapGenerator : MonoBehaviour
             int split = Mathf.RoundToInt(maxLength * Random.Range(_minRate, _maxRate));
             Debug.Log(split);
             
+            lineRenderer.positionCount = 2;
             lineRenderer.SetPosition(0, new Vector3(node.nodeRect.xMin+split, node.nodeRect.yMin, 0));
             lineRenderer.SetPosition(1, new Vector3(node.nodeRect.xMin+split, node.nodeRect.yMin+minLength, 0));
             node.node1 = new Node(new RectInt(node.nodeRect.xMin, node.nodeRect.yMin, split, minLength));
             node.node2 = new Node(new RectInt(node.nodeRect.xMin+split, node.nodeRect.yMin, maxLength-split, minLength));
             node.node1.parNode = node;
             node.node2.parNode = node;
-            Partition(node.node1);
-            Partition(node.node2);
+            SplitNode(node.node1, depth+1);
+            SplitNode(node.node2, depth+1);
         }
     }
 
