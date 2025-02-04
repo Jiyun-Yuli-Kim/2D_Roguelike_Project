@@ -6,7 +6,8 @@ using UnityEngine.Tilemaps;
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField] Vector2Int _mapSize; // 기본 맵 사이즈
-    [SerializeField] int _maxDepth = 4; // 트리의 높이 -> 방 16개
+    private int _curDepth = 1;
+    [SerializeField] int _maxDepth = 30; // 트리의 높이 -> 방 16개
     [SerializeField] float _minRate; // 이등분할 때의 최소비율
     [SerializeField] float _maxRate; // 이등분할 때의 최대비율
     [SerializeField] Tile _roomTile; // 방 안쪽 타일
@@ -58,14 +59,32 @@ public class MapGenerator : MonoBehaviour
 
     private void Partition(Node node)
     {
-        var lineRenderer = _line.GetComponent<LineRenderer>();
-        Debug.Log(lineRenderer);
+        if (_curDepth >= _maxDepth)
+        {
+            return;
+        }
+        
+        var lineRenderer = Instantiate(_line).GetComponent<LineRenderer>();
         lineRenderer.useWorldSpace = true;
         lineRenderer.positionCount = 2;
+        _curDepth++;
 
         if (node.nodeRect.height > node.nodeRect.width)
         {
             node._isHorizontalCut = true;
+            int maxLength = node.nodeRect.height;
+            int minLength = node.nodeRect.width;
+            int split = Mathf.RoundToInt(maxLength * Random.Range(_minRate, _maxRate));
+            Debug.Log(split);
+            
+            lineRenderer.SetPosition(0, new Vector3(node.nodeRect.xMin, node.nodeRect.yMin+split, 0));
+            lineRenderer.SetPosition(1, new Vector3(node.nodeRect.xMin+minLength, node.nodeRect.yMin+split, 0));
+            node.node1 = new Node(new RectInt(node.nodeRect.xMin, node.nodeRect.yMin+split, minLength, maxLength-split));
+            node.node2 = new Node(new RectInt(node.nodeRect.xMin, node.nodeRect.yMin, minLength, split));
+            node.node1.parNode = node;
+            node.node2.parNode = node;
+            Partition(node.node1);
+            Partition(node.node2);
         }
         
         else if (node.nodeRect.width >= node.nodeRect.height)
@@ -73,7 +92,6 @@ public class MapGenerator : MonoBehaviour
             node._isHorizontalCut = false;
             int maxLength = node.nodeRect.width;
             int minLength = node.nodeRect.height;
-            Debug.Log($"{maxLength}, {minLength}");
             int split = Mathf.RoundToInt(maxLength * Random.Range(_minRate, _maxRate));
             Debug.Log(split);
             
@@ -83,6 +101,8 @@ public class MapGenerator : MonoBehaviour
             node.node2 = new Node(new RectInt(node.nodeRect.xMin+split, node.nodeRect.yMin, maxLength-split, minLength));
             node.node1.parNode = node;
             node.node2.parNode = node;
+            Partition(node.node1);
+            Partition(node.node2);
         }
     }
 
