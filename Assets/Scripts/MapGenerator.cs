@@ -9,6 +9,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] int _maxDepth = 4; // 트리의 높이 -> 방 16개
     [SerializeField] float _minRate; // 이등분할 때의 최소비율
     [SerializeField] float _maxRate; // 이등분할 때의 최대비율
+    [SerializeField] float _divideRate;
     [SerializeField] Tile _roomTile; // 방 안쪽 타일
     [SerializeField] Tile _wallTile; // 경계를 나타내는 타일
     [SerializeField] Tile _outTile; // 외부를 나타내는 타일
@@ -58,7 +59,7 @@ public class MapGenerator : MonoBehaviour
 
     private void SplitNode(Node node, int depth)
     {
-        if (depth >= _maxDepth)
+        if (depth > _maxDepth)
         {
             return;
         }
@@ -66,7 +67,20 @@ public class MapGenerator : MonoBehaviour
         var lineRenderer = Instantiate(_line).GetComponent<LineRenderer>();
         lineRenderer.useWorldSpace = true;
 
-        if (node.nodeRect.height > node.nodeRect.width)
+        bool randomDir = Random.value > 0.5f; // 기본적으로는 자르는 방향을 랜덤하게
+        
+        if (node.nodeRect.width / node.nodeRect.height > _divideRate) // 가로/세로 비가 
+        {
+            randomDir = false;
+        }
+
+        else if (node.nodeRect.height / node.nodeRect.width > _divideRate)
+        {
+            randomDir = true;
+        }
+
+        // divide horizontally
+        if (randomDir)
         {
             node._isHorizontalCut = true;
             int maxLength = node.nodeRect.height;
@@ -85,7 +99,8 @@ public class MapGenerator : MonoBehaviour
             SplitNode(node.node2, depth+1);
         }
         
-        else if (node.nodeRect.width >= node.nodeRect.height)
+        // divide vertically
+        else if (!randomDir)
         {
             node._isHorizontalCut = false;
             int maxLength = node.nodeRect.width;
@@ -104,6 +119,16 @@ public class MapGenerator : MonoBehaviour
             SplitNode(node.node2, depth+1);
         }
     }
+
+    // private void DevideHorizontal()
+    // {
+    //     
+    // }
+    //
+    // private void DevideVertical()
+    // {
+    //     
+    // }
 
 
 }
