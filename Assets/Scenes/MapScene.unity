@@ -432,9 +432,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mapSize: {x: 90, y: 60}
   _maxDepth: 4
-  _minRate: 0.35
-  _maxRate: 0.7
+  _minRate: 0.4
+  _maxRate: 0.65
   _divideRate: 1.4
+  _minArea: 600
   _roomTile: {fileID: 0}
   _wallTile: {fileID: 0}
   _outTile: {fileID: 0}
