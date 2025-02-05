@@ -565,8 +565,8 @@ MonoBehaviour:
   _maxDepth: 4
   _minRate: 0.4
   _maxRate: 0.65
-  _roomMinRate: 0
-  _roomMaxRate: 0
+  _roomMinRate: 0.5
+  _roomMaxRate: 0.7
   _divideRate: 1.4
   _minArea: 600
   _roomTile: {fileID: 0}
@@ -575,7 +575,7 @@ MonoBehaviour:
   _lineRenderer: {fileID: 261381794}
   _initMap: {fileID: 261381793}
   _line: {fileID: 8852975446048070316, guid: 831b3477b1f295d4dbfb1c77a70d7993, type: 3}
-  _roomLine: {fileID: 8859869386397097981, guid: 62dff79eb94e84442927e35b0ef16b57, type: 3}
+  _roomLine: {fileID: 6200821761028161362, guid: 62dff79eb94e84442927e35b0ef16b57, type: 3}
 --- !u!4 &1466813953
 Transform:
   m_ObjectHideFlags: 0
