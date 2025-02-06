@@ -22,6 +22,7 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] GameObject _initMap; // 초기 맵
     [SerializeField] GameObject _line; // 공간 분할
     [SerializeField] GameObject _roomLine; // 방 외곽선
+    [SerializeField] GameObject _corridorLine;
 
     private void Start()
     {
@@ -90,6 +91,8 @@ public class MapGenerator : MonoBehaviour
             node.node2.parNode = node;
             SplitNode(node.node1, depth+1);
             SplitNode(node.node2, depth+1);
+            DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
+
         }
         
         // divide vertically
@@ -109,6 +112,8 @@ public class MapGenerator : MonoBehaviour
             node.node2.parNode = node;
             SplitNode(node.node1, depth+1);
             SplitNode(node.node2, depth+1);
+            DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
+
         }
     }
 
@@ -142,10 +147,21 @@ public class MapGenerator : MonoBehaviour
        DrawRoom(node);
    }
 
+   private void DrawCorridor(Node node, int depth)
+   {
+       if (depth > _maxDepth)
+       {
+           return;
+       }
+
+       DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
+       DrawCorridor(node.node1, depth+1);
+       DrawCorridor(node.node2, depth+1);
+   }
+
    private void DrawRoom(Node node)
    {
        var lineRenderer = Instantiate(_roomLine).GetComponent<LineRenderer>();
-       Debug.Log(lineRenderer);
        lineRenderer.useWorldSpace = true; // 빼먹지 말자
        lineRenderer.positionCount = 4;
 
@@ -155,5 +171,14 @@ public class MapGenerator : MonoBehaviour
        lineRenderer.SetPosition(3, new Vector3(node.roomRect.xMin + node.roomRect.width, node.roomRect.yMin, 0)); // 오른쪽 아래
    }
 
+   private void DrawLine(Vector2 start, Vector2 end)
+   {
+       var lineRenderer = Instantiate(_corridorLine).GetComponent<LineRenderer>();
+       lineRenderer.useWorldSpace = true;
+       lineRenderer.positionCount = 2;
+       
+       lineRenderer.SetPosition(0, start);
+       lineRenderer.SetPosition(1, end);
+   }
 
 }
