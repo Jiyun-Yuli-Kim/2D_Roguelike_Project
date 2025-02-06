@@ -130,8 +130,14 @@ public class MapGenerator : MonoBehaviour
    {
        int roomWidth = Mathf.RoundToInt(node.nodeRect.width * Random.Range(_roomMinRate, _roomMaxRate));
        int roomHeight = Mathf.RoundToInt(node.nodeRect.height * Random.Range(_roomMinRate, _roomMaxRate));
-       node.roomRect = new RectInt(Mathf.RoundToInt(node.nodeCenter.x - roomWidth/2), Mathf.RoundToInt(node.nodeCenter.y - roomHeight/2), roomWidth, roomHeight);
-       Debug.Log($"GenerateRoom - Room Position: ({node.roomRect.xMin}, {node.roomRect.yMin}) Size: {node.roomRect.width}x{node.roomRect.height}");
+       
+       // roomRect의 xMin과 yMin값을 현재는 nodeCenter에서 roomw/2, roomh/2 만큼을 빼주고 있다.
+       // 모든 룸이 가운데 정렬되어 단조로워보인다는 단점이 있다.
+       // 이에, 방의 시작 좌표에 랜덤성을 부여하고자 한다.
+       int roomX = Mathf.RoundToInt(Random.Range(node.nodeRect.xMin+1, node.nodeRect.xMin + node.nodeRect.width-roomWidth-1));
+       int roomY = Mathf.RoundToInt(Random.Range(node.nodeRect.yMin+1, node.nodeRect.yMin+node.nodeRect.height-roomHeight-1));
+       
+       node.roomRect = new RectInt(roomX, roomY, roomWidth, roomHeight);
 
        DrawRoom(node);
    }
@@ -142,8 +148,6 @@ public class MapGenerator : MonoBehaviour
        Debug.Log(lineRenderer);
        lineRenderer.useWorldSpace = true; // 빼먹지 말자
        lineRenderer.positionCount = 4;
-       Debug.Log($"Draw 가로길이 : {node.nodeRect.width}, {node.roomRect.width}");
-       Debug.Log($"Draw 세로길이 : {node.nodeRect.height}, {node.roomRect.height}");
 
        lineRenderer.SetPosition(0, new Vector3(node.roomRect.xMin, node.roomRect.yMin, 0)); // 왼쪽 아래
        lineRenderer.SetPosition(1, new Vector3(node.roomRect.xMin, node.roomRect.yMin + node.roomRect.height, 0)); // 왼쪽 위
