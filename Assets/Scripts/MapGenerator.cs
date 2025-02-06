@@ -182,3 +182,6 @@ public class MapGenerator : MonoBehaviour
    }
 
 }
+
+// 일단은 배경색을 채워줍니다
+// 방을 형성했으면 그 방의 영역에 타일을 채워줍니다.

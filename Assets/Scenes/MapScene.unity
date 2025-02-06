@@ -428,7 +428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552328955}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -9.85, z: -5.76}
+  m_LocalPosition: {x: -23.02, y: -9.82, z: -5.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -448,50 +448,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7562722802201506756, guid: e59b1577dfc32d94683652ce8be611ce, type: 3}
   m_PrefabInstance: {fileID: 8924910408248171069}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &678166362
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 678166364}
-  - component: {fileID: 678166363}
-  m_Layer: 0
-  m_Name: Grid
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!156049354 &678166363
-Grid:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678166362}
-  m_Enabled: 1
-  m_CellSize: {x: 3, y: 3, z: 3}
-  m_CellGap: {x: 0, y: 0, z: 0}
-  m_CellLayout: 0
-  m_CellSwizzle: 0
---- !u!4 &678166364
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678166362}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &757138280 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9063453837659507968, guid: eb8d69cfdda41a14cbbfddedb526ef90, type: 3}
@@ -576,6 +532,7 @@ MonoBehaviour:
   _initMap: {fileID: 261381793}
   _line: {fileID: 8852975446048070316, guid: 831b3477b1f295d4dbfb1c77a70d7993, type: 3}
   _roomLine: {fileID: 6200821761028161362, guid: 62dff79eb94e84442927e35b0ef16b57, type: 3}
+  _corridorLine: {fileID: 8852975446048070316, guid: 73960d8e450876c408be1a273294c4d2, type: 3}
 --- !u!4 &1466813953
 Transform:
   m_ObjectHideFlags: 0
