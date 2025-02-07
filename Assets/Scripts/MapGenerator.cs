@@ -13,7 +13,10 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] float _roomMaxRate; // 방 생성 시의 최대비율
     [SerializeField] float _divideRate;
     [SerializeField] float _minArea;
-    [SerializeField] Tile _roomTile; // 방 안쪽 타일
+    
+    [SerializeField] Tilemap _tilemap;
+    [SerializeField] Tile _roomTile1; // 방 안쪽 타일
+    [SerializeField] Tile _roomTile2; // 방 안쪽 타일 w. 그림자
     [SerializeField] Tile _wallTile; // 경계를 나타내는 타일
     [SerializeField] Tile _outTile; // 외부를 나타내는 타일
     
@@ -27,8 +30,9 @@ public class MapGenerator : MonoBehaviour
     private void Start()
     {
         _mapSize = new Vector2Int(90,60);
+        FillBG();
         Node RootNode = new Node(new RectInt(-_mapSize.x/2,-_mapSize.y/2,_mapSize.x,_mapSize.y));
-        DrawRootNode();
+        // DrawRootNode();
         SplitNode(RootNode, 1);
     }
 
@@ -179,6 +183,19 @@ public class MapGenerator : MonoBehaviour
        
        lineRenderer.SetPosition(0, start);
        lineRenderer.SetPosition(1, end);
+   }
+
+   private void FillBG()
+   {
+       int w = _mapSize.x / 2;
+       int h = _mapSize.y / 2;
+       for (int i = -w - 10; i < w + 10; i++)
+       {
+           for (int j = -h - 10; j < h + 10; j++)
+           {
+               _tilemap.SetTile(new Vector3Int(i,j,0),_outTile);
+           }
+       }
    }
 
 }
