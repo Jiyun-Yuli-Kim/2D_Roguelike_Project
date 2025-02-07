@@ -682,7 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfc54fe4b3d38d4b82e8c6945c5d7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapSize: {x: 90, y: 60}
+  _mapSize: {x: 120, y: 80}
   _maxDepth: 4
   _minRate: 0.4
   _maxRate: 0.65
@@ -695,6 +695,7 @@ MonoBehaviour:
   _roomTile2: {fileID: 0}
   _wallTile: {fileID: 0}
   _outTile: {fileID: 11400000, guid: 63e91c250d7fe3941bb5a50157c4df64, type: 2}
+  _ruleTile: {fileID: 11400000, guid: b2c71768573053f469a7df08d8ada2f5, type: 2}
   _lineRenderer: {fileID: 261381794}
   _initMap: {fileID: 261381793}
   _line: {fileID: 8852975446048070316, guid: 831b3477b1f295d4dbfb1c77a70d7993, type: 3}
