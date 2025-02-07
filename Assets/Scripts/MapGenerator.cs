@@ -16,12 +16,15 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] float _divideRate;
     [SerializeField] float _minArea;
 
-    [SerializeField] Tilemap _tilemap;
+    [SerializeField] Tilemap _floorTilemap;
+    [SerializeField] Tilemap _wallTilemap;
+
     [SerializeField] Tile _roomTile1; // 방 안쪽 타일
     [SerializeField] Tile _roomTile2; // 방 안쪽 타일 w. 그림자
     [SerializeField] Tile _wallTile; // 경계를 나타내는 타일
     [SerializeField] Tile _outTile; // 외부를 나타내는 타일
-    [SerializeField] RuleTile _ruleTile;
+    [SerializeField] RuleTile _floorRuleTile;
+    [SerializeField] RuleTile _wallRuleTile;
 
     // 라인 렌더링
     [SerializeField] LineRenderer _lineRenderer;
@@ -206,7 +209,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = node.roomRect.yMin; y < node.roomRect.yMin + node.roomRect.height; y++)
             {
-                _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                _wallTilemap.SetTile(new Vector3Int(x, y, 0), _floorRuleTile);
             }
         }
     }
@@ -224,7 +227,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = start.y - 1; y <= end.y + 2; y++)
             {
-                _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                _floorTilemap.SetTile(new Vector3Int(x, y, 0), _floorRuleTile);
             }
         }
 
@@ -232,7 +235,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int x = start.x - 1; x <= end.x + 1; x++)
             {
-                _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                _floorTilemap.SetTile(new Vector3Int(x, y, 0), _floorRuleTile);
             }
         }
 
@@ -246,7 +249,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int j = -h - 10; j < h + 10; j++)
             {
-                _tilemap.SetTile(new Vector3Int(i, j, 0), _outTile);
+                _floorTilemap.SetTile(new Vector3Int(i, j, 0), _outTile);
             }
         }
     }
