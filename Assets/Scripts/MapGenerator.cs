@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -165,24 +167,43 @@ public class MapGenerator : MonoBehaviour
 
    private void DrawRoom(Node node)
    {
-       var lineRenderer = Instantiate(_roomLine).GetComponent<LineRenderer>();
-       lineRenderer.useWorldSpace = true; // 빼먹지 말자
-       lineRenderer.positionCount = 4;
+       // var lineRenderer = Instantiate(_roomLine).GetComponent<LineRenderer>();
+       // lineRenderer.useWorldSpace = true; // 빼먹지 말자
+       // lineRenderer.positionCount = 4;
+       //
+       // lineRenderer.SetPosition(0, new Vector3(node.roomRect.xMin, node.roomRect.yMin, 0)); // 왼쪽 아래
+       // lineRenderer.SetPosition(1, new Vector3(node.roomRect.xMin, node.roomRect.yMin + node.roomRect.height, 0)); // 왼쪽 위
+       // lineRenderer.SetPosition(2, new Vector3(node.roomRect.xMin + node.roomRect.width, node.roomRect.yMin + node.roomRect.height, 0)); // 오른쪽 위
+       // lineRenderer.SetPosition(3, new Vector3(node.roomRect.xMin + node.roomRect.width, node.roomRect.yMin, 0)); // 오른쪽 아래
 
-       lineRenderer.SetPosition(0, new Vector3(node.roomRect.xMin, node.roomRect.yMin, 0)); // 왼쪽 아래
-       lineRenderer.SetPosition(1, new Vector3(node.roomRect.xMin, node.roomRect.yMin + node.roomRect.height, 0)); // 왼쪽 위
-       lineRenderer.SetPosition(2, new Vector3(node.roomRect.xMin + node.roomRect.width, node.roomRect.yMin + node.roomRect.height, 0)); // 오른쪽 위
-       lineRenderer.SetPosition(3, new Vector3(node.roomRect.xMin + node.roomRect.width, node.roomRect.yMin, 0)); // 오른쪽 아래
+       for (int x = node.roomRect.xMin; x < node.roomRect.xMin + node.roomRect.width; x++)
+       {
+           for (int y = node.roomRect.yMin; y < node.roomRect.yMin + node.roomRect.height; y++)
+           {
+               _tilemap.SetTile(new Vector3Int(x, y, 0), _roomTile1);
+           }
+       }
    }
 
-   private void DrawLine(Vector2 start, Vector2 end)
+   private void DrawLine(Vector2Int start, Vector2Int end)
    {
-       var lineRenderer = Instantiate(_corridorLine).GetComponent<LineRenderer>();
-       lineRenderer.useWorldSpace = true;
-       lineRenderer.positionCount = 2;
+       // var lineRenderer = Instantiate(_corridorLine).GetComponent<LineRenderer>();
+       // lineRenderer.useWorldSpace = true;
+       // lineRenderer.positionCount = 2;
+       //
+       // lineRenderer.SetPosition(0, new Vector3(start.x, start.y,0));
+       // lineRenderer.SetPosition(1, new Vector3(end.x, end.y,0));
+
+       for (int x = start.x; x < end.x; x++)
+       {
+           _tilemap.SetTile(new Vector3Int(x, start.y, 0), _roomTile1);
+       }
        
-       lineRenderer.SetPosition(0, start);
-       lineRenderer.SetPosition(1, end);
+       for (int y = start.y; y > end.y; y--)
+       {
+           _tilemap.SetTile(new Vector3Int(start.x, y, 0), _roomTile1);
+       }
+
    }
 
    private void FillBG()

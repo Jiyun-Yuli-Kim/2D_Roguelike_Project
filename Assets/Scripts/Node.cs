@@ -8,7 +8,7 @@ public class Node
     public Node node1;
     public Node node2;
     public RectInt nodeRect;
-    public Vector2 nodeCenter;
+    public Vector2Int nodeCenter;
     public RectInt roomRect;
     public bool _isHorizontalCut; // true면 위아래로 나눔, false면 양옆으로 나눔
     // public bool _isLeafNode;
@@ -16,6 +16,6 @@ public class Node
     public Node(RectInt NodeRect)
     {
         this.nodeRect = NodeRect;
-        this.nodeCenter = new Vector2(NodeRect.xMin + NodeRect.width/2, NodeRect.yMin + NodeRect.height/2);
+        this.nodeCenter = new Vector2Int(NodeRect.xMin + NodeRect.width/2, NodeRect.yMin + NodeRect.height/2);
     }
 }
