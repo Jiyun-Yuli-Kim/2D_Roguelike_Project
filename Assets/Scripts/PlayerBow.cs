@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSword : StateBase
+public class PlayerBow : StateBase
 {
-    public PlayerSword(PlayerController player, Animator animator) : base(player, animator)
+    public PlayerBow(PlayerController player, Animator animator) : base(player, animator)
     {
         
     }
 
     public override void OnStateEnter()
     {
-        Debug.Log("PlayerSword Entered");
+        Debug.Log("PlayerBow Entered");
     }
 
     public override void OnStateUpdate()
@@ -19,7 +19,7 @@ public class PlayerSword : StateBase
         if (Input.GetMouseButtonDown(0))
         {
             Attack();
-            Debug.Log("Sword Attack!");
+            Debug.Log("Bow Attack!");
         }
             // // 사운드 재생 로직
             // footstepTimer -= Time.deltaTime;
@@ -36,7 +36,7 @@ public class PlayerSword : StateBase
 
     private void Attack()
     {
-        _animator.SetTrigger("Sword");
+        _animator.SetTrigger("Bow");
     }
 
     // private void PlayFootstepSound()
