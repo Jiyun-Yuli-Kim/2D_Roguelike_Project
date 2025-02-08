@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         _moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         _playerAnimator.SetFloat("Speed", _rb.velocity.magnitude);
+        
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ChangeWeapon();
