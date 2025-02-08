@@ -28,10 +28,4 @@ public class PlayerController : MonoBehaviour
 
         _rb.velocity =  _moveDirection * _playerSpeed;
     }
-
-    private void PlayerMove()
-    {
-
-    }
-    
 }
