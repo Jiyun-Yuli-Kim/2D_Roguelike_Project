@@ -16,15 +16,18 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] float _divideRate;
     [SerializeField] float _minArea;
 
-    [SerializeField] Tilemap _floorTilemap;
-    [SerializeField] Tilemap _wallTilemap;
+    [SerializeField] Tilemap _tilemap;
+    // [SerializeField] Tilemap _floorTilemap;
+    // [SerializeField] Tilemap _wallTilemap;
 
     [SerializeField] Tile _roomTile1; // 방 안쪽 타일
     [SerializeField] Tile _roomTile2; // 방 안쪽 타일 w. 그림자
     [SerializeField] Tile _wallTile; // 경계를 나타내는 타일
     [SerializeField] Tile _outTile; // 외부를 나타내는 타일
-    [SerializeField] RuleTile _floorRuleTile;
-    [SerializeField] RuleTile _wallRuleTile;
+    [SerializeField] RuleTile _ruleTile;
+    
+    // [SerializeField] RuleTile _floorRuleTile;
+    // [SerializeField] RuleTile _wallRuleTile;
 
     // 라인 렌더링
     [SerializeField] LineRenderer _lineRenderer;
@@ -32,29 +35,6 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] GameObject _line; // 공간 분할
     [SerializeField] GameObject _roomLine; // 방 외곽선
     [SerializeField] GameObject _corridorLine;
-    
-    // // 외곽선 예외처리
-    // int[] case1 = { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-    // int[] case2 = { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
-    // int[] case3 = { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
-    // int[] case4 = { 1, 0, 0, 0, 0, 0, 0, 0, 0 };
-    // int[] case5 = { 0, 0, 1, 0, 0, 1, 1, 1, 1 };
-    // int[] case6 = { 1, 1, 1, 0, 0, 1, 0, 0, 1 };
-    // int[] case7 = { 1, 0, 0, 1, 0, 0, 1, 1, 1 };
-    // int[] case8 = { 1, 1, 1, 1, 0, 0, 1, 0, 0 };
-    // int[] case9 = { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
-    // int[] case10 = { 0, 0, 1, 0, 0, 0, 0, 0, 0 };
-    // int[] case11 = { 0, 0, 0, 0, 0, 0, 1, 0, 0 };
-    // int[] case12 = { 1, 0, 0, 0, 0, 0, 0, 0, 0 };
-    // int[] case13 = { 0, 0, 1, 0, 0, 1, 0, 1, 1 };
-    // int[] case14 = { 0, 1, 1, 0, 0, 1, 0, 0, 1 };
-    // int[] case15 = { 1, 0, 0, 1, 0, 0, 1, 1, 0 };
-    // int[] case16 = { 1, 1, 0, 1, 0, 0, 1, 0, 0 };
-    // int[] case17 = { 0, 0, 0, 0, 0, 1, 1, 1, 1 };
-    // int[] case18 = { 1, 1, 1, 0, 0, 1, 0, 0, 0 };
-    // int[] case19 = { 0, 0, 0, 1, 0, 0, 1, 1, 1 };
-    // int[] case20 = { 1, 1, 1, 1, 0, 0, 0, 0, 0 };
-    
 
     private void Start()
     {
@@ -209,7 +189,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = node.roomRect.yMin; y < node.roomRect.yMin + node.roomRect.height; y++)
             {
-                _wallTilemap.SetTile(new Vector3Int(x, y, 0), _floorRuleTile);
+                _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
             }
         }
     }
@@ -227,7 +207,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int y = start.y - 1; y <= end.y + 2; y++)
             {
-                _floorTilemap.SetTile(new Vector3Int(x, y, 0), _floorRuleTile);
+                _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
             }
         }
 
@@ -235,7 +215,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int x = start.x - 1; x <= end.x + 1; x++)
             {
-                _floorTilemap.SetTile(new Vector3Int(x, y, 0), _floorRuleTile);
+                _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
             }
         }
 
@@ -249,7 +229,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int j = -h - 10; j < h + 10; j++)
             {
-                _floorTilemap.SetTile(new Vector3Int(i, j, 0), _outTile);
+                _tilemap.SetTile(new Vector3Int(i, j, 0), _outTile);
             }
         }
     }
