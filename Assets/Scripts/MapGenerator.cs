@@ -38,7 +38,7 @@ public class MapGenerator : MonoBehaviour
 
     private void Start()
     {
-        _mapSize = new Vector2Int(90, 60);
+        // _mapSize = new Vector2Int(90, 60);
         FillBG();
         Node RootNode = new Node(new RectInt(-_mapSize.x / 2, -_mapSize.y / 2, _mapSize.x, _mapSize.y));
         // DrawRootNode();
