@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Gun
+  - Spear
   layers:
   - Default
   - TransparentFX
@@ -43,6 +45,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 942159473
+    locked: 0
+  - name: Item
+    uniqueID: 414386839
     locked: 0
   - name: Player
     uniqueID: 1692314133
