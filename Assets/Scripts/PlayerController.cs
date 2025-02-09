@@ -38,6 +38,8 @@ public class PlayerController : MonoBehaviour
         }
 
         _rb.velocity =  _moveDirection * _playerSpeed;
+        _playerAnimator.SetFloat("MoveX", _rb.velocity.x);
+        _playerAnimator.SetFloat("MoveY", _rb.velocity.y);
     }
 
     void ChangeWeapon()
