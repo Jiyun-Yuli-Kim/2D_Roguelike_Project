@@ -5,15 +5,21 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public string enemyName;
+    public int maxHp;
+    public int curHp;
+    
+    
+    
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            Attack();
+            AttackTarget(other.gameObject);
         }
     }
 
-    void Attack()
+    void AttackTarget(GameObject target)
     {
         
     }

@@ -162,17 +162,17 @@ public class MapGenerator : MonoBehaviour
         DrawRoom(node);
     }
 
-    private void DrawCorridor(Node node, int depth)
-    {
-        if (depth > _maxDepth)
-        {
-            return;
-        }
-
-        DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
-        DrawCorridor(node.node1, depth + 1);
-        DrawCorridor(node.node2, depth + 1);
-    }
+    // private void DrawCorridor(Node node, int depth)
+    // {
+    //     if (depth > _maxDepth)
+    //     {
+    //         return;
+    //     }
+    //
+    //     DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
+    //     DrawCorridor(node.node1, depth + 1);
+    //     DrawCorridor(node.node2, depth + 1);
+    // }
 
     private void DrawRoom(Node node)
     {
