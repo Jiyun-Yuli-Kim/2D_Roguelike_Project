@@ -11,12 +11,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private Vector2 _moveDirection;
     public BulletLauncher launcher;
-    // private StateMachine _stateMachine;
-    // public bool hasGun; // UI 연동
-    // public bool hasSpear; // UI 연동
-    // public List<IWeapon> Weapons;
-    // public IWeapon _weapon;
-    // public Weapons _weapons;
 
     void Start()
     {
