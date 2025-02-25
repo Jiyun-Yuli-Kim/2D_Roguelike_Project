@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        _moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         _playerAnimator.SetFloat("Speed", _rb.velocity.magnitude);
         
         if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -47,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        _moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
         if (_moveDirection == Vector2.zero)
         {
             _rb.velocity = Vector2.zero;
