@@ -157,7 +157,7 @@ public class MapGenerator : MonoBehaviour
         int roomY = Mathf.RoundToInt(Random.Range(node.nodeRect.yMin + 1,
             node.nodeRect.yMin + node.nodeRect.height - roomHeight - 1));
 
-        node.roomRect = new RectInt(roomX, roomY, roomWidth, roomHeight);
+        node.room.roomRect = new RectInt(roomX, roomY, roomWidth, roomHeight);
 
         DrawRoom(node);
     }
@@ -185,9 +185,9 @@ public class MapGenerator : MonoBehaviour
         // lineRenderer.SetPosition(2, new Vector3(node.roomRect.xMin + node.roomRect.width, node.roomRect.yMin + node.roomRect.height, 0)); // 오른쪽 위
         // lineRenderer.SetPosition(3, new Vector3(node.roomRect.xMin + node.roomRect.width, node.roomRect.yMin, 0)); // 오른쪽 아래
 
-        for (int x = node.roomRect.xMin; x < node.roomRect.xMin + node.roomRect.width; x++)
+        for (int x = node.room.roomRect.xMin; x < node.room.roomRect.xMin + node.room.roomRect.width; x++)
         {
-            for (int y = node.roomRect.yMin; y < node.roomRect.yMin + node.roomRect.height; y++)
+            for (int y = node.room.roomRect.yMin; y < node.room.roomRect.yMin + node.room.roomRect.height; y++)
             {
                 _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
             }
