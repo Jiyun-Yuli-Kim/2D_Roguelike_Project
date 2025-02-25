@@ -146,6 +146,8 @@ public class MapGenerator : MonoBehaviour
 
     private void GenerateRoom(Node node)
     {
+        node.room = new Room();
+
         int roomWidth = Mathf.RoundToInt(node.nodeRect.width * Random.Range(_roomMinRate, _roomMaxRate));
         int roomHeight = Mathf.RoundToInt(node.nodeRect.height * Random.Range(_roomMinRate, _roomMaxRate));
 

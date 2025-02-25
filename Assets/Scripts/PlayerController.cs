@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private Vector2 _moveDirection;
     public BulletLauncher launcher;
-
+            
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -19,12 +19,12 @@ public class PlayerController : MonoBehaviour
     }
 
     void Update()
-    {        
+    {
         //if (Input.GetKeyDown(KeyCode.Alpha1))
         //{
         //    GetGun();
         //}
-        
+
         //if (Input.GetKeyDown(KeyCode.Alpha2))
         //{
         //    GetSpear();

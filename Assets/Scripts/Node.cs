@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node
+public class Node // 왜 안붙였을까?
 {
     public Node parNode;
     public Node node1;
@@ -11,8 +11,7 @@ public class Node
     public Vector2Int nodeCenter;
     public Room room;
     public bool _isHorizontalCut; // true면 위아래로 나눔, false면 양옆으로 나눔
-    // public bool _isLeafNode;
-    
+
     public Node(RectInt NodeRect)
     {
         this.nodeRect = NodeRect;
