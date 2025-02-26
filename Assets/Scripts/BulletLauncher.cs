@@ -14,7 +14,9 @@ public class BulletLauncher : MonoBehaviour
     {
         for (int i = 0; i < BulletPool.size; i++) 
         {
-            Bullet bullet= Instantiate(bulletPrefab, spawnPos).GetComponent<Bullet>();
+            Bullet bullet= Instantiate(bulletPrefab).GetComponent<Bullet>();
+            bullet.OnBulletHitWall += Return;
+            bullet.OnBulletHitEnemy += Return;
             BulletPool.Return(bullet);
         }
     }
@@ -29,6 +31,11 @@ public class BulletLauncher : MonoBehaviour
             //}
             Shoot();
         }
+    }
+
+    void Return(Bullet bullet)
+    {
+        BulletPool.Return(bullet);
     }
 
     // 물리연산은 fixed에서 하는데, 인풋은 update에서 해야할거 아냐? 그럼...총알 발사는 어떻게 되는거야
@@ -47,6 +54,8 @@ public class BulletLauncher : MonoBehaviour
         Debug.Log($"시작지점(총알 위치) : {bullet.transform.position.x}, {bullet.transform.position.y}");
         bullet.ToTarget(targetPos);
     }
+
+    // 비활성화는 어떻게?
 
     public void Track()
     { 
