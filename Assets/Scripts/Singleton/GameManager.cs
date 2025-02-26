@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public SceneChanger sceneChanger; // ¾ê´Â ¿Ö ±»ÀÌ ¿ÀÇÂÀ» Çß´ÂÁö
+    // public SceneChanger sceneChanger; // ¾ê´Â ¿Ö ±»ÀÌ ¿ÀÇÂÀ» Çß´ÂÁö
 
     void Awake()
     {
@@ -21,4 +23,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void LoadScene(int sceneNumber)
+    {
+        SceneManager.LoadScene(sceneNumber);
+    }
 }

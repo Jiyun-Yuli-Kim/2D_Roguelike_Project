@@ -51,4 +51,13 @@ public class PlayerController : MonoBehaviour
         _playerAnimator.SetFloat("MoveX", _rb.velocity.x);
         _playerAnimator.SetFloat("MoveY", _rb.velocity.y);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Skill"))
+        { 
+            launcher.curSkill = gameObject.GetComponent<Skill>();
+            Destroy(collision.gameObject);
+        }
+    }
 }

@@ -6,10 +6,19 @@ using UnityEngine;
 public abstract class Skill : MonoBehaviour
 {
     public string skillName;
-    public float bulletFrequency;
+    public float bulletCoolTime;
     public float bulletSpeed;
     public float bulletDamage;
-    public GameObject skillBullet; // 스킬에 따라 다른 프리팹
+    public GameObject bulletPrefab;
+    public SpriteRenderer sRenderer;
+    // public Sprite skillBulletImage; // 스킬에 따라 다른 이미지
+    public Animator skillBulletAnimator; 
+    public float skillColSize;
+
+    private void Awake()
+    {
+        sRenderer.sprite = bulletPrefab.GetComponent<Sprite>();
+    }
 
     public abstract void Activate();
     public virtual void Deactivate()

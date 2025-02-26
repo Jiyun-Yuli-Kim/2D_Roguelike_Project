@@ -40,17 +40,20 @@ public class BulletLauncher : MonoBehaviour
 
     // 스킬에 따라 불렛이 다른 양상으로 움직여야 하는데 이걸 어떻게 구현할지(스킬과 오브젝트풀 연동의 문제)
 
-    public void SetBullet() // 현재 스킬에 따른 불렛 설정
-    {
-
-    }
+    //public void SetBullet() // 현재 스킬에 따른 불렛 설정
+    //{
+    //    bulletPrefab = curSkill.skillBullet;
+    //}
     public void Shoot() // 인풋 직접 받아 불렛 발사
     {
         Vector3 targetPos = SetTargetPos();
-        Debug.Log($"목표지점(마우스 위치) : {targetPos.x}, {targetPos.y}");
+        // Debug.Log($"목표지점(마우스 위치) : {targetPos.x}, {targetPos.y}");
         Bullet bullet = BulletPool.Get();
         bullet.transform.position = transform.position;
-        Debug.Log($"시작지점(총알 위치) : {bullet.transform.position.x}, {bullet.transform.position.y}");
+        // bullet이 활성화될 때 프리팹을 바꿔주면 됨.
+        var prefab = bullet.GetComponent<GameObject>();
+        prefab = bulletPrefab;
+        // Debug.Log($"시작지점(총알 위치) : {bullet.transform.position.x}, {bullet.transform.position.y}");
         bullet.ToTarget(targetPos);
     }
 

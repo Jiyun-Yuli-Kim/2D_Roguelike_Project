@@ -6,6 +6,6 @@ public class NewGameButton : MonoBehaviour
 {
     public void NewGame()
     {
-        GameManager.Instance.sceneChanger.LoadScene(1);
+        GameManager.Instance.LoadScene(1);
     }
 }

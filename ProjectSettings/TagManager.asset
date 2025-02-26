@@ -8,6 +8,7 @@ TagManager:
   - Spear
   - Wall
   - Enemy
+  - Skill
   layers:
   - Default
   - TransparentFX
