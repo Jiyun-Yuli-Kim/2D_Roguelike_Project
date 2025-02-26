@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node // 왜 안붙였을까?
+public class Node // 생성자를 사용하기 위해 MonoBehaviour 상속받지 않음
 {
     public Node parNode;
     public Node node1;
