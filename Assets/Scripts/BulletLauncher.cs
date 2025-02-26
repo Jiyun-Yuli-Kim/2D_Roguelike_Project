@@ -38,7 +38,6 @@ public class BulletLauncher : MonoBehaviour
         BulletPool.Return(bullet);
     }
 
-    // 물리연산은 fixed에서 하는데, 인풋은 update에서 해야할거 아냐? 그럼...총알 발사는 어떻게 되는거야
     // 스킬에 따라 불렛이 다른 양상으로 움직여야 하는데 이걸 어떻게 구현할지(스킬과 오브젝트풀 연동의 문제)
 
     public void SetBullet() // 현재 스킬에 따른 불렛 설정
