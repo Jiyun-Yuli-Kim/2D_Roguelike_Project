@@ -15,6 +15,8 @@ public class Bullet : MonoBehaviour
 
     public void ToTarget(Vector3 target)
     {
-        _rb.velocity = (target - new Vector3(this.transform.position.x, this.transform.position.y))*bulletSpeed;
+        Vector3 direction = target - this.transform.position;
+        Debug.Log($"발사방향 : {direction.x},{direction.y}");
+        _rb.velocity = direction*bulletSpeed;
     }
 }

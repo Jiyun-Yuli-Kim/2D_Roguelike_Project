@@ -41,8 +41,10 @@ public class BulletLauncher : MonoBehaviour
     public void Shoot() // 인풋 직접 받아 불렛 발사
     {
         Vector3 targetPos = SetTargetPos();
-        Debug.Log("발사!");
+        Debug.Log($"목표지점(마우스 위치) : {targetPos.x}, {targetPos.y}");
         Bullet bullet = BulletPool.Get();
+        bullet.transform.position = transform.position;
+        Debug.Log($"시작지점(총알 위치) : {bullet.transform.position.x}, {bullet.transform.position.y}");
         bullet.ToTarget(targetPos);
     }
 
