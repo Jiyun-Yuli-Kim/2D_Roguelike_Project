@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameManager Instance { get; private set; }
+    public static GameManager Instance { get; private set; }
     public SceneChanger sceneChanger; // ¾ê´Â ¿Ö ±»ÀÌ ¿ÀÇÂÀ» Çß´ÂÁö
 
     void Awake()
