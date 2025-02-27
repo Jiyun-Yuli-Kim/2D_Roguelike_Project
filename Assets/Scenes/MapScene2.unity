@@ -249,11 +249,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: 
-  bulletCoolTime: 0.1
   bulletSpeed: 5
   bulletDamage: 0
-  skillBulletAnimator: {fileID: 0}
-  skillColSize: 0
+  bulletCoolTime: 0.1
   bulletPrefab: {fileID: 7569507569103090011, guid: fbae97ee176ed0748b7a0f6ab7bfc7a3, type: 3}
 --- !u!1 &144113161
 GameObject:
@@ -285,11 +283,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: 
-  bulletCoolTime: 0.1
   bulletSpeed: 0
   bulletDamage: 0
-  skillBulletAnimator: {fileID: 0}
-  skillColSize: 0
+  bulletCoolTime: 0.1
   bulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
 --- !u!4 &144113163
 Transform:
@@ -1052,6 +1048,7 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0, z: 0}
   curSkill: {fileID: 0}
   defaultSkill: {fileID: 144113162}
+  coolTime: 0
   bulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
 --- !u!1 &1401686729
 GameObject:
@@ -1299,11 +1296,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: 
-  bulletCoolTime: 3
-  bulletSpeed: 1.28
+  bulletSpeed: 2
   bulletDamage: 0
-  skillBulletAnimator: {fileID: 0}
-  skillColSize: 0
+  bulletCoolTime: 2
   bulletPrefab: {fileID: 7569507569103090011, guid: 87c5d75a9a9e52e4fbdfa7fdc2992111, type: 3}
 --- !u!1001 &3043009286058141667
 PrefabInstance:

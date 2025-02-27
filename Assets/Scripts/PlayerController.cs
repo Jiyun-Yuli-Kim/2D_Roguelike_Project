@@ -58,6 +58,7 @@ public class PlayerController : MonoBehaviour
         { 
             launcher.curSkill = collision.gameObject.GetComponent<Skill>();
             launcher.bulletPool = launcher.curSkill.bulletPool;
+            launcher.coolTime = launcher.curSkill.bulletCoolTime;
             Destroy(collision.gameObject);
         }
     }

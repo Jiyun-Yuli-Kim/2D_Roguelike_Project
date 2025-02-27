@@ -9,7 +9,7 @@ public class BulletLauncher : MonoBehaviour
     public Vector3 targetPos; //불렛 목표 위치
     public Skill curSkill; // 현재스킬
     [SerializeField] private Skill defaultSkill;
-    private float _coolTime;
+    public float coolTime; // 총알 발사 후 쿨타임 측정 
     public GameObject bulletPrefab;
 
     private void Awake()
@@ -29,7 +29,7 @@ public class BulletLauncher : MonoBehaviour
             Shoot();
         }
 
-        _coolTime += Time.deltaTime;
+        coolTime += Time.deltaTime;
     }
 
     void ReturntoPool(Bullet bullet)
@@ -45,12 +45,12 @@ public class BulletLauncher : MonoBehaviour
     //}
     public void Shoot() // 인풋 직접 받아 불렛 발사
     {
-        if (_coolTime < curSkill.bulletCoolTime)
+        if (coolTime < curSkill.bulletCoolTime)
         {
             return;
         }
 
-        _coolTime = 0;
+        coolTime = 0;
         Vector3 targetPos = SetTargetPos();
         // Debug.Log($"목표지점(마우스 위치) : {targetPos.x}, {targetPos.y}");
         Bullet bullet = bulletPool.Get();

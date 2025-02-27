@@ -6,11 +6,9 @@ using UnityEngine;
 public abstract class Skill : MonoBehaviour
 {
     public string skillName;
-    public float bulletCoolTime;
     public float bulletSpeed;
     public float bulletDamage;
-    public Animator skillBulletAnimator; 
-    public float skillColSize;
+    public float bulletCoolTime;
     public CustomPool<Bullet> bulletPool = new(15);
     public GameObject bulletPrefab;
 
