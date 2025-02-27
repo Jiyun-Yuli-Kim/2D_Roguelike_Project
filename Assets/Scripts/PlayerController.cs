@@ -54,11 +54,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // ½ºÅ³ È¹µæ
         if (collision.gameObject.CompareTag("Skill"))
         { 
             launcher.curSkill = collision.gameObject.GetComponent<Skill>();
-            launcher.bulletPool = launcher.curSkill.bulletPool;
-            launcher.coolTime = launcher.curSkill.bulletCoolTime;
+            launcher.curSkill.Activate(launcher);
+            //launcher.bulletPool = launcher.curSkill.bulletPool;
+            //launcher.coolTime = launcher.curSkill.bulletCoolTime;
             Destroy(collision.gameObject);
         }
     }

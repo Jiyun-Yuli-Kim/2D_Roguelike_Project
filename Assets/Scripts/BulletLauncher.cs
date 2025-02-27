@@ -32,11 +32,6 @@ public class BulletLauncher : MonoBehaviour
         coolTime += Time.deltaTime;
     }
 
-    void ReturntoPool(Bullet bullet)
-    {
-        bulletPool.Return(bullet);
-    }
-
     // 스킬에 따라 불렛이 다른 양상으로 움직여야 하는데 이걸 어떻게 구현할지(스킬과 오브젝트풀 연동의 문제)
 
     //public void SetBullet() // 현재 스킬에 따른 불렛 설정

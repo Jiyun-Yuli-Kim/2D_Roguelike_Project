@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FreiKugel : Skill
 {
-    public override void Activate()
+    public override void Activate(BulletLauncher launcher)
     {
-        // ±¸Çö
+        launcher.bulletPool = bulletPool;
+        launcher.coolTime = launcher.curSkill.bulletCoolTime;
     }
 }

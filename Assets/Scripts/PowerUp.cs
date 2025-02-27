@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PowerUp : Skill
 {
-    public override void Activate()
-    { 
-        
+    public override void Activate(BulletLauncher launcher)
+    {
+        launcher.bulletPool = bulletPool;
+        launcher.coolTime = launcher.curSkill.bulletCoolTime;
     }
 
 }
