@@ -17,8 +17,7 @@ public abstract class Skill : MonoBehaviour
         for (int i = 0; i < bulletPool.size; i++)
         {
             Bullet bullet = Instantiate(bulletPrefab).GetComponent<Bullet>();
-            bullet.OnBulletHitWall += ReturntoPool;
-            bullet.OnBulletHitEnemy += ReturntoPool;
+            bullet.Init(bulletPool);
             bulletPool.Return(bullet);
         }
     }
