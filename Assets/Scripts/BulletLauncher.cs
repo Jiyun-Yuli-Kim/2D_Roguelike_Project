@@ -8,12 +8,17 @@ public class BulletLauncher : MonoBehaviour
     public Transform spawnPos; // 불렛 생성 위치
     public Vector3 targetPos; //불렛 목표 위치
     public Skill curSkill; // 현재스킬
+    public float attackRange = 55;
     [SerializeField] private Skill defaultSkill;
     public float coolTime; // 총알 발사 후 쿨타임 측정 
     public GameObject bulletPrefab;
 
+    private PlayerController _player;
+
     private void Awake()
     {
+        _player = GetComponentInParent<PlayerController>();
+        Debug.Log(_player);
         curSkill = defaultSkill;
         bulletPool = curSkill.bulletPool;
     }
@@ -45,13 +50,27 @@ public class BulletLauncher : MonoBehaviour
             return;
         }
 
+        Vector3 targetPos = SetTargetPos(); // 마우스 현재 위치를 월드좌표로 가져옴
+        Vector3 attackDir = targetPos - _player.transform.position; // 플레이어 기준 공격 방향
+        float curAngle = Vector3.SignedAngle(_player.orientation, attackDir, _player.orientation);
+        //Debug.Log(_player.orientation);
+        //Debug.Log(attackDir);
+        //Debug.Log(curAngle);
+
+        // 각도를 계산해서 공격범위 밖의 입력은 무시
+        if (curAngle > attackRange)
+        {
+            Debug.Log("공격범위 밖입니다.");
+            return;
+        }
+
         coolTime = 0;
-        Vector3 targetPos = SetTargetPos();
         // Debug.Log($"목표지점(마우스 위치) : {targetPos.x}, {targetPos.y}");
         Bullet bullet = bulletPool.Get();
         bullet.transform.position = transform.position;
         // Debug.Log($"시작지점(총알 위치) : {bullet.transform.position.x}, {bullet.transform.position.y}");
         bullet.ToTarget(targetPos);
+        Debug.Log("발사!");
     }
 
     // 비활성화는 어떻게?

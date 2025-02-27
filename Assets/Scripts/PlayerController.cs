@@ -9,13 +9,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _playerSpeed;
     private Animator _playerAnimator;
     private Rigidbody2D _rb;
-    private Vector2 _moveDirection;
+    public Vector3 moveDirection { get; private set; }
+    public Vector3 orientation { get; private set; }
+
     public BulletLauncher launcher;
             
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _playerAnimator = GetComponent<Animator>();
+        orientation = new Vector3(0, -1, 0);
     }
 
     void Update()
@@ -39,15 +42,16 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         _playerAnimator.SetFloat("Speed", _rb.velocity.magnitude);
-        _moveDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-
-        if (_moveDirection == Vector2.zero)
+        moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"),0).normalized;
+        if (moveDirection == Vector3.zero)
         {
-            _rb.velocity = Vector2.zero;
+            _rb.velocity = Vector3.zero;
             return;
         }
 
-        _rb.velocity =  _moveDirection * _playerSpeed;
+        orientation = moveDirection;
+
+        _rb.velocity =  moveDirection * _playerSpeed;
         _playerAnimator.SetFloat("MoveX", _rb.velocity.x);
         _playerAnimator.SetFloat("MoveY", _rb.velocity.y);
     }

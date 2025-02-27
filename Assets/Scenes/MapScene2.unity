@@ -1047,6 +1047,7 @@ MonoBehaviour:
   spawnPos: {fileID: 1032207234}
   targetPos: {x: 0, y: 0, z: 0}
   curSkill: {fileID: 0}
+  attackRange: 55
   defaultSkill: {fileID: 144113162}
   coolTime: 0
   bulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
