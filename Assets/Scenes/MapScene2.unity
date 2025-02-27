@@ -201,7 +201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69461989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.64, y: -0.01, z: 0}
+  m_LocalPosition: {x: -31.299957, y: 25.549, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -252,7 +252,60 @@ MonoBehaviour:
   bulletCoolTime: 0
   bulletSpeed: 5
   bulletDamage: 0
-  skillBullet: {fileID: 7569507569103090011, guid: 4912b1ca6dca90545ab0660725c9c513, type: 3}
+  skillBulletAnimator: {fileID: 0}
+  skillColSize: 0
+  bulletPrefab: {fileID: 7569507569103090011, guid: fbae97ee176ed0748b7a0f6ab7bfc7a3, type: 3}
+--- !u!1 &144113161
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 144113163}
+  - component: {fileID: 144113162}
+  m_Layer: 0
+  m_Name: DefaultSkill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &144113162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144113161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f773177aff1f8b24093e32cc574d5ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: 
+  bulletCoolTime: 0
+  bulletSpeed: 0
+  bulletDamage: 0
+  skillBulletAnimator: {fileID: 0}
+  skillColSize: 0
+  bulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
+--- !u!4 &144113163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144113161}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.085551, y: 3.5519881, z: -0.45347282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &261381793
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,7 +534,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 515277022}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.08, y: 0.61, z: 0}
+  m_LocalPosition: {x: -35.859955, y: 26.169, z: 0}
   m_LocalScale: {x: 0.714, y: 0.5576, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -587,7 +640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.0592675, y: 0.5, z: -10}
+  m_LocalPosition: {x: -33.880688, y: 26.059, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -784,13 +837,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 745340289}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.0592675, y: 0.5, z: -10}
+  m_LocalPosition: {x: -33.880688, y: 26.059, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 594280841}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1003089828
 GameObject:
@@ -998,7 +1051,8 @@ MonoBehaviour:
   spawnPos: {fileID: 1032207234}
   targetPos: {x: 0, y: 0, z: 0}
   curSkill: {fileID: 0}
-  bulletPrefab: {fileID: 7569507569103090011, guid: fbae97ee176ed0748b7a0f6ab7bfc7a3, type: 3}
+  defaultSkill: {fileID: 144113162}
+  bulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
 --- !u!1 &1401686729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,7 +1251,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1951271342}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.64, y: 0.96699595, z: 0}
+  m_LocalPosition: {x: -31.299957, y: 26.525997, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1248,7 +1302,9 @@ MonoBehaviour:
   bulletCoolTime: 0
   bulletSpeed: 3
   bulletDamage: 0
-  skillBullet: {fileID: 7569507569103090011, guid: 01cbed2acaf6a9a48b253fbf9d382e49, type: 3}
+  skillBulletAnimator: {fileID: 0}
+  skillColSize: 0
+  bulletPrefab: {fileID: 7569507569103090011, guid: 87c5d75a9a9e52e4fbdfa7fdc2992111, type: 3}
 --- !u!1001 &3043009286058141667
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1270,15 +1326,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3043009286751609149, guid: f2ed449263a0970418b955aa74834a11, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3043009286751609149, guid: f2ed449263a0970418b955aa74834a11, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.0592675
+      value: -33.880688
       objectReference: {fileID: 0}
     - target: {fileID: 3043009286751609149, guid: f2ed449263a0970418b955aa74834a11, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 26.059
       objectReference: {fileID: 0}
     - target: {fileID: 3043009286751609149, guid: f2ed449263a0970418b955aa74834a11, type: 3}
       propertyPath: m_LocalPosition.z

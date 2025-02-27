@@ -9,15 +9,20 @@ public abstract class Skill : MonoBehaviour
     public float bulletCoolTime;
     public float bulletSpeed;
     public float bulletDamage;
-    public GameObject bulletPrefab;
-    public SpriteRenderer sRenderer;
-    // public Sprite skillBulletImage; // 스킬에 따라 다른 이미지
     public Animator skillBulletAnimator; 
     public float skillColSize;
+    public CustomPool<Bullet> bulletPool = new(15);
+    public GameObject bulletPrefab;
 
-    private void Awake()
+    protected void Awake()
     {
-        sRenderer.sprite = bulletPrefab.GetComponent<Sprite>();
+        for (int i = 0; i < bulletPool.size; i++)
+        {
+            Bullet bullet = Instantiate(bulletPrefab).GetComponent<Bullet>();
+            bullet.OnBulletHitWall += ReturntoPool;
+            bullet.OnBulletHitEnemy += ReturntoPool;
+            bulletPool.Return(bullet);
+        }
     }
 
     public abstract void Activate();
@@ -25,6 +30,10 @@ public abstract class Skill : MonoBehaviour
     { 
         // 공통 비활성화 로직
     }
-    
-    
+
+    protected void ReturntoPool(Bullet bullet)
+    {
+        bulletPool.Return(bullet);
+    }
+
 }

@@ -7,9 +7,7 @@ public class Bullet : MonoBehaviour
 {
     public float bulletSpeed;
     public float bulletDamage;
-    private SpriteRenderer _renderer;
     public Animator bulletAnimator;
-    public float colSize;
 
     private Rigidbody2D _rb;
     private Collider2D _col;
@@ -37,10 +35,7 @@ public class Bullet : MonoBehaviour
 
     public void SetAppearance(Skill skill)
     {
-        _renderer.sprite = skill.sRenderer.sprite;
         bulletAnimator = skill.skillBulletAnimator;
-        var col = _col as CircleCollider2D;
-        col.radius = colSize;
     }
 
     public void ToTarget(Vector3 target)

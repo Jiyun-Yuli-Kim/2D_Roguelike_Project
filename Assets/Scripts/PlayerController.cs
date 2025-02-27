@@ -56,7 +56,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Skill"))
         { 
-            launcher.curSkill = gameObject.GetComponent<Skill>();
+            launcher.curSkill = collision.gameObject.GetComponent<Skill>();
+            launcher.bulletPool = launcher.curSkill.bulletPool;
             Destroy(collision.gameObject);
         }
     }
