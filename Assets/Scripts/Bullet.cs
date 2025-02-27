@@ -8,11 +8,11 @@ public class Bullet : MonoBehaviour
     public float bulletSpeed;
     public float bulletDamage;
     public float bulletCoolTime;
-    private CustomPool<Bullet> bulletPool;
+    protected CustomPool<Bullet> bulletPool;
     public Animator bulletAnimator;
 
-    private Rigidbody2D _rb;
-    private Collider2D _col;
+    protected Rigidbody2D _rb;
+    protected Collider2D _col;
 
 
     private void Awake()
@@ -33,10 +33,9 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    public void ToTarget(Vector3 target)
+    public virtual void ToTarget(Vector3 origin, Vector3 target)
     {
         Vector3 direction = (target - this.transform.position).normalized;
-        // Debug.Log($"발사방향 : {direction.x},{direction.y}");
         _rb.velocity = direction*bulletSpeed;
     }
 

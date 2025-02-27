@@ -65,11 +65,9 @@ public class BulletLauncher : MonoBehaviour
         }
 
         coolTime = 0;
-        // Debug.Log($"목표지점(마우스 위치) : {targetPos.x}, {targetPos.y}");
         Bullet bullet = bulletPool.Get();
-        bullet.transform.position = transform.position;
-        // Debug.Log($"시작지점(총알 위치) : {bullet.transform.position.x}, {bullet.transform.position.y}");
-        bullet.ToTarget(targetPos);
+        bullet.transform.position = transform.position; // 현재 플레이어 위치에 불렛 활성화
+        bullet.ToTarget(transform.position, targetPos);
         Debug.Log("발사!");
     }
 

@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        orientation = moveDirection;
+        orientation = moveDirection; // Input이 있을 때만 플레이어의 방향 갱신
 
         _rb.velocity =  moveDirection * _playerSpeed;
         _playerAnimator.SetFloat("MoveX", _rb.velocity.x);

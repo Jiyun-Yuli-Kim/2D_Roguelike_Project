@@ -249,9 +249,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillName: 
-  bulletSpeed: 5
-  bulletDamage: 0
-  bulletCoolTime: 0.25
+  bulletSpeed: 7
+  bulletDamage: 5
+  bulletCoolTime: 0.3
   bulletPrefab: {fileID: 7569507569103090011, guid: fbae97ee176ed0748b7a0f6ab7bfc7a3, type: 3}
 --- !u!1 &144113161
 GameObject:
@@ -1115,6 +1115,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerSpeed: 5
   launcher: {fileID: 1032207235}
+--- !u!58 &1455326954
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 738965912}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.12999998
 --- !u!1 &1466813951
 GameObject:
   m_ObjectHideFlags: 0
