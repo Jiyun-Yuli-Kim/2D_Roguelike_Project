@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 {
     public float bulletSpeed;
     public float bulletDamage;
+    public float bulletCoolTime;
     public Animator bulletAnimator;
 
     private Rigidbody2D _rb;
@@ -31,11 +32,6 @@ public class Bullet : MonoBehaviour
         {
             OnBulletHitEnemy?.Invoke(this);
         }
-    }
-
-    public void SetAppearance(Skill skill)
-    {
-        bulletAnimator = skill.skillBulletAnimator;
     }
 
     public void ToTarget(Vector3 target)
