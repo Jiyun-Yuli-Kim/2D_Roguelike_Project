@@ -18,7 +18,6 @@ public class BulletLauncher : MonoBehaviour
     private void Awake()
     {
         _player = GetComponentInParent<PlayerController>();
-        Debug.Log(_player);
         curSkill = defaultSkill;
         bulletPool = curSkill.bulletPool;
     }

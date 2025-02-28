@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     // public SceneChanger sceneChanger; // ¾ê´Â ¿Ö ±»ÀÌ ¿ÀÇÂÀ» Çß´ÂÁö
+    public StageDataSetter setter;
 
     void Awake()
     {

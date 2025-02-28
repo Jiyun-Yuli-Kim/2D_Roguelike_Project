@@ -147,9 +147,17 @@ public class MapGenerator : MonoBehaviour
             node.nodeRect.xMin + node.nodeRect.width - roomWidth - 1));
         int roomY = Mathf.RoundToInt(Random.Range(node.nodeRect.yMin + 1,
             node.nodeRect.yMin + node.nodeRect.height - roomHeight - 1));
-
+        
         node.room.roomRect = new RectInt(roomX, roomY, roomWidth, roomHeight);
+        node.room.CreateSpawnArea();
+        
+        Debug.Log($"시작점 x좌표 : {node.room.roomRect.xMin}, 시작점 y좌표 : {node.room.roomRect.xMin}," +
+            $"너비 : {node.room.roomRect.width}, 높이 : {node.room.roomRect.height}");
 
+        // 현재 스테이지 내의 방 개수를 확인하기 위함
+        GameManager.Instance.setter.curStageData.stageRoomList.Add(node.room);
+        GameManager.Instance.setter.curStageData.stageRoomCount++;
+        
         DrawRoom(node);
     }
 

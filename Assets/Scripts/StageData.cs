@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageData : MonoBehaviour
+[CreateAssetMenu(fileName = "StageData", menuName = "Data/StageData")]
+public class StageData : ScriptableObject
 {
-//- 스테이지 명
-//- 발자국 소리
-//- 룰타일
-//- bgm
-//- 몬스터 총량
-//- 몬스터 리스트
+    //발자국 소리
+    //bgm
+    public int stageNo;
+    public string stageName;
+    public RuleTile stageRuletile;
+    public int stageMonsterCount;
+    public List<Monster> stageMonsterList;
+    public int stageRoomCount;
+    public List<Room> stageRoomList;
+    // 각 스테이지의 총 몬스터를 이렇게 관리하는건 ok. 그럼 각 방마다는 어떻게 할랭?
+
 }

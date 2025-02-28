@@ -1160,14 +1160,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfc54fe4b3d38d4b82e8c6945c5d7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapSize: {x: 150, y: 100}
-  _maxDepth: 4
+  _mapSize: {x: 100, y: 80}
+  _maxDepth: 3
   _minRate: 0.4
   _maxRate: 0.65
   _roomMinRate: 0.5
   _roomMaxRate: 0.7
   _divideRate: 1.4
-  _minArea: 600
+  _minArea: 220
   _tilemap: {fileID: 1003089831}
   _outTile: {fileID: 11400000, guid: 63e91c250d7fe3941bb5a50157c4df64, type: 2}
   _ruleTile: {fileID: 11400000, guid: b2c71768573053f469a7df08d8ada2f5, type: 2}

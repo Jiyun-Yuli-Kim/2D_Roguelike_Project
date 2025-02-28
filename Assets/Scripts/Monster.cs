@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Monster : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public virtual void Move()
     {
-        
+        StartCoroutine(MoveRandomly());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator MoveRandomly()
     {
-        
+        // 랜덤 방향과 랜덤 초를 받는다
+        float randSec = Random.Range(1, 5);
+        Vector3 randDir = new Vector3(Random.Range(1, 5), Random.Range(1, 5), 0);
+        yield return new WaitForSeconds(randSec);
     }
 }
