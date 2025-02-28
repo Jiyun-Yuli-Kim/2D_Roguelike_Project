@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     // public SceneChanger sceneChanger; // ¾ê´Â ¿Ö ±»ÀÌ ¿ÀÇÂÀ» Çß´ÂÁö
     public StageDataSetter setter;
+    public MapGenerator generator;
 
     void Awake()
     {
@@ -21,6 +22,19 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        if (generator == null)
+        { 
+            generator = FindAnyObjectByType<MapGenerator>();
+            Debug.Log($"Find Generator : {generator}");
+        }
+        if (generator != null)
+        {
+            generator.GenerateMap();
         }
     }
 

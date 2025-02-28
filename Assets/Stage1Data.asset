@@ -17,14 +17,7 @@ MonoBehaviour:
   stageRuletile: {fileID: 11400000, guid: b2c71768573053f469a7df08d8ada2f5, type: 2}
   stageMonsterCount: 10
   stageMonsterList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  stageRoomCount: 32
+  - {fileID: 8430444168709915582, guid: 45b6e8fa0e2969b48b6f49262e8e36c1, type: 3}
+  - {fileID: 4356583266522927363, guid: 1eec4c2838de9bf4294ea906b9f72786, type: 3}
+  - {fileID: 5835442880345649179, guid: 6523692b0f635434391710dbc61d0f18, type: 3}
+  stageRoomCount: 22

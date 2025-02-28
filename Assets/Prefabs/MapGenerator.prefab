@@ -51,7 +51,8 @@ MonoBehaviour:
   _roomMinRate: 0.5
   _roomMaxRate: 0.7
   _divideRate: 1.4
-  _minArea: 220
+  _minAreaHeight: 30
+  _minAreaWidth: 30
   _tilemap: {fileID: 0}
   _outTile: {fileID: 11400000, guid: 63e91c250d7fe3941bb5a50157c4df64, type: 2}
   _ruleTile: {fileID: 11400000, guid: b2c71768573053f469a7df08d8ada2f5, type: 2}

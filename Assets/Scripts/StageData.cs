@@ -11,7 +11,7 @@ public class StageData : ScriptableObject
     public string stageName;
     public RuleTile stageRuletile;
     public int stageMonsterCount;
-    public List<Monster> stageMonsterList;
+    public List<GameObject> stageMonsterList;
     public int stageRoomCount;
     public List<Room> stageRoomList;
     // 각 스테이지의 총 몬스터를 이렇게 관리하는건 ok. 그럼 각 방마다는 어떻게 할랭?

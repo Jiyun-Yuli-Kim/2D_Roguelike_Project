@@ -8,16 +8,18 @@ using Random = UnityEngine.Random;
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField] Vector2Int _mapSize; // 기본 맵 사이즈
-    [SerializeField] int _maxDepth = 4; // 트리의 높이
+    [SerializeField] int _maxDepth; // 트리의 높이
     [SerializeField] float _minRate; // 이등분 할 때의 최소비율
     [SerializeField] float _maxRate; // 이등분 할 때의 최대비율
     [SerializeField] float _roomMinRate; // 방 생성 시 노드 대비 최소비율
     [SerializeField] float _roomMaxRate; // 방 생성 시 노드 대비 최대비율
     [SerializeField] float _divideRate; // 랜덤 분할 시 기준이 되는 가로/세로 혹은 세로/가로 비율의 최대값.
-    [SerializeField] float _minArea; // 노드의 최소 넓이. 이것보다 작은 노드는 생성되지 않음.
+    [SerializeField] float _minAreaHeight;
+    [SerializeField] float _minAreaWidth;
+
+    // 노드의 최소 넓이. 이것보다 작은 노드는 생성되지 않음.
 
     [SerializeField] Tilemap _tilemap;
-
     [SerializeField] Tile _outTile; // 외부를 나타내는 타일
     [SerializeField] RuleTile _ruleTile;
 
@@ -28,13 +30,26 @@ public class MapGenerator : MonoBehaviour
     //[SerializeField] GameObject _roomLine; // 방 외곽선
     //[SerializeField] GameObject _corridorLine;
 
+    private void Awake()
+    {
+
+    }
+
     private void Start()
+    {
+        GameManager.Instance.generator = this;
+    }
+
+    public void GenerateMap()
     {
         // _mapSize = new Vector2Int(90, 60);
         FillBG();
         Node RootNode = new Node(new RectInt(-_mapSize.x / 2, -_mapSize.y / 2, _mapSize.x, _mapSize.y));
         // DrawRootNode();
-        SplitNode(RootNode, 1);
+        SplitNode(RootNode, 0);
+        // 각 방에 대해 스폰할 몬스터 개수 설정
+        // 방 생성 완료 후 실행될 로직이므로 일단 여기...
+        // GameManager.Instance.setter.SetMonsterCount();
     }
 
     //private void DrawRootNode()
@@ -50,20 +65,6 @@ public class MapGenerator : MonoBehaviour
 
     private void SplitNode(Node node, int depth)
     {
-        // 현재 노드가 리프 노드인지 확인하고, 리프노드라면 방 생성
-        if (depth > _maxDepth)
-        {
-            GenerateRoom(node);
-            return;
-        }
-
-        // 다음에 그릴 노드의 넓이가 최소 기준 넓이보다 작으면 현재 노드에서 방 생성
-        if (node.nodeRect.width * node.nodeRect.height < _minArea)
-        {
-            GenerateRoom(node);
-            return;
-        }
-
         //var lineRenderer = Instantiate(_line).GetComponent<LineRenderer>();
         //lineRenderer.useWorldSpace = true;
 
@@ -82,6 +83,11 @@ public class MapGenerator : MonoBehaviour
         // 세로분할
         if (isVerticallyCut)
         {
+            if (depth > _maxDepth)
+            {
+                return;
+            }
+
             node._isHorizontalCut = true;
             int height = node.nodeRect.height;
             int width = node.nodeRect.width;
@@ -90,19 +96,51 @@ public class MapGenerator : MonoBehaviour
             //lineRenderer.positionCount = 2;
             //lineRenderer.SetPosition(0, new Vector3(node.nodeRect.xMin, node.nodeRect.yMin + split, 0));
             //lineRenderer.SetPosition(1, new Vector3(node.nodeRect.xMin + width, node.nodeRect.yMin + split, 0));
+
+            // 자식 노드 생성 및 현재 노드를 부모노드로 설정
             node.node1 = new Node(new RectInt(node.nodeRect.xMin, node.nodeRect.yMin + split, width, height - split));
             node.node2 = new Node(new RectInt(node.nodeRect.xMin, node.nodeRect.yMin, width, split));
             node.node1.parNode = node;
             node.node2.parNode = node;
+
+            // 현재 노드가 리프 노드인지 확인하고, 리프노드라면 방 생성
+            if (depth == _maxDepth)
+            {
+                // 노드의 높이나 너비가 최소 기준보다 작으면 방 생성 건너뛰기
+                if (node.nodeRect.width < _minAreaWidth || node.nodeRect.height < _minAreaHeight)
+                {
+                    node = null;
+                    return;
+                }
+
+                GenerateRoom(node);
+                Debug.Log("RoomGen");
+                node._hasRoom = true;
+
+                if (node.parNode.node1._hasRoom && node.parNode.node2._hasRoom)
+                {
+                    DrawLine(node.parNode.node1.nodeCenter, node.parNode.node2.nodeCenter);
+                    return;
+                }
+            }
+
+            // 노드 중심끼리 연결하여 복도 생성
+            if (depth < 2)
+            {
+                DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
+            }
+
             SplitNode(node.node1, depth + 1);
             SplitNode(node.node2, depth + 1);
-            DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
-
         }
 
         // 가로분할
         else if (!isVerticallyCut)
         {
+            if (depth > _maxDepth)
+            {
+                return;
+            }
             node._isHorizontalCut = false;
             int width = node.nodeRect.width;
             int height = node.nodeRect.height;
@@ -115,9 +153,38 @@ public class MapGenerator : MonoBehaviour
             node.node2 = new Node(new RectInt(node.nodeRect.xMin + split, node.nodeRect.yMin, width - split, height));
             node.node1.parNode = node;
             node.node2.parNode = node;
+
+            // 현재 노드가 리프 노드인지 확인하고, 리프노드라면 방 생성
+            if (depth == _maxDepth)
+            {
+                // 노드의 높이나 너비가 최소 기준보다 작으면 방 생성 건너뛰기
+                if (node.nodeRect.width < _minAreaWidth || node.nodeRect.height < _minAreaHeight)
+                {
+                    node = null;
+                    return;
+                }
+
+                GenerateRoom(node);
+                Debug.Log("RoomGen");
+
+                node._hasRoom = true;
+
+                if (node.parNode.node1._hasRoom && node.parNode.node2._hasRoom)
+                {
+                    DrawLine(node.parNode.node1.nodeCenter, node.parNode.node2.nodeCenter);
+                    return;
+                }
+
+            }
+
+            // 노드 중심끼리 연결하여 복도 생성
+            if (depth < 2)
+            {
+                DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
+            }
+
             SplitNode(node.node1, depth + 1);
             SplitNode(node.node2, depth + 1);
-            DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
 
         }
     }
@@ -151,8 +218,8 @@ public class MapGenerator : MonoBehaviour
         node.room.roomRect = new RectInt(roomX, roomY, roomWidth, roomHeight);
         node.room.CreateSpawnArea();
         
-        Debug.Log($"시작점 x좌표 : {node.room.roomRect.xMin}, 시작점 y좌표 : {node.room.roomRect.xMin}," +
-            $"너비 : {node.room.roomRect.width}, 높이 : {node.room.roomRect.height}");
+        //Debug.Log($"시작점 x좌표 : {node.room.roomRect.xMin}, 시작점 y좌표 : {node.room.roomRect.xMin}," +
+        //    $"너비 : {node.room.roomRect.width}, 높이 : {node.room.roomRect.height}");
 
         // 현재 스테이지 내의 방 개수를 확인하기 위함
         GameManager.Instance.setter.curStageData.stageRoomList.Add(node.room);
