@@ -28,12 +28,12 @@ public class StageDataSetter : MonoBehaviour
         curStageData.stageRoomList = new();
     }
 
-    public void SetMonsterCount()
-    {
-        int monCountPerRoom = curStageData.stageMonsterCount / 10; // 일단 적당히 10으로 나누기
-        int extraMons = curStageData.stageMonsterCount - monCountPerRoom * curStageData.stageRoomCount; // 남은 마리수 구하기
-        // 남은 마리수에 대해 랜덤분배
-    }
+    //public void SetMonsterCount()
+    //{
+    //    int monCountPerRoom = curStageData.stageMonsterCount / 10; // 일단 적당히 10으로 나누기
+    //    int extraMons = curStageData.stageMonsterCount - monCountPerRoom * curStageData.stageRoomCount; // 남은 마리수 구하기
+    //    // 남은 마리수에 대해 랜덤분배
+    //}
 
 
 

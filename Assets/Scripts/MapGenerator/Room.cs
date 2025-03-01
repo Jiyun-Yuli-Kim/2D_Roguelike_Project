@@ -5,9 +5,15 @@ using UnityEngine;
 public class Room
 {
     public RectInt roomRect;
+    public Vector2Int roomCenter;
     public int[,] spawnArea;
     private int row;
     private int col;
+
+    public void SetCenter()
+    {
+        roomCenter = new Vector2Int(roomRect.xMin + roomRect.width / 2, roomRect.yMin + roomRect.height / 2);
+    }
 
     // MapGenerator에서 호출하는 함수로, 방 생성시 스폰영역을 생성함
     public void CreateSpawnArea()

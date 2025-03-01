@@ -27,15 +27,29 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         if (generator == null)
-        { 
+        {
             generator = FindAnyObjectByType<MapGenerator>();
             Debug.Log($"Find Generator : {generator}");
         }
         if (generator != null)
         {
             generator.GenerateMap();
+            generator.GenerateCorridor(setter.curStageData.stageRoomList);
         }
+    }
+
+    public void Reset() // 테스트용 임시함수
+    {
+        setter.curStageData.stageRoomCount = 0;
+        setter.curStageData.stageRoomList = null;
+        setter.curStageData.stageRoomList = new();
+
     }
 
     public void LoadScene(int sceneNumber)
