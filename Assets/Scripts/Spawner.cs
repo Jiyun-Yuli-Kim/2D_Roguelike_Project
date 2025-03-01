@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class Spawner<T> where T : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public List<T> objList = new();
+
+
+    public virtual void Spawn()
+    { 
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

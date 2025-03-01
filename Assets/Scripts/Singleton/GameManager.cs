@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     // public SceneChanger sceneChanger; // ¾ê´Â ¿Ö ±»ÀÌ ¿ÀÇÂÀ» Çß´ÂÁö
     public StageDataSetter setter;
     public MapGenerator generator;
-
+    public MonsterSpawner monSpawner;
     void Awake()
     {
         if (Instance != null)
@@ -37,10 +37,18 @@ public class GameManager : MonoBehaviour
             generator = FindAnyObjectByType<MapGenerator>();
             Debug.Log($"Find Generator : {generator}");
         }
-        if (generator != null)
+
+        if (monSpawner == null)
+        {
+            monSpawner = FindAnyObjectByType<MonsterSpawner>();
+            Debug.Log($"Find Spawner : {monSpawner}");
+        }
+
+        if (generator != null && monSpawner != null)
         {
             generator.GenerateMap();
             generator.GenerateCorridor(setter.curStageData.stageRoomList);
+            monSpawner.SpawnMonster(setter.curStageData.stageRoomList);
         }
     }
 
