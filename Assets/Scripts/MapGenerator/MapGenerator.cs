@@ -14,8 +14,8 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] float _roomMinRate; // 방 생성 시 노드 대비 최소비율
     [SerializeField] float _roomMaxRate; // 방 생성 시 노드 대비 최대비율
     [SerializeField] float _divideRate; // 랜덤 분할 시 기준이 되는 가로/세로 혹은 세로/가로 비율의 최대값.
-    [SerializeField] float _minAreaHeight;
-    [SerializeField] float _minAreaWidth;
+    [SerializeField] int _minAreaHeight;
+    [SerializeField] int _minAreaWidth;
 
     // 노드의 최소 넓이. 이것보다 작은 노드는 생성되지 않음.
 
@@ -205,7 +205,15 @@ public class MapGenerator : MonoBehaviour
         node.room = new Room();
 
         int roomWidth = Mathf.RoundToInt(node.nodeRect.width * Random.Range(_roomMinRate, _roomMaxRate));
+        if (roomWidth < _minAreaWidth)
+        {
+            roomWidth = _minAreaWidth; // 방의 최소 너비 보장
+        }
         int roomHeight = Mathf.RoundToInt(node.nodeRect.height * Random.Range(_roomMinRate, _roomMaxRate));
+        if (roomHeight < _minAreaHeight)
+        {
+            roomHeight = _minAreaHeight; // 방의 최소 높이 보장
+        }
 
         // roomRect의 xMin과 yMin값을 현재는 nodeCenter에서 roomw/2, roomh/2 만큼을 빼주고 있다.
         // 모든 룸이 가운데 정렬되어 단조로워보인다는 단점이 있다.
