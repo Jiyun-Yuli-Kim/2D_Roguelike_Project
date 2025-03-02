@@ -29,10 +29,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Init();
+        Init(); // 타이틀씬부터 게임매니저가 있는데, 이걸 여기에 하는게 맞는지
     }
 
-    public void Init()
+    public void Init() // 스테이지 변경시마다 시행하는 로직
     {
         if (generator == null)
         {
@@ -54,11 +54,11 @@ public class GameManager : MonoBehaviour
 
         if (generator != null && spawner != null && camController != null)
         {
-            generator.GenerateMap();
-            generator.GenerateCorridor(setter.curStageData.stageRoomList);
-            spawner.SpawnMonster(setter.curStageData.stageRoomList);
-            spawner.SpawnPlayerAndGoal(setter.curStageData.stageRoomList);
-            camController.SetSubject();
+            generator.GenerateMap(); // 방 생성
+            generator.GenerateCorridor(setter.curStageData.stageRoomList); // 복도 생성
+            spawner.SpawnMonster(setter.curStageData.stageRoomList); // 몬스터 스폰
+            spawner.SpawnPlayerAndGoal(setter.curStageData.stageRoomList); // 플레이어 및 목적지 스폰
+            camController.SetSubject(); // 카메라 추적 대상 설정
         }
     }
 

@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
 
     public void SpawnPlayerAndGoal(List<Room> rooms)
     {
-        player = Instantiate(playerPrefab, new Vector3(rooms[0].roomCenter.x, rooms[0].roomCenter.y, 0), Quaternion.Euler(0, 0, 0));
+        player = Instantiate(playerPrefab, new Vector3(rooms[0].roomCenter.x+0.35f, rooms[0].roomCenter.y, 0), Quaternion.Euler(0, 0, 0));
         goal = Instantiate(goalPrefab, new Vector3(rooms[rooms.Count-1].roomCenter.x, rooms[rooms.Count - 1].roomCenter.y, 0), Quaternion.Euler(0, 0, 0));
     }
 
@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < rooms.Count; i++)
         {
             int index = Random.Range(0, monPatternList.Count);
-            monSpawnList.Add(Instantiate(monPatternList[index], new Vector3(rooms[i].roomCenter.x, rooms[i].roomCenter.y, 0), Quaternion.Euler(0, 0, 0)));
+            monSpawnList.Add(Instantiate(monPatternList[index], new Vector3(rooms[i].roomCenter.x+0.35f, rooms[i].roomCenter.y, 0), Quaternion.Euler(0, 0, 0)));
         }
     }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2955019593564531860}
   - component: {fileID: 4922920760339630247}
   m_Layer: 8
-  m_Name: Enemy1
+  m_Name: BlueSlime
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
