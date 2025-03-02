@@ -10,7 +10,7 @@ public class FreiKugel : Skill
     }
     public override void Activate(BulletLauncher launcher)
     {
-        launcher.bulletPool = bulletPool;
+        //launcher.bulletPool = bulletPool;
         launcher.coolTime = launcher.curSkill.bulletCoolTime;
     }
 }

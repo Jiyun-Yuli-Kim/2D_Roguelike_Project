@@ -48,7 +48,6 @@ MonoBehaviour:
   bulletSpeed: 0
   bulletDamage: 0
   bulletCoolTime: 0.25
-  bulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
 --- !u!1 &513035377552781452
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,10 +95,14 @@ MonoBehaviour:
   spawnPos: {fileID: 513035377552781455}
   targetPos: {x: 0, y: 0, z: 0}
   curSkill: {fileID: 144113162}
+  curSkillName: 
   attackRange: 55
   coolTime: 0
   bulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
-  radius: 5
+  radius: 10
+  DBulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
+  PBulletPrefab: {fileID: 7569507569103090011, guid: 87c5d75a9a9e52e4fbdfa7fdc2992111, type: 3}
+  FBulletPrefab: {fileID: 7569507569103090011, guid: fbae97ee176ed0748b7a0f6ab7bfc7a3, type: 3}
 --- !u!1 &3252823958456674869
 GameObject:
   m_ObjectHideFlags: 0

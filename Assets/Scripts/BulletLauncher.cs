@@ -8,6 +8,8 @@ public class BulletLauncher : MonoBehaviour
     public Transform spawnPos; // 불렛 생성 위치
     public Vector3 targetPos; //불렛 목표 위치
     public Skill curSkill; // 현재스킬
+    public string curSkillName;
+
     public float attackRange = 55;
     private DefaultSkill defaultSkill;
     public float coolTime; // 총알 발사 후 쿨타임 측정 
@@ -18,8 +20,33 @@ public class BulletLauncher : MonoBehaviour
 
     private PlayerController _player;
 
+    public CustomPool<Bullet> DBulletPool = new(15); // 디폴트 스킬
+    public GameObject DBulletPrefab;
+    public CustomPool<Bullet> PBulletPool = new(15); // 파워업 스킬
+    public GameObject PBulletPrefab;
+    public CustomPool<Bullet> FBulletPool = new(15); // 마탄 스킬
+    public GameObject FBulletPrefab;
+
     private void Awake()
     {
+        for (int i = 0; i < DBulletPool.size; i++)
+        {
+            Bullet bullet = Instantiate(DBulletPrefab).GetComponent<Bullet>();
+            bullet.Init(DBulletPool);
+            DBulletPool.Return(bullet);
+        }
+        for (int i = 0; i < PBulletPool.size; i++)
+        {
+            Bullet bullet = Instantiate(PBulletPrefab).GetComponent<Bullet>();
+            bullet.Init(PBulletPool);
+            PBulletPool.Return(bullet);
+        }
+        for (int i = 0; i < FBulletPool.size; i++)
+        {
+            Bullet bullet = Instantiate(FBulletPrefab).GetComponent<Bullet>();
+            bullet.Init(FBulletPool);
+            FBulletPool.Return(bullet);
+        }
     }
 
     private void Start()
@@ -27,7 +54,7 @@ public class BulletLauncher : MonoBehaviour
         _targetLayer = LayerMask.GetMask("Enemy");
         // defaultSkill = GetComponent<DefaultSkill>();
         _player = GetComponentInParent<PlayerController>();
-        bulletPool = curSkill.bulletPool;
+        bulletPool = DBulletPool;
     }
 
     void Update()
@@ -75,9 +102,13 @@ public class BulletLauncher : MonoBehaviour
         Bullet bullet = bulletPool.Get();
         bullet.transform.position = transform.position; // 현재 플레이어 위치에 불렛 활성화
         
-        if (curSkill.name == "FreiKugel")
+        if (curSkillName == "FreiKugel")
         {
-            bullet.target = GetNearestMonster();
+            Collider2D[] monsters = Physics2D.OverlapCircleAll(transform.position, radius, _targetLayer); // 특정 범위 내의 적을 모두 반환
+            if (monsters.Length > 0)
+            {
+                bullet.target = GetNearestMonster(monsters);
+            }
         }
 
         bullet.ToTarget(transform.position, targetPos);
@@ -86,9 +117,8 @@ public class BulletLauncher : MonoBehaviour
 
     // 비활성화는 어떻게?
 
-    public Monster GetNearestMonster()
+    public Monster GetNearestMonster(Collider2D[] cols)
     {
-        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, radius, _targetLayer); // 특정 범위 내의 적을 모두 반환
         Monster[] mons = new Monster[cols.Length];
 
         for (int i = 0; i < cols.Length; i++)
