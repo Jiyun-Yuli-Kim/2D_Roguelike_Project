@@ -13,6 +13,9 @@ public class BulletLauncher : MonoBehaviour
     public float coolTime; // 총알 발사 후 쿨타임 측정 
     public GameObject bulletPrefab;
 
+    public float radius;
+    private LayerMask _targetLayer; 
+
     private PlayerController _player;
 
     private void Awake()
@@ -21,6 +24,7 @@ public class BulletLauncher : MonoBehaviour
 
     private void Start()
     {
+        _targetLayer = LayerMask.GetMask("Enemy");
         // defaultSkill = GetComponent<DefaultSkill>();
         _player = GetComponentInParent<PlayerController>();
         bulletPool = curSkill.bulletPool;
@@ -70,15 +74,40 @@ public class BulletLauncher : MonoBehaviour
         coolTime = 0;
         Bullet bullet = bulletPool.Get();
         bullet.transform.position = transform.position; // 현재 플레이어 위치에 불렛 활성화
+        
+        if (curSkill.name == "FreiKugel")
+        {
+            bullet.target = GetNearestMonster();
+        }
+
         bullet.ToTarget(transform.position, targetPos);
         Debug.Log("발사!");
     }
 
     // 비활성화는 어떻게?
 
-    public void Track()
-    { 
-    
+    public Monster GetNearestMonster()
+    {
+        Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, radius, _targetLayer); // 특정 범위 내의 적을 모두 반환
+        Monster[] mons = new Monster[cols.Length];
+
+        for (int i = 0; i < cols.Length; i++)
+        {
+            mons[i] = cols[i].GetComponent<Monster>();
+        }
+
+        Monster Mon = mons[0];
+        float distance = (new Vector3(1000, 1000, 0) - transform.position).magnitude; // 임의의 큰 값을 성정
+
+        for (int i = 0; i < mons.Length; i++)
+        {
+            if ((mons[i].transform.position - transform.position).magnitude < distance)
+            { 
+                distance = (mons[i].transform.position - transform.position).magnitude; // 더 작은 값
+                Mon = mons[i];
+            }
+        }
+        return Mon;
     }
 
     public Vector3 SetTargetPos()

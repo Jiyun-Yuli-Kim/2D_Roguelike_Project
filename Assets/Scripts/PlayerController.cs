@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     public BulletLauncher launcher;
 
-    public Action onPlayerSpawned;
+    public Action OnPlayerSpawned;
             
     void Start()
     {

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class FreiKugel : Skill
 {
+    private void Awake()
+    {
+        skillName = "FreiKugel";
+    }
     public override void Activate(BulletLauncher launcher)
     {
         launcher.bulletPool = bulletPool;

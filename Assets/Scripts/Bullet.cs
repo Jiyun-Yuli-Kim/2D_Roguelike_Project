@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviour
     protected Rigidbody2D _rb;
     protected Collider2D _col;
 
+    public Monster target;
 
     private void Awake()
     {

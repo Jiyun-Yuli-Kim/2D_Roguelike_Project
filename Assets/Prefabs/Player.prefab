@@ -99,6 +99,7 @@ MonoBehaviour:
   attackRange: 55
   coolTime: 0
   bulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
+  radius: 5
 --- !u!1 &3252823958456674869
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +178,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1692314133
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 777341220, guid: 47d77ba55710ab24880e45136b110bc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -228,7 +229,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.15, y: 0.26}
+    oldSize: {x: 0.48, y: 0.64}
     newSize: {x: 0.12, y: 0.23}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
