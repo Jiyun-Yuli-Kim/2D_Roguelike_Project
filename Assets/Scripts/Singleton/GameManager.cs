@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
     // public SceneChanger sceneChanger; // 얘는 왜 굳이 오픈을 했는지
     public StageDataSetter setter;
     public MapGenerator generator;
-    public MonsterSpawner monSpawner;
+    public Spawner spawner;
+    public CamController camController;
+
     void Awake()
     {
         if (Instance != null)
@@ -18,7 +20,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject); // 왜 this 아니고 오브젝트를 지울지 잘 생각해보기
         }
 
-        if (Instance == null)
+        else if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -38,17 +40,25 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Find Generator : {generator}");
         }
 
-        if (monSpawner == null)
+        if (spawner == null)
         {
-            monSpawner = FindAnyObjectByType<MonsterSpawner>();
-            Debug.Log($"Find Spawner : {monSpawner}");
+            spawner = FindAnyObjectByType<Spawner>();
+            Debug.Log($"Find Spawner : {spawner}");
         }
 
-        if (generator != null && monSpawner != null)
+        if (camController == null)
+        {
+            camController = FindAnyObjectByType<CamController>();
+            Debug.Log($"Find Spawner : {camController}");
+        }
+
+        if (generator != null && spawner != null && camController != null)
         {
             generator.GenerateMap();
             generator.GenerateCorridor(setter.curStageData.stageRoomList);
-            monSpawner.SpawnMonster(setter.curStageData.stageRoomList);
+            spawner.SpawnMonster(setter.curStageData.stageRoomList);
+            spawner.SpawnPlayerAndGoal(setter.curStageData.stageRoomList);
+            camController.SetSubject();
         }
     }
 
@@ -57,7 +67,8 @@ public class GameManager : MonoBehaviour
         setter.curStageData.stageRoomCount = 0;
         setter.curStageData.stageRoomList = null;
         setter.curStageData.stageRoomList = new();
-
+        spawner.DestroyMonsters();
+        spawner.DestroyPlayerAndGoal();
     }
 
     public void LoadScene(int sceneNumber)

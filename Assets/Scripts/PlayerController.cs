@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public Vector3 orientation { get; private set; }
 
     public BulletLauncher launcher;
+
+    public Action onPlayerSpawned;
             
     void Start()
     {

@@ -9,7 +9,7 @@ public class BulletLauncher : MonoBehaviour
     public Vector3 targetPos; //불렛 목표 위치
     public Skill curSkill; // 현재스킬
     public float attackRange = 55;
-    [SerializeField] private Skill defaultSkill;
+    private DefaultSkill defaultSkill;
     public float coolTime; // 총알 발사 후 쿨타임 측정 
     public GameObject bulletPrefab;
 
@@ -17,8 +17,12 @@ public class BulletLauncher : MonoBehaviour
 
     private void Awake()
     {
+    }
+
+    private void Start()
+    {
+        // defaultSkill = GetComponent<DefaultSkill>();
         _player = GetComponentInParent<PlayerController>();
-        curSkill = defaultSkill;
         bulletPool = curSkill.bulletPool;
     }
 

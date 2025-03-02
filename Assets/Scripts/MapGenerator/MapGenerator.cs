@@ -568,7 +568,8 @@ public class MapGenerator : MonoBehaviour
             //DrawLine(new Vector2Int(rooms[i].roomCenter.x, rooms[i].roomCenter.y), new Vector2Int(rooms[i + 1].roomCenter.x, rooms[i].roomCenter.y));
             //DrawLine(new Vector2Int(rooms[i + 1].roomCenter.x, rooms[i].roomCenter.y), new Vector2Int(rooms[i + 1].roomCenter.x, rooms[i+1].roomCenter.y));
         }
-        DrawCorridor(rooms[rooms.Count - 1], rooms[0]);
+        //DrawCorridor(rooms[1], rooms[4]);
+        DrawCorridor(rooms[0], rooms[rooms.Count - 1]); // 끝방과 첫방 연결
     }
 
     void DrawCorridor(Room room1, Room room2)
