@@ -27,10 +27,12 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             bulletPool.Return(this);
+            target = null;
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
             bulletPool.Return(this);
+            target = null;
         }
     }
 

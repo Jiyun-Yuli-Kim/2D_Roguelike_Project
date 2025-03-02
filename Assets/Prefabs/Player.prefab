@@ -26,11 +26,11 @@ Transform:
   m_GameObject: {fileID: 144113161}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 10.666553, y: -6.619709, z: -0.13337435}
-  m_LocalScale: {x: 0.29411763, y: 0.29411763, z: 0.29411763}
+  m_LocalScale: {x: 0.2941176, y: 0.2941176, z: 0.2941176}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3252823958456674864}
-  m_RootOrder: 1
+  m_Father: {fileID: 513035377552781455}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &144113162
 MonoBehaviour:
@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f773177aff1f8b24093e32cc574d5ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: 
-  bulletSpeed: 0
-  bulletDamage: 0
+  skillName: Default
+  bulletSpeed: 5
+  bulletDamage: 5
   bulletCoolTime: 0.25
 --- !u!1 &513035377552781452
 GameObject:
@@ -76,7 +76,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 144113163}
+  - {fileID: 5414260315500068252}
+  - {fileID: 5414260315131900454}
   m_Father: {fileID: 3252823958456674864}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -94,15 +97,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPos: {fileID: 513035377552781455}
   targetPos: {x: 0, y: 0, z: 0}
-  curSkill: {fileID: 144113162}
   curSkillName: 
   attackRange: 55
   coolTime: 0
   bulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
-  radius: 10
+  radius: 4
   DBulletPrefab: {fileID: 7569507569103090011, guid: 7b38d0500781f3c4a9f1963bce7e4762, type: 3}
   PBulletPrefab: {fileID: 7569507569103090011, guid: 87c5d75a9a9e52e4fbdfa7fdc2992111, type: 3}
   FBulletPrefab: {fileID: 7569507569103090011, guid: fbae97ee176ed0748b7a0f6ab7bfc7a3, type: 3}
+  curSkill: {fileID: 144113162}
+  powerUpSkill: {fileID: 0}
+  freiKugelSkill: {fileID: 0}
 --- !u!1 &3252823958456674869
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,7 +143,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 513035377552781455}
-  - {fileID: 144113163}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -292,3 +296,99 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerSpeed: 5
   launcher: {fileID: 513035377552781454}
+--- !u!1 &5414260315131900455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5414260315131900454}
+  - component: {fileID: 5414260315131900449}
+  m_Layer: 3
+  m_Name: FreiKugelSkill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5414260315131900454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5414260315131900455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 513035377552781455}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5414260315131900449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5414260315131900455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d069ec8256b1e4fb9311a77ae70d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: FreiKugel
+  bulletSpeed: 5
+  bulletDamage: 10
+  bulletCoolTime: 1
+--- !u!1 &5414260315500068253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5414260315500068252}
+  - component: {fileID: 5414260315500068255}
+  m_Layer: 3
+  m_Name: PowerUpSkill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5414260315500068252
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5414260315500068253}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 513035377552781455}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5414260315500068255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5414260315500068253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 359abf0ea8b744e44b4e25baf0992917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: PowerUp
+  bulletSpeed: 3
+  bulletDamage: 10
+  bulletCoolTime: 0.3

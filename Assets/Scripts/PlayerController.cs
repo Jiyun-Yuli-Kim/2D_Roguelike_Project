@@ -62,10 +62,16 @@ public class PlayerController : MonoBehaviour
     {
         // ½ºÅ³ È¹µæ
         if (collision.gameObject.CompareTag("Skill"))
-        { 
-            launcher.curSkill = collision.gameObject.GetComponent<Skill>();
-            launcher.curSkill.Activate(launcher);
-            launcher.curSkillName = launcher.curSkill.skillName;
+        {
+            if (collision.gameObject.name == "PowerUp")
+            {
+                launcher.GetPowerUp();
+            }
+
+            else if (collision.gameObject.name == "FreiKugel")
+            {
+                launcher.GetFreiKugel();
+            }
 
             Destroy(collision.gameObject);
         }
