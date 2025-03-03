@@ -14,22 +14,35 @@ public class Bullet : MonoBehaviour
     protected Rigidbody2D _rb;
     protected Collider2D _col;
 
+    private Collision2D _coll;
+
     public Monster target;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<Collider2D>();
+        bulletAnimator = GetComponent<Animator>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+        _coll = collision;
+        StartCoroutine(DestroyBullet());
+    }
+
+    private IEnumerator DestroyBullet()
+    {
+        Debug.Log(bulletAnimator);
+        bulletAnimator.SetTrigger("OnDestroy");
+        yield return new WaitForSeconds(0.2f);
+
+        if (_coll.gameObject.CompareTag("Wall"))
         {
             bulletPool.Return(this);
             target = null;
         }
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (_coll.gameObject.CompareTag("Enemy"))
         {
             bulletPool.Return(this);
             target = null;

@@ -54,7 +54,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3_FreiKugelAnimCon
+  m_Name: 30_FreiKugelAnimCon
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
