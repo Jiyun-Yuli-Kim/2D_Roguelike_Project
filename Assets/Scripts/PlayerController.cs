@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
                 launcher.GetPowerUp();
             }
 
-            else if (collision.gameObject.name == "FreiKugel")
+            else if (collision.gameObject.name == "FreiKugel") // 이름으로 판정하므로 이름 설정시 주의!
             {
                 launcher.GetFreiKugel();
             }

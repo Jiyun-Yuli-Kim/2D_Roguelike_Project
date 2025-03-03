@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         if (camController == null)
         {
             camController = FindAnyObjectByType<CamController>();
-            Debug.Log($"Find Spawner : {camController}");
+            Debug.Log($"Find CamController : {camController}");
         }
 
         if (generator != null && spawner != null && camController != null)

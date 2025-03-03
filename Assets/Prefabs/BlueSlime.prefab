@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8430444168709915522}
   - component: {fileID: 2955019593564531860}
   - component: {fileID: 4922920760339630247}
+  - component: {fileID: 9057959750809966119}
   m_Layer: 8
   m_Name: BlueSlime
   m_TagString: Enemy
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 145102977
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1472479401, guid: 519a0726c30b18849b2eca25c8a9486b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -136,3 +137,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.0066378308}
   serializedVersion: 2
   m_Radius: 0.0882902
+--- !u!95 &9057959750809966119
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430444168709915582}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9c0c9dea0da93194998745a6b9df608b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

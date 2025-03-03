@@ -33,7 +33,7 @@ public class FreiKugelBullet : Bullet
 
         if (_curTime > _estTime / 3)
         {
-            Debug.Log($"현재시각 : {_curTime}");
+            //Debug.Log($"현재시각 : {_curTime}");
             Vector3 targetDir = (target.transform.position - this.transform.position).normalized;
             Vector3 straightDir = (target.transform.position - _origin).normalized;
             Vector3 newDir = targetDir + straightDir;
@@ -49,6 +49,6 @@ public class FreiKugelBullet : Bullet
         Vector3 initDir = (mousePos - this.transform.position).normalized; // 마우스 인풋에 따른 목표방향
         _rb.velocity = initDir * bulletSpeed;
         _estTime = MathF.Abs((target.transform.position - origin).magnitude) / bulletSpeed;
-        Debug.Log($"기준시각 : {_estTime/2}");
+        //Debug.Log($"기준시각 : {_estTime/2}");
     }
 }
