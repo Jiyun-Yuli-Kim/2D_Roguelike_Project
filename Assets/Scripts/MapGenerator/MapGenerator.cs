@@ -162,7 +162,7 @@ public class MapGenerator : MonoBehaviour
             // 현재 노드가 리프 노드인지 확인하고, 리프노드라면 방 생성
             if (depth == _maxDepth)
             {
-                Debug.Log($"노드 중심 : {node.nodeCenter.x}, {node.nodeCenter.y}");
+                //Debug.Log($"노드 중심 : {node.nodeCenter.x}, {node.nodeCenter.y}");
 
                 // 노드의 높이나 너비가 최소 기준보다 작으면 방 생성 건너뛰기
                 if (node.nodeRect.width < _minAreaWidth + 2 || node.nodeRect.height < _minAreaHeight + 3)
@@ -234,7 +234,7 @@ public class MapGenerator : MonoBehaviour
 
         node.room.roomRect = new RectInt(roomX, roomY, roomWidth, roomHeight);
         node.room.SetCenter();
-        Debug.Log($"방 중심 : {node.room.roomCenter.x}, {node.room.roomCenter.y}");
+        //Debug.Log($"방 중심 : {node.room.roomCenter.x}, {node.room.roomCenter.y}");
         node.room.CreateSpawnArea();
 
         //Debug.Log($"시작점 x좌표 : {node.room.roomRect.xMin}, 시작점 y좌표 : {node.room.roomRect.xMin}," +

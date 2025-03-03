@@ -33,7 +33,6 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator DestroyBullet()
     {
-        Debug.Log(bulletAnimator);
         bulletAnimator.SetTrigger("OnDestroy");
         yield return new WaitForSeconds(0.2f);
 

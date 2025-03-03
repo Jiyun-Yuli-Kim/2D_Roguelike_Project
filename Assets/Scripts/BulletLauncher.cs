@@ -112,7 +112,6 @@ public class BulletLauncher : MonoBehaviour
 
         if (curSkill.skillName == "FreiKugel")
         {
-            Debug.Log("적 배열 반환 로직");
             Collider2D[] monsters = Physics2D.OverlapCircleAll(targetPos, radius, _targetLayer); // 마우스 기준 특정 범위 내의 적을 모두 반환
             if (monsters.Length > 0)
             {
@@ -121,7 +120,6 @@ public class BulletLauncher : MonoBehaviour
         }
 
         bullet.ToTarget(transform.position, targetPos);
-        Debug.Log("발사!");
     }
 
     // 비활성화는 어떻게?
@@ -133,6 +131,7 @@ public class BulletLauncher : MonoBehaviour
         for (int i = 0; i < cols.Length; i++)
         {
             mons[i] = cols[i].GetComponent<Monster>();
+            Debug.Log(mons[i]);
         }
 
         Monster Mon = mons[0];
