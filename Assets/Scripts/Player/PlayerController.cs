@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     public Vector3 moveDirection { get; private set; }
     public Vector3 orientation { get; private set; }
-
+    public int playerHP;
     public BulletLauncher launcher;
 
     public Action OnPlayerSpawned;
@@ -66,13 +66,13 @@ public class PlayerController : MonoBehaviour
             if (collision.gameObject.name == "PowerUp" && launcher.curSkillName != "PowerUp") // 현재 스킬이 PowerUp이 아닐 때에만 돌입
             {
                 launcher.curSkill.Deactivate(launcher);
-                launcher.powerUpSkil.Activate(launcher);
+                launcher.powerUpSkill.Activate(launcher);
             }
 
             else if (collision.gameObject.name == "FreiKugel" && launcher.curSkillName != "FreiKugel") // 이름으로 판정하므로 이름 설정시 주의!
             {
                 launcher.curSkill.Deactivate(launcher);
-                collision.gameObject.GetComponent<Skill>().Activate(launcher);
+                launcher.freiKugelSkill.Activate(launcher);
             }
 
             Destroy(collision.gameObject);

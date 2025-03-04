@@ -2,25 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster : MonoBehaviour
+public abstract class Monster : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed;
-    [SerializeField] private float _followSpeed;
+    [SerializeField] protected float _moveSpeed;
+    [SerializeField] protected float _followSpeed;
+    [SerializeField] protected float _attackRange;
 
-    private Rigidbody2D _rb;
-    private Collider2D _col;
-    private bool _isFollowing;
-    private PlayerController _player;
+    [SerializeField] protected float _attackCoolTime;
+    [SerializeField] protected float _monsterHP;
 
-    private SpriteRenderer _spriteRenderer;
+    protected Rigidbody2D _rb;
+    protected Collider2D _col;
+    protected bool _isFollowing;
+    protected bool _isAttacking;
+    protected PlayerController _player;
 
-    private Animator _anim; 
+    protected SpriteRenderer _spriteRenderer;
+
+    protected Animator _anim; 
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<Collider2D>();
-        Debug.Log("0");
         _anim = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -51,6 +55,12 @@ public class Monster : MonoBehaviour
             Vector3 dir = (_player.transform.position - transform.position).normalized;
             _rb.velocity = dir * _followSpeed;
         }
+        
+        if(_player != null &&
+           (transform.position - _player.transform.position).magnitude < _attackRange)
+        {
+            Attack();    
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -70,6 +80,16 @@ public class Monster : MonoBehaviour
             _player = null;
 
             Move();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("PlayerBullet"))
+        {
+            Debug.Log("몬스터 피격");
+            _anim.SetTrigger("Hit");
+            _monsterHP-=collision.gameObject.GetComponent<Bullet>().bulletDamage;
         }
     }
 
@@ -93,6 +113,8 @@ public class Monster : MonoBehaviour
             yield return new WaitForSeconds(randSec);
         }
     }
+
+    public abstract void Attack();
 
     private bool HasParameter(Animator anim, string name) // 이거 사용자 정의 함수로 따로 보관하자
     {

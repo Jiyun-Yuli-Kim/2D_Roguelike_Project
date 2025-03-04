@@ -59,9 +59,9 @@ GameObject:
   - component: {fileID: 8430444168709915521}
   - component: {fileID: 8430444168709915520}
   - component: {fileID: 8430444168709915522}
-  - component: {fileID: 2955019593564531860}
   - component: {fileID: 9057959750809966119}
   - component: {fileID: 2434450665117614847}
+  - component: {fileID: 8220868294708764627}
   m_Layer: 8
   m_Name: 23_BlueSlime
   m_TagString: Enemy
@@ -158,20 +158,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &2955019593564531860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8430444168709915582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19f125338c84df142b2fb551510b4de0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 1
-  _followSpeed: 3
 --- !u!95 &9057959750809966119
 Animator:
   serializedVersion: 5
@@ -230,3 +216,18 @@ PolygonCollider2D:
       - {x: 0.089529395, y: -0.055735074}
       - {x: 0.08414484, y: -0.013609495}
       - {x: 0.03601023, y: 0.038476948}
+--- !u!114 &8220868294708764627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430444168709915582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65c6875a242bb4c08bda2ca54a354631, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 2
+  _followSpeed: 3
+  _attackRange: 0.3
