@@ -42,4 +42,9 @@ public class MonsterBullet : MonoBehaviour
         _rb.velocity = direction*_speed;
     }
     
+    public void DirectionalShoot(Vector3 direction)
+    {
+        _rb.velocity = direction*_speed;
+    }
+    
 }

@@ -237,6 +237,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 2
   _followSpeed: 3
-  _attackRange: 0.3
-  _attackCoolTime: 0
+  _attackRange: 3
+  _attackCoolTime: 3
   _monsterHP: 10
+  _monBullet: {fileID: 7569507569103090011, guid: 8b54c9c296840447fa3201bb56382dcb, type: 3}
+  _monBulletSpeed: 2
