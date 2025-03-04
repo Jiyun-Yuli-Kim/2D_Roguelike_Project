@@ -1,16 +1,16 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletLauncher : MonoBehaviour
 {
     public CustomPool<Bullet> bulletPool;
-    public Transform spawnPos; // ºÒ·¿ »ı¼º À§Ä¡
-    private Vector3 targetPos; //ºÒ·¿ ¸ñÇ¥ À§Ä¡
+    public Transform spawnPos; // ë¶ˆë › ìƒì„± ìœ„ì¹˜
+    private Vector3 targetPos; //ë¶ˆë › ëª©í‘œ ìœ„ì¹˜
     public string curSkillName;
 
     public float attackRange = 55;
-    public float coolTime; // ÃÑ¾Ë ¹ß»ç ÈÄ ÄğÅ¸ÀÓ ÃøÁ¤ 
+    public float coolTime; // ì´ì•Œ ë°œì‚¬ í›„ ì¿¨íƒ€ì„ ì¸¡ì • 
     public GameObject bulletPrefab;
 
     public float radius;
@@ -18,14 +18,14 @@ public class BulletLauncher : MonoBehaviour
 
     private PlayerController _player;
 
-    public CustomPool<Bullet> DBulletPool = new(15); // µğÆúÆ® ½ºÅ³
+    public CustomPool<Bullet> DBulletPool = new(15); // ë””í´íŠ¸ ìŠ¤í‚¬
     public GameObject DBulletPrefab;
-    public CustomPool<Bullet> PBulletPool = new(15); // ÆÄ¿ö¾÷ ½ºÅ³
+    public CustomPool<Bullet> PBulletPool = new(15); // íŒŒì›Œì—… ìŠ¤í‚¬
     public GameObject PBulletPrefab;
-    public CustomPool<Bullet> FBulletPool = new(15); // À¯µµÅº ½ºÅ³
+    public CustomPool<Bullet> FBulletPool = new(15); // ìœ ë„íƒ„ ìŠ¤í‚¬
     public GameObject FBulletPrefab;
 
-    public Skill curSkill; // ÇöÀç½ºÅ³
+    public Skill curSkill; // í˜„ì¬ìŠ¤í‚¬
     private DefaultSkill defaultSkill;
     public PowerUp powerUpSkill;
     public FreiKugel freiKugelSkill;
@@ -75,44 +75,44 @@ public class BulletLauncher : MonoBehaviour
         coolTime += Time.deltaTime;
     }
 
-    // ½ºÅ³¿¡ µû¶ó ºÒ·¿ÀÌ ´Ù¸¥ ¾ç»óÀ¸·Î ¿òÁ÷¿©¾ß ÇÏ´Âµ¥ ÀÌ°É ¾î¶»°Ô ±¸ÇöÇÒÁö(½ºÅ³°ú ¿ÀºêÁ§Æ®Ç® ¿¬µ¿ÀÇ ¹®Á¦)
+    // ìŠ¤í‚¬ì— ë”°ë¼ ë¶ˆë ›ì´ ë‹¤ë¥¸ ì–‘ìƒìœ¼ë¡œ ì›€ì§ì—¬ì•¼ í•˜ëŠ”ë° ì´ê±¸ ì–´ë–»ê²Œ êµ¬í˜„í• ì§€(ìŠ¤í‚¬ê³¼ ì˜¤ë¸Œì íŠ¸í’€ ì—°ë™ì˜ ë¬¸ì œ)
 
-    //public void SetBullet() // ÇöÀç ½ºÅ³¿¡ µû¸¥ ºÒ·¿ ¼³Á¤
+    //public void SetBullet() // í˜„ì¬ ìŠ¤í‚¬ì— ë”°ë¥¸ ë¶ˆë › ì„¤ì •
     //{
     //    bulletPrefab = curSkill.skillBullet;
     //}
-    public void Shoot() // ÀÎÇ² Á÷Á¢ ¹Ş¾Æ ºÒ·¿ ¹ß»ç
+    public void Shoot() // ì¸í’‹ ì§ì ‘ ë°›ì•„ ë¶ˆë › ë°œì‚¬
     {
         if (coolTime < curSkill.bulletCoolTime)
         {
             return;
         }
 
-        targetPos = SetMousePos(); // ¸¶¿ì½º ÇöÀç À§Ä¡¸¦ ¿ùµåÁÂÇ¥·Î °¡Á®¿È
-        Vector3 attackDir = targetPos - _player.transform.position; // ÇÃ·¹ÀÌ¾î ±âÁØ °ø°İ ¹æÇâ
+        targetPos = SetMousePos(); // ë§ˆìš°ìŠ¤ í˜„ì¬ ìœ„ì¹˜ë¥¼ ì›”ë“œì¢Œí‘œë¡œ ê°€ì ¸ì˜´
+        Vector3 attackDir = targetPos - _player.transform.position; // í”Œë ˆì´ì–´ ê¸°ì¤€ ê³µê²© ë°©í–¥
         float curAngle = Vector3.SignedAngle(_player.orientation, attackDir, _player.orientation);
         //Debug.Log(_player.orientation);
         //Debug.Log(attackDir);
         //Debug.Log(curAngle);
 
-        // °¢µµ¸¦ °è»êÇØ¼­ °ø°İ¹üÀ§ ¹ÛÀÇ ÀÔ·ÂÀº ¹«½Ã
+        // ê°ë„ë¥¼ ê³„ì‚°í•´ì„œ ê³µê²©ë²”ìœ„ ë°–ì˜ ì…ë ¥ì€ ë¬´ì‹œ
         if (curAngle > attackRange)
         {
-            Debug.Log("°ø°İ¹üÀ§ ¹ÛÀÔ´Ï´Ù.");
+            Debug.Log("ê³µê²©ë²”ìœ„ ë°–ì…ë‹ˆë‹¤.");
             return;
         }
 
         coolTime = 0;
         Bullet bullet = bulletPool.Get();
-        bullet.transform.position = transform.position; // ÇöÀç ÇÃ·¹ÀÌ¾î À§Ä¡¿¡ ºÒ·¿ È°¼ºÈ­
+        bullet.transform.position = transform.position; // í˜„ì¬ í”Œë ˆì´ì–´ ìœ„ì¹˜ì— ë¶ˆë › í™œì„±í™”
 
-        if (curSkill.skillName == "FreiKugel") // ÇöÀç ½ºÅ³ÀÇ ÀÌ¸§À¸·Î ÆÇÁ¤
+        if (curSkill.skillName == "FreiKugel") // í˜„ì¬ ìŠ¤í‚¬ì˜ ì´ë¦„ìœ¼ë¡œ íŒì •
         {
             
-            Collider2D[] monsters = Physics2D.OverlapCircleAll(targetPos, radius, _targetLayer); // ¸¶¿ì½º ±âÁØ Æ¯Á¤ ¹üÀ§ ³»ÀÇ ÀûÀ» ¸ğµÎ ¹İÈ¯
+            Collider2D[] monsters = Physics2D.OverlapCircleAll(targetPos, radius, _targetLayer); // ë§ˆìš°ìŠ¤ ê¸°ì¤€ íŠ¹ì • ë²”ìœ„ ë‚´ì˜ ì ì„ ëª¨ë‘ ë°˜í™˜
             if (monsters.Length > 0) 
             {
-                bullet.target = GetNearestMonster(monsters).GetComponent<Monster>(); // ¹üÀ§ ³»¿¡ ÀûÀÌ ÀÖÀ» ½Ã, ¸¶¿ì½º¿Í °¡Àå °¡±î¿î ÀûÀ» Å¸°ÙÀ¸·Î ¼³Á¤
+                bullet.target = GetNearestMonster(monsters).GetComponent<Monster>(); // ë²”ìœ„ ë‚´ì— ì ì´ ìˆì„ ì‹œ, ë§ˆìš°ìŠ¤ì™€ ê°€ì¥ ê°€ê¹Œìš´ ì ì„ íƒ€ê²Ÿìœ¼ë¡œ ì„¤ì •
                 Debug.Log(bullet.target);
             }
         }
@@ -120,18 +120,18 @@ public class BulletLauncher : MonoBehaviour
         bullet.ToTarget(transform.position, targetPos);
     }
 
-    // ºñÈ°¼ºÈ­´Â ¾î¶»°Ô?
+    // ë¹„í™œì„±í™”ëŠ” ì–´ë–»ê²Œ?
 
     public Collider2D GetNearestMonster(Collider2D[] cols)
     {
-        float distance = (new Vector3(1000, 1000, 0) - transform.position).magnitude; // ÀÓÀÇÀÇ Å« °ªÀ» ¼ºÁ¤
+        float distance = (new Vector3(1000, 1000, 0) - transform.position).magnitude; // ì„ì˜ì˜ í° ê°’ì„ ì„±ì •
         Collider2D Col = null;
 
         for (int i = 0; i < cols.Length; i++)
         {
-            if ((cols[i].transform.position - targetPos).magnitude < distance) // ¿©±â¼­ null reference ¹ß»ı
+            if ((cols[i].transform.position - targetPos).magnitude < distance) // ì—¬ê¸°ì„œ null reference ë°œìƒ
             { 
-                distance = (cols[i].transform.position - targetPos).magnitude; // ´õ ÀÛÀº °ª
+                distance = (cols[i].transform.position - targetPos).magnitude; // ë” ì‘ì€ ê°’
                 Col = cols[i];
             }
         }

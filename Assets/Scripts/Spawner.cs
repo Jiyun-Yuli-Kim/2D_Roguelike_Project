@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        // º»°ÔÀÓ¿¡¼­´Â awake·Î ÀÌµ¿
+        // ë³¸ê²Œì„ì—ì„œëŠ” awakeë¡œ ì´ë™
         GameManager.Instance.spawner = this;
 
     }

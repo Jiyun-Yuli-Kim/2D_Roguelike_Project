@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,7 +14,7 @@ public class CustomPool<T> where T : MonoBehaviour
 
     public T Get()
     {
-        // stackÀÇ ÇöÀç Å©±â°¡ 0º¸´Ù Å©´Ù¸é
+        // stackì˜ í˜„ì¬ í¬ê¸°ê°€ 0ë³´ë‹¤ í¬ë‹¤ë©´
         if (pool.Count > 0)
         {
             T target = pool.Pop();
@@ -24,16 +24,16 @@ public class CustomPool<T> where T : MonoBehaviour
 
         else 
         {
-            Debug.Log("½ºÅÃÀÌ ºñ¾ú½À´Ï´Ù.");
+            Debug.Log("ìŠ¤íƒì´ ë¹„ì—ˆìŠµë‹ˆë‹¤.");
             return null;
         }
     }
 
     public void Return(T target)
     {
-        // ½ºÅÃÀÇ ÇöÀç Å©±â°¡ »çÀÌÁî¸¦ ³ÑÁö ¾Ê´Â´Ù¸é
-        // ºñÈ°¼ºÈ­
-        // ½ºÅÃ¿¡ ³Ö±â
+        // ìŠ¤íƒì˜ í˜„ì¬ í¬ê¸°ê°€ ì‚¬ì´ì¦ˆë¥¼ ë„˜ì§€ ì•ŠëŠ”ë‹¤ë©´
+        // ë¹„í™œì„±í™”
+        // ìŠ¤íƒì— ë„£ê¸°
         if (pool.Count < size)
         {
             target.gameObject.SetActive(false);
@@ -42,7 +42,7 @@ public class CustomPool<T> where T : MonoBehaviour
 
         else
         {
-            Debug.Log("½ºÅÃÀÌ ²Ë Ã¡½À´Ï´Ù.");
+            Debug.Log("ìŠ¤íƒì´ ê½‰ ì°¼ìŠµë‹ˆë‹¤.");
         }
     }
 }

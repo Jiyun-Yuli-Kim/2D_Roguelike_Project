@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        orientation = moveDirection; // InputÀÌ ÀÖÀ» ¶§¸¸ ÇÃ·¹ÀÌ¾îÀÇ ¹æÇâ °»½Å
+        orientation = moveDirection; // Inputì´ ìˆì„ ë•Œë§Œ í”Œë ˆì´ì–´ì˜ ë°©í–¥ ê°±ì‹ 
 
         _rb.velocity =  moveDirection * _playerSpeed;
         _playerAnimator.SetFloat("MoveX", _rb.velocity.x);
@@ -60,16 +60,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // ½ºÅ³ È¹µæ
+        // ìŠ¤í‚¬ íšë“
         if (collision.gameObject.CompareTag("Skill"))
         {
-            if (collision.gameObject.name == "PowerUp" && launcher.curSkillName != "PowerUp") // ÇöÀç ½ºÅ³ÀÌ PowerUpÀÌ ¾Æ´Ò ¶§¿¡¸¸ µ¹ÀÔ
+            if (collision.gameObject.name == "PowerUp" && launcher.curSkillName != "PowerUp") // í˜„ì¬ ìŠ¤í‚¬ì´ PowerUpì´ ì•„ë‹ ë•Œì—ë§Œ ëŒì…
             {
                 launcher.curSkill.Deactivate(launcher);
                 launcher.powerUpSkil.Activate(launcher);
             }
 
-            else if (collision.gameObject.name == "FreiKugel" && launcher.curSkillName != "FreiKugel") // ÀÌ¸§À¸·Î ÆÇÁ¤ÇÏ¹Ç·Î ÀÌ¸§ ¼³Á¤½Ã ÁÖÀÇ!
+            else if (collision.gameObject.name == "FreiKugel" && launcher.curSkillName != "FreiKugel") // ì´ë¦„ìœ¼ë¡œ íŒì •í•˜ë¯€ë¡œ ì´ë¦„ ì„¤ì •ì‹œ ì£¼ì˜!
             {
                 launcher.curSkill.Deactivate(launcher);
                 collision.gameObject.GetComponent<Skill>().Activate(launcher);

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -86,7 +86,7 @@ public class Monster : MonoBehaviour
             {
                 break;
             }
-            // ·£´ı ¹æÇâ°ú ·£´ı ÃÊ¸¦ ¹Ş´Â´Ù
+            // ëœë¤ ë°©í–¥ê³¼ ëœë¤ ì´ˆë¥¼ ë°›ëŠ”ë‹¤
             float randSec = Random.Range(0.5f, 3);
             Vector3 randDir = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0).normalized;
             _rb.velocity = randDir * _moveSpeed;
@@ -94,7 +94,7 @@ public class Monster : MonoBehaviour
         }
     }
 
-    private bool HasParameter(Animator anim, string name) // ÀÌ°Å »ç¿ëÀÚ Á¤ÀÇ ÇÔ¼ö·Î µû·Î º¸°üÇÏÀÚ
+    private bool HasParameter(Animator anim, string name) // ì´ê±° ì‚¬ìš©ì ì •ì˜ í•¨ìˆ˜ë¡œ ë”°ë¡œ ë³´ê´€í•˜ì
     {
         bool hasParameter = false;
 

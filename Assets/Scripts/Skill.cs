@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -23,7 +23,7 @@ public abstract class Skill : MonoBehaviour
 
     public virtual void Deactivate(BulletLauncher launcher)
     { 
-        // °øÅë ºñÈ°¼ºÈ­ ·ÎÁ÷
+        // ê³µí†µ ë¹„í™œì„±í™” ë¡œì§
     }
 
     //protected void ReturntoPool(Bullet bullet)

@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "StageData", menuName = "Data/StageData")]
 public class StageData : ScriptableObject
 {
-    //¹ßÀÚ±¹ ¼Ò¸®
+    //ë°œìêµ­ ì†Œë¦¬
     //bgm
     public int stageNo;
     public string stageName;
@@ -13,7 +13,7 @@ public class StageData : ScriptableObject
     public int stageMonsterCount;
     public List<GameObject> stageMonsterList;
     public int stageRoomCount;
-    public List<Room> stageRoomList; // ¼ö·® È®ÀÎ À§ÇØ ¸®½ºÆ®·Î °ü¸®
-    // °¢ ½ºÅ×ÀÌÁöÀÇ ÃÑ ¸ó½ºÅÍ¸¦ ÀÌ·¸°Ô °ü¸®ÇÏ´Â°Ç ok. ±×·³ °¢ ¹æ¸¶´Ù´Â ¾î¶»°Ô ÇÒ·©?
+    public List<Room> stageRoomList; // ìˆ˜ëŸ‰ í™•ì¸ ìœ„í•´ ë¦¬ìŠ¤íŠ¸ë¡œ ê´€ë¦¬
+    // ê° ìŠ¤í…Œì´ì§€ì˜ ì´ ëª¬ìŠ¤í„°ë¥¼ ì´ë ‡ê²Œ ê´€ë¦¬í•˜ëŠ”ê±´ ok. ê·¸ëŸ¼ ê° ë°©ë§ˆë‹¤ëŠ” ì–´ë–»ê²Œ í• ë­?
 
 }

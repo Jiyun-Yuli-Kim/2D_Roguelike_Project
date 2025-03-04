@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    // public SceneChanger sceneChanger; // ¾ê´Â ¿Ö ±»ÀÌ ¿ÀÇÂÀ» Çß´ÂÁö
+    // public SceneChanger sceneChanger; // ì–˜ëŠ” ì™œ êµ³ì´ ì˜¤í”ˆì„ í–ˆëŠ”ì§€
     public StageDataSetter setter;
     public MapGenerator generator;
     public Spawner spawner;
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null)
         { 
-            Destroy(gameObject); // ¿Ö this ¾Æ´Ï°í ¿ÀºêÁ§Æ®¸¦ Áö¿ïÁö Àß »ı°¢ÇØº¸±â
+            Destroy(gameObject); // ì™œ this ì•„ë‹ˆê³  ì˜¤ë¸Œì íŠ¸ë¥¼ ì§€ìš¸ì§€ ì˜ ìƒê°í•´ë³´ê¸°
         }
 
         else if (Instance == null)
@@ -29,10 +29,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Init(); // Å¸ÀÌÆ²¾ÀºÎÅÍ °ÔÀÓ¸Å´ÏÀú°¡ ÀÖ´Âµ¥, ÀÌ°É ¿©±â¿¡ ÇÏ´Â°Ô ¸Â´ÂÁö
+        Init(); // íƒ€ì´í‹€ì”¬ë¶€í„° ê²Œì„ë§¤ë‹ˆì €ê°€ ìˆëŠ”ë°, ì´ê±¸ ì—¬ê¸°ì— í•˜ëŠ”ê²Œ ë§ëŠ”ì§€
     }
 
-    public void Init() // ½ºÅ×ÀÌÁö º¯°æ½Ã¸¶´Ù ½ÃÇàÇÏ´Â ·ÎÁ÷
+    public void Init() // ìŠ¤í…Œì´ì§€ ë³€ê²½ì‹œë§ˆë‹¤ ì‹œí–‰í•˜ëŠ” ë¡œì§
     {
         if (generator == null)
         {
@@ -54,15 +54,15 @@ public class GameManager : MonoBehaviour
 
         if (generator != null && spawner != null && camController != null)
         {
-            generator.GenerateMap(); // ¹æ »ı¼º
-            generator.GenerateCorridor(setter.curStageData.stageRoomList); // º¹µµ »ı¼º
-            spawner.SpawnMonster(setter.curStageData.stageRoomList); // ¸ó½ºÅÍ ½ºÆù
-            spawner.SpawnPlayerAndGoal(setter.curStageData.stageRoomList); // ÇÃ·¹ÀÌ¾î ¹× ¸ñÀûÁö ½ºÆù
-            camController.SetSubject(); // Ä«¸Ş¶ó ÃßÀû ´ë»ó ¼³Á¤
+            generator.GenerateMap(); // ë°© ìƒì„±
+            generator.GenerateCorridor(setter.curStageData.stageRoomList); // ë³µë„ ìƒì„±
+            spawner.SpawnMonster(setter.curStageData.stageRoomList); // ëª¬ìŠ¤í„° ìŠ¤í°
+            spawner.SpawnPlayerAndGoal(setter.curStageData.stageRoomList); // í”Œë ˆì´ì–´ ë° ëª©ì ì§€ ìŠ¤í°
+            camController.SetSubject(); // ì¹´ë©”ë¼ ì¶”ì  ëŒ€ìƒ ì„¤ì •
         }
     }
 
-    public void Reset() // Å×½ºÆ®¿ë ÀÓ½ÃÇÔ¼ö
+    public void Reset() // í…ŒìŠ¤íŠ¸ìš© ì„ì‹œí•¨ìˆ˜
     {
         setter.curStageData.stageRoomCount = 0;
         setter.curStageData.stageRoomList = null;

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,15 +15,15 @@ public class Room
         roomCenter = new Vector2Int(roomRect.xMin + roomRect.width / 2, roomRect.yMin + roomRect.height / 2);
     }
 
-    // MapGenerator¿¡¼­ È£ÃâÇÏ´Â ÇÔ¼ö·Î, ¹æ »ı¼º½Ã ½ºÆù¿µ¿ªÀ» »ı¼ºÇÔ
+    // MapGeneratorì—ì„œ í˜¸ì¶œí•˜ëŠ” í•¨ìˆ˜ë¡œ, ë°© ìƒì„±ì‹œ ìŠ¤í°ì˜ì—­ì„ ìƒì„±í•¨
     public void CreateSpawnArea()
     {
-        //ÀÌÂ÷¿ø¹è¿­ÀÇ xÁÂÇ¥´Â roomRect.xMin+1 ~ roomRect.xMin+1 + (roomRect.width-2)
-        //ÀÌÂ÷¿ø¹è¿­ÀÇ yÁÂÇ¥´Â roomRect.yMin+1 ~ roomRect.yMin+1 + (roomRect.height-3)
-        row = roomRect.height - 3; // À§¿¡ 3°³, ¾Æ·¡¿¡ 1°³ÀÇ ·êÅ¸ÀÏ ¿µ¿ª Á¦¿Ü
-        col = roomRect.width - 2; // ¾ç¿· 1°³ÀÇ ·êÅ¸ÀÏ ¿µ¿ª Á¦¿Ü
+        //ì´ì°¨ì›ë°°ì—´ì˜ xì¢Œí‘œëŠ” roomRect.xMin+1 ~ roomRect.xMin+1 + (roomRect.width-2)
+        //ì´ì°¨ì›ë°°ì—´ì˜ yì¢Œí‘œëŠ” roomRect.yMin+1 ~ roomRect.yMin+1 + (roomRect.height-3)
+        row = roomRect.height - 3; // ìœ„ì— 3ê°œ, ì•„ë˜ì— 1ê°œì˜ ë£°íƒ€ì¼ ì˜ì—­ ì œì™¸
+        col = roomRect.width - 2; // ì–‘ì˜† 1ê°œì˜ ë£°íƒ€ì¼ ì˜ì—­ ì œì™¸
         spawnArea = new int[row, col];
-        //Debug.Log($"½ºÆù¿µ¿ª Çà : {spawnArea.GetLength(1)}, ¿­ : {spawnArea.GetLength(0)}");
+        //Debug.Log($"ìŠ¤í°ì˜ì—­ í–‰ : {spawnArea.GetLength(1)}, ì—´ : {spawnArea.GetLength(0)}");
 
         //for (int r = 0; r < row; r++)
         //{

@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -15,7 +15,7 @@ public class FreiKugelBullet : Bullet
     //private Collider2D _col;
     private Vector3 _origin;
     private bool _isActive;
-    private float _estTime; // Å¸°Ù±îÁö ³¯¾Æ°¡´Âµ¥ °É¸± °ÍÀ¸·Î ÃßÁ¤µÇ´Â ½Ã°£
+    private float _estTime; // íƒ€ê²Ÿê¹Œì§€ ë‚ ì•„ê°€ëŠ”ë° ê±¸ë¦´ ê²ƒìœ¼ë¡œ ì¶”ì •ë˜ëŠ” ì‹œê°„
     private float _curTime;
 
     //public Monster target;
@@ -33,7 +33,7 @@ public class FreiKugelBullet : Bullet
 
         if (_curTime > _estTime / 3)
         {
-            //Debug.Log($"ÇöÀç½Ã°¢ : {_curTime}");
+            //Debug.Log($"í˜„ì¬ì‹œê° : {_curTime}");
             Vector3 targetDir = (target.transform.position - this.transform.position).normalized;
             Vector3 straightDir = (target.transform.position - _origin).normalized;
             Vector3 newDir = targetDir + straightDir;
@@ -46,9 +46,9 @@ public class FreiKugelBullet : Bullet
         _isActive = true;
         _origin = origin;
         _curTime = 0;
-        Vector3 initDir = (mousePos - this.transform.position).normalized; // ¸¶¿ì½º ÀÎÇ²¿¡ µû¸¥ ¸ñÇ¥¹æÇâ
+        Vector3 initDir = (mousePos - this.transform.position).normalized; // ë§ˆìš°ìŠ¤ ì¸í’‹ì— ë”°ë¥¸ ëª©í‘œë°©í–¥
         _rb.velocity = initDir * bulletSpeed;
         _estTime = MathF.Abs((target.transform.position - origin).magnitude) / bulletSpeed;
-        //Debug.Log($"±âÁØ½Ã°¢ : {_estTime/2}");
+        //Debug.Log($"ê¸°ì¤€ì‹œê° : {_estTime/2}");
     }
 }
