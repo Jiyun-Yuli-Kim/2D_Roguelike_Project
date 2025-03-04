@@ -36,6 +36,12 @@ public abstract class Monster : MonoBehaviour
 
     private void Update()
     {
+        if (_monsterHP <= 0)
+        {
+            _anim.SetTrigger("Hit");
+            Destroy(gameObject);
+        }
+
         if (_rb.velocity.x < -0.3)
         {
             _spriteRenderer.flipX = true;

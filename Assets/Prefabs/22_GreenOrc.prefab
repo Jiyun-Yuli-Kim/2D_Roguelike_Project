@@ -163,7 +163,7 @@ MonoBehaviour:
   _followSpeed: 3
   _attackRange: 2
   _attackCoolTime: 3
-  _monsterHP: 3
+  _monsterHP: 10
 --- !u!1 &8861590574772518768
 GameObject:
   m_ObjectHideFlags: 0

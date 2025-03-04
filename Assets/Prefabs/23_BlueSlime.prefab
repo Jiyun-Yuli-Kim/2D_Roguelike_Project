@@ -231,3 +231,5 @@ MonoBehaviour:
   _moveSpeed: 2
   _followSpeed: 3
   _attackRange: 0.3
+  _attackCoolTime: 0
+  _monsterHP: 10
