@@ -25,20 +25,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    GetGun();
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    GetSpear();
-        //}
-
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    PlayerAttack();
-        //}
+		if (playerHP <= 0)
+		{
+			_playerAnimator.SetTrigger("Die");
+		}
     }
 
     void FixedUpdate()
@@ -56,6 +46,15 @@ public class PlayerController : MonoBehaviour
         _rb.velocity =  moveDirection * _playerSpeed;
         _playerAnimator.SetFloat("MoveX", _rb.velocity.x);
         _playerAnimator.SetFloat("MoveY", _rb.velocity.y);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("MonsterBullet"))
+        {
+            playerHP--;
+            // 피격 애니메이션 또는 이펙트 추가
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

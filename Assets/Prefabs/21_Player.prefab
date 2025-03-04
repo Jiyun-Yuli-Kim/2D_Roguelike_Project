@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerSpeed: 5
-  playerHP: 10
+  playerHP: 6
   launcher: {fileID: 513035377552781454}
 --- !u!1 &5414260315131900455
 GameObject:

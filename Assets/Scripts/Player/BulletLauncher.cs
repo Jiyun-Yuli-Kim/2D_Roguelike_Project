@@ -38,12 +38,14 @@ public class BulletLauncher : MonoBehaviour
             bullet.Init(DBulletPool);
             DBulletPool.Return(bullet);
         }
+
         for (int i = 0; i < PBulletPool.size; i++)
         {
             Bullet bullet = Instantiate(PBulletPrefab).GetComponent<Bullet>();
             bullet.Init(PBulletPool);
             PBulletPool.Return(bullet);
         }
+
         for (int i = 0; i < FBulletPool.size; i++)
         {
             Bullet bullet = Instantiate(FBulletPrefab).GetComponent<Bullet>();
@@ -53,8 +55,6 @@ public class BulletLauncher : MonoBehaviour
 
         powerUpSkill = GetComponentInChildren<PowerUp>();
         freiKugelSkill = GetComponentInChildren<FreiKugel>();
-        Debug.Log(powerUpSkill);
-        Debug.Log(freiKugelSkill);
     }
 
     private void Start()
@@ -65,7 +65,7 @@ public class BulletLauncher : MonoBehaviour
         bulletPool = DBulletPool;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -120,7 +120,6 @@ public class BulletLauncher : MonoBehaviour
         bullet.ToTarget(transform.position, targetPos);
     }
 
-    // 비활성화는 어떻게?
 
     public Collider2D GetNearestMonster(Collider2D[] cols)
     {

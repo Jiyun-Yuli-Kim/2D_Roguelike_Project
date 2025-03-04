@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Skill
   - PlayerBullet
+  - MonsterBullet
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Map
   - PlayerBullet
   - Monster
-  - 
+  - MonsterBullet
   - 
   - 
   - 
