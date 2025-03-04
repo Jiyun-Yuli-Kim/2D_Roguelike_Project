@@ -63,14 +63,16 @@ public class PlayerController : MonoBehaviour
         // 스킬 획득
         if (collision.gameObject.CompareTag("Skill"))
         {
-            if (collision.gameObject.name == "PowerUp")
+            if (collision.gameObject.name == "PowerUp" && launcher.curSkillName != "PowerUp") // 현재 스킬이 PowerUp이 아닐 때에만 돌입
             {
-                launcher.GetPowerUp();
+                launcher.curSkill.Deactivate(launcher);
+                launcher.powerUpSkil.Activate(launcher);
             }
 
-            else if (collision.gameObject.name == "FreiKugel") // 이름으로 판정하므로 이름 설정시 주의!
+            else if (collision.gameObject.name == "FreiKugel" && launcher.curSkillName != "FreiKugel") // 이름으로 판정하므로 이름 설정시 주의!
             {
-                launcher.GetFreiKugel();
+                launcher.curSkill.Deactivate(launcher);
+                collision.gameObject.GetComponent<Skill>().Activate(launcher);
             }
 
             Destroy(collision.gameObject);

@@ -6,7 +6,8 @@ public class DefaultSkill : Skill
 {
     public override void Activate(BulletLauncher launcher)
     {
-        //launcher.bulletPool = bulletPool;
-        launcher.coolTime = launcher.curSkill.bulletCoolTime;
+        launcher.curSkill = this;
+        launcher.bulletPool = launcher.DBulletPool;
+        launcher.coolTime = this.bulletCoolTime;
     }
 }

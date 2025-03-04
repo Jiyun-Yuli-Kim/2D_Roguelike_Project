@@ -22,7 +22,7 @@ public class BulletLauncher : MonoBehaviour
     public GameObject DBulletPrefab;
     public CustomPool<Bullet> PBulletPool = new(15); // 파워업 스킬
     public GameObject PBulletPrefab;
-    public CustomPool<Bullet> FBulletPool = new(15); // 마탄 스킬
+    public CustomPool<Bullet> FBulletPool = new(15); // 유도탄 스킬
     public GameObject FBulletPrefab;
 
     public Skill curSkill; // 현재스킬
@@ -69,10 +69,6 @@ public class BulletLauncher : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            //if (curSkill.skillName == "SpoonBender")
-            //{
-            //    Track();
-            //}
             Shoot();
         }
 
@@ -92,7 +88,7 @@ public class BulletLauncher : MonoBehaviour
             return;
         }
 
-        targetPos = SetTargetPos(); // 마우스 현재 위치를 월드좌표로 가져옴
+        targetPos = SetMousePos(); // 마우스 현재 위치를 월드좌표로 가져옴
         Vector3 attackDir = targetPos - _player.transform.position; // 플레이어 기준 공격 방향
         float curAngle = Vector3.SignedAngle(_player.orientation, attackDir, _player.orientation);
         //Debug.Log(_player.orientation);
@@ -110,42 +106,36 @@ public class BulletLauncher : MonoBehaviour
         Bullet bullet = bulletPool.Get();
         bullet.transform.position = transform.position; // 현재 플레이어 위치에 불렛 활성화
 
-        if (curSkill.skillName == "FreiKugel")
+        if (curSkill.skillName == "FreiKugel") // 현재 스킬의 이름으로 판정
         {
+            
             Collider2D[] monsters = Physics2D.OverlapCircleAll(targetPos, radius, _targetLayer); // 마우스 기준 특정 범위 내의 적을 모두 반환
-            if (monsters.Length > 0)
+            if (monsters.Length > 0) 
             {
-                bullet.target = GetNearestMonster(monsters);
+                bullet.target = GetNearestMonster(monsters).GetComponent<Monster>(); // 범위 내에 적이 있을 시, 마우스와 가장 가까운 적을 타겟으로 설정
+                Debug.Log(bullet.target);
             }
         }
-
+        
         bullet.ToTarget(transform.position, targetPos);
     }
 
     // 비활성화는 어떻게?
 
-    public Monster GetNearestMonster(Collider2D[] cols)
+    public Collider2D GetNearestMonster(Collider2D[] cols)
     {
-        Monster[] mons = new Monster[cols.Length];
+        float distance = (new Vector3(1000, 1000, 0) - transform.position).magnitude; // 임의의 큰 값을 성정
+        Collider2D Col = null;
 
         for (int i = 0; i < cols.Length; i++)
         {
-            mons[i] = cols[i].GetComponent<Monster>();
-            Debug.Log(mons[i]);
-        }
-
-        Monster Mon = mons[0];
-        float distance = (new Vector3(1000, 1000, 0) - transform.position).magnitude; // 임의의 큰 값을 성정
-
-        for (int i = 0; i < mons.Length; i++)
-        {
-            if ((mons[i].transform.position - targetPos).magnitude < distance)
+            if ((cols[i].transform.position - targetPos).magnitude < distance) // 여기서 null reference 발생
             { 
-                distance = (mons[i].transform.position - targetPos).magnitude; // 더 작은 값
-                Mon = mons[i];
+                distance = (cols[i].transform.position - targetPos).magnitude; // 더 작은 값
+                Col = cols[i];
             }
         }
-        return Mon;
+        return Col;
     }
 
     private void OnDrawGizmos()
@@ -154,13 +144,8 @@ public class BulletLauncher : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    public Vector3 SetTargetPos()
+    public Vector3 SetMousePos()
     {
-        //if (curSkill.skillName == "SpoonBender")
-        //{
-        //    // 적 추적
-        //    return Vector2.zero;
-        //}
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0;
         return mouseWorldPos;

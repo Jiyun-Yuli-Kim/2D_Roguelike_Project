@@ -20,8 +20,8 @@ public abstract class Skill : MonoBehaviour
     }
 
     public abstract void Activate(BulletLauncher launcher);
-    
-    public virtual void Deactivate()
+
+    public virtual void Deactivate(BulletLauncher launcher)
     { 
         // 공통 비활성화 로직
     }
