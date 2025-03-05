@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.PlayerLoop;
 
 public class FreiKugelBullet : Bullet
 {
@@ -21,7 +22,8 @@ public class FreiKugelBullet : Bullet
     //public Monster target;
 
 
-
+    private void OnEnable() => ResetStat();
+    
     void Update()
     {
         if (!_isActive)
@@ -41,11 +43,18 @@ public class FreiKugelBullet : Bullet
         }
     }
 
+    private void ResetStat()
+    {
+        _curTime = 0;
+    }
+    
+    
+
     public override void ToTarget(Vector3 origin, Vector3 mousePos)
     {
         _isActive = true;
         _origin = origin;
-        _curTime = 0;
+        
         Vector3 initDir = (mousePos - this.transform.position).normalized; // 마우스 인풋에 따른 목표방향
         _rb.velocity = initDir * bulletSpeed;
         _estTime = MathF.Abs((target.transform.position - origin).magnitude) / bulletSpeed;
