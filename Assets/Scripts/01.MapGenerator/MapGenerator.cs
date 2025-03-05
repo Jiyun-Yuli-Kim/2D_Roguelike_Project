@@ -20,8 +20,13 @@ public class MapGenerator : MonoBehaviour
     // 노드의 최소 넓이. 이것보다 작은 노드는 생성되지 않음.
 
     [SerializeField] Tilemap _tilemap;
+    
     [SerializeField] Tile _outTile; // 외부를 나타내는 타일
     [SerializeField] RuleTile _ruleTile;
+    
+    [SerializeField] Tilemap _minimap;
+    [SerializeField] RuleTile  _MMOutTile;
+    [SerializeField] RuleTile _MMInTile;
 
     // 라인 렌더링
     //[SerializeField] LineRenderer _lineRenderer;
@@ -29,11 +34,6 @@ public class MapGenerator : MonoBehaviour
     //[SerializeField] GameObject _line; // 공간 분할
     //[SerializeField] GameObject _roomLine; // 방 외곽선
     //[SerializeField] GameObject _corridorLine;
-
-    private void Awake()
-    {
-
-    }
 
     private void Start()
     {
@@ -44,12 +44,18 @@ public class MapGenerator : MonoBehaviour
     {
         // _mapSize = new Vector2Int(90, 60);
         FillBG();
+        FillMinimapBG(); // 렌더링할 미니맵
         Node RootNode = new Node(new RectInt(-_mapSize.x / 2, -_mapSize.y / 2, _mapSize.x, _mapSize.y));
         // DrawRootNode();
         SplitNode(RootNode, 0);
         // 각 방에 대해 스폰할 몬스터 개수 설정
         // 방 생성 완료 후 실행될 로직이므로 일단 여기...
         // GameManager.Instance.setter.SetMonsterCount();
+    }
+
+    public void GenerateMinimap()
+    {
+        
     }
 
     //private void DrawRootNode()
@@ -245,6 +251,8 @@ public class MapGenerator : MonoBehaviour
         GameManager.Instance.setter.curStageData.stageRoomCount++;
 
         DrawRoom(node);
+        DrawMinimapRoom(node);
+
     }
 
     // private void DrawCorridor(Node node, int depth)
@@ -303,7 +311,6 @@ public class MapGenerator : MonoBehaviour
                 _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
             }
         }
-
     }
 
     // 배경 타일을 채움
@@ -366,7 +373,9 @@ public class MapGenerator : MonoBehaviour
 
         DrawLine(new Vector2Int(x1, y1), new Vector2Int(x2, y1));
         DrawLine(new Vector2Int(x2, y1), new Vector2Int(x2, y2));
-
+        
+        DrawMinimapLine(new Vector2Int(x1, y1), new Vector2Int(x2, y1));
+        DrawMinimapLine(new Vector2Int(x2, y1), new Vector2Int(x2, y2));
 
         //for (int i = x1; i < x2; i++)
         //{
@@ -385,7 +394,56 @@ public class MapGenerator : MonoBehaviour
         //}
     }
 
+    // 미니맵 배경 타일을 채움
+    private void FillMinimapBG()
+    {
+        int w = _mapSize.x / 2;
+        int h = _mapSize.y / 2;
+        for (int i = -w - 10; i < w + 10; i++)
+        {
+            for (int j = -h - 10; j < h + 10; j++)
+            {
+                _minimap.SetTile(new Vector3Int(i, j, 0), _MMOutTile);
+            }
+        }
+    }
+    
+    private void DrawMinimapRoom(Node node)
+    {
+        for (int x = node.room.roomRect.xMin; x < node.room.roomRect.xMin + node.room.roomRect.width; x++)
+        {
+            for (int y = node.room.roomRect.yMin; y < node.room.roomRect.yMin + node.room.roomRect.height; y++)
+            {
+                _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+            }
+        }
+    }
+    
+    private void DrawMinimapLine(Vector2Int start, Vector2Int end)
+    {
+        // var lineRenderer = Instantiate(_corridorLine).GetComponent<LineRenderer>();
+        // lineRenderer.useWorldSpace = true;
+        // lineRenderer.positionCount = 2;
+        //
+        // lineRenderer.SetPosition(0, new Vector3(start.x, start.y,0));
+        // lineRenderer.SetPosition(1, new Vector3(end.x, end.y,0));
 
+        for (int x = start.x; x < end.x; x++)
+        {
+            for (int y = start.y; y <= end.y; y++)
+            {
+                _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+            }
+        }
+
+        for (int y = start.y; y > end.y; y--)
+        {
+            for (int x = start.x; x <= end.x; x++) // 양옆 경계 타일 2개에 대한 오프셋
+            {
+                _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+            }
+        }
+    }
 }
 
 
