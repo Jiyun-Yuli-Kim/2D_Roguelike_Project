@@ -11,7 +11,6 @@ public class Slime : Monster
     {
         if (!_isAttacking)
         {
-            Debug.Log("슬라임 공격!");
             StartCoroutine(AttackCoroutine());
         }
     }

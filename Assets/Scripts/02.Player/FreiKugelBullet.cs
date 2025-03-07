@@ -33,6 +33,7 @@ public class FreiKugelBullet : Bullet
 
         _curTime += Time.deltaTime;
 
+        
         if (_curTime > _estTime / 3)
         {
             //Debug.Log($"현재시각 : {_curTime}");

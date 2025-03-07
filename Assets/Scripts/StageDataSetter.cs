@@ -22,6 +22,11 @@ public class StageDataSetter : MonoBehaviour
         curStageData.stageRoomList = new();
     }
 
+    private void Start()
+    {
+        GameManager.Instance.setter = this;
+    }
+
     public void StageDataInit(int stageNo)
     {
         curStageData = stageDatas[stageNo];

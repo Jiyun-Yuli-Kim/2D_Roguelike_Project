@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
         //_playerAnimator.SetTrigger("Diee");
             
         // TODO: TestCode_KimJaeSeong
-        _playerAnimator.SetBool("Diee", true);
+        _playerAnimator.SetBool("Die", true);
     }
     
     private void Init()

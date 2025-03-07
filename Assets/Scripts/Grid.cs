@@ -18,38 +18,43 @@ public class Grid : MonoBehaviour
         Open.Add(start);
     }
 
+    
+    
+    
+    
+    
     /*
-    private void Foo()
+public void FindPath()
+{
+    while (true) // 일단 조건은 임의로 설정
     {
-        while (true) // 일단 조건은 임의로 설정
+        if (current == target)
         {
-            if (current == target)
-            {
-                return;
-            }
-            
-            current = Open에서 가장 f가 작은 Cell
-            Open.Remove(current);
-            Closed.Add(current);
+            return;
+        }
 
-            if (current == target)
-            {
-                return;
-            }
-            
-            foreach(neighbour in current.neighbours)
-            {
-                if (!isWalkable || Closed에 있을 시)
-                다음 노드로 넘어가기
-                
-                if (new path가 최단거리이거나 Open에 없을 시)
-                set f of neighbour
-                set parent of neighbour to current 
-                if n is not in Open
-                Open.Add(n);
-            }
+        current = Open에서 가장 f가 작은 Cell
+        Open.Remove(current);
+        Closed.Add(current);
+
+        if (current == target)
+        {
+            return;
+        }
+
+        foreach(neighbour in current.neighbours)
+        {
+            if (!isWalkable || Closed에 있을 시)
+            다음 노드로 넘어가기
+
+            if (new path가 최단거리이거나 Open에 없을 시)
+            set f of neighbour
+            set parent of neighbour to current
+            if n is not in Open
+            Open.Add(n);
         }
     }
-    */
+}
+*/
 
 }

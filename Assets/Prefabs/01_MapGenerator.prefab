@@ -44,15 +44,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cfc54fe4b3d38d4b82e8c6945c5d7f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapSize: {x: 100, y: 80}
+  _mapSize: {x: 80, y: 60}
   _maxDepth: 3
   _minRate: 0.4
   _maxRate: 0.65
-  _roomMinRate: 0.5
-  _roomMaxRate: 0.7
+  _roomMinRate: 0.55
+  _roomMaxRate: 0.75
   _divideRate: 1.4
-  _minAreaHeight: 30
-  _minAreaWidth: 30
+  _minAreaHeight: 13
+  _minAreaWidth: 13
   _tilemap: {fileID: 0}
   _outTile: {fileID: 11400000, guid: 63e91c250d7fe3941bb5a50157c4df64, type: 2}
   _ruleTile: {fileID: 11400000, guid: b2c71768573053f469a7df08d8ada2f5, type: 2}
+  _minimap: {fileID: 0}
+  _MMOutTile: {fileID: 11400000, guid: 2cf7c24234e7248248f1132f1521fc61, type: 2}
+  _MMInTile: {fileID: 11400000, guid: 38be43ad920ed461395b62be1e76f642, type: 2}

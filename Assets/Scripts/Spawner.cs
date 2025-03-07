@@ -11,11 +11,20 @@ public class Spawner : MonoBehaviour
     public GameObject goalPrefab;
     private GameObject goal;
 
+    private void Awake()
+    {
+    }
+
     private void Start()
     {
-        // 본게임에서는 awake로 이동
         GameManager.Instance.spawner = this;
+        // Init();
+    }
 
+    public void Init()
+    {
+        SpawnMonster(GameManager.Instance.setter.curStageData.stageRoomList); // 몬스터 스폰
+        SpawnPlayerAndGoal(GameManager.Instance.setter.curStageData.stageRoomList); // 플레이어 및 목적지 스폰
     }
 
     public void SpawnPlayerAndGoal(List<Room> rooms)

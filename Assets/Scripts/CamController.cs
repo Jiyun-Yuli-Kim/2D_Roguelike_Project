@@ -2,14 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.PlayerLoop;
 
 public class CamController : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera[] cameras;
 
+    private void Awake()
+    {
+    }
+
     private void Start()
     {
         GameManager.Instance.camController = this;
+        // Init();
+    }
+
+    public void Init()
+    {
+        SetSubject(); // 카메라 추적 대상 설정
     }
 
     public void SetSubject()
@@ -28,3 +39,6 @@ public class CamController : MonoBehaviour
         cameras[0].Priority = 9;
     }
 }
+
+
+

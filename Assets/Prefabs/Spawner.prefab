@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8064584449996865749
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8064584449996865739}
+  - component: {fileID: 8064584449996865736}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8064584449996865739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8064584449996865749}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.5606453, y: -3.4387956, z: -0.05322802}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8064584449996865736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8064584449996865749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e83244d0896d2642b5abfe336acae01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monPatternList:
+  - {fileID: 333216070623711254, guid: 14292994b54c36741b0556de80b1eb02, type: 3}
+  - {fileID: 8626891765630964089, guid: 76580cee4522be84aa22cf23f7c2eb16, type: 3}
+  - {fileID: 2732184047474025685, guid: 30930cb80e669324c99f742b9040a560, type: 3}
+  - {fileID: 7308049454016897085, guid: 865d1bf7c170443498f1e338f2974eff, type: 3}
+  - {fileID: 7579181095600648745, guid: 3b4a09e4c9c5afc45965d373ca270e00, type: 3}
+  - {fileID: 7240002122602400230, guid: 9e01217f1a321df46b4bba2bbb373556, type: 3}
+  playerPrefab: {fileID: 3252823958456674869, guid: 6e5869ef0f27f994c84df16042dbc472, type: 3}
+  player: {fileID: 0}
+  goalPrefab: {fileID: 7536436971599327217, guid: 82952ff924df8b54c977a8065588795a, type: 3}
