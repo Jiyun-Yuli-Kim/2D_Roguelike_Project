@@ -12,6 +12,7 @@ public class StageData : ScriptableObject
     public RuleTile stageRuletile;
     public int stageMonsterCount;
     public List<GameObject> stageMonsterList;
+    public int stageKeyCount;
     public int stageRoomCount;
     public List<Room> stageRoomList; // 수량 확인 위해 리스트로 관리
 }

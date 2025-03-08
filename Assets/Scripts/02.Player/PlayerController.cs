@@ -60,22 +60,35 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        var pickupable = collision.GetComponent<IPickupable>();
+        
         // 스킬 획득
-        if (collision.gameObject.CompareTag("Skill"))
+        if (pickupable != null)
         {
-            if (collision.gameObject.name == "PowerUp" && launcher.curSkillName != "PowerUp") // 현재 스킬이 PowerUp이 아닐 때에만 돌입
+            if (collision.gameObject.CompareTag("Skill"))
             {
-                launcher.curSkill.Deactivate(launcher);
-                launcher.powerUpSkill.Activate(launcher);
-            }
+                if (collision.gameObject.name == "PowerUp" &&
+                    launcher.curSkillName != "PowerUp") // 현재 스킬이 PowerUp이 아닐 때에만 돌입
+                {
+                    launcher.curSkill.Deactivate(launcher);
+                    launcher.powerUpSkill.Activate(launcher);
+                }
 
-            else if (collision.gameObject.name == "FreiKugel" && launcher.curSkillName != "FreiKugel") // 이름으로 판정하므로 이름 설정시 주의!
+                else if (collision.gameObject.name == "FreiKugel" &&
+                         launcher.curSkillName != "FreiKugel") // 이름으로 판정하므로 이름 설정시 주의!
+                {
+                    launcher.curSkill.Deactivate(launcher);
+                    launcher.freiKugelSkill.Activate(launcher);
+                }
+
+                Destroy(collision.gameObject);
+            }
+            
+            // 열쇠 획득
+            else if (collision.gameObject.CompareTag("Key"))
             {
-                launcher.curSkill.Deactivate(launcher);
-                launcher.freiKugelSkill.Activate(launcher);
+                
             }
-
-            Destroy(collision.gameObject);
         }
     }
 

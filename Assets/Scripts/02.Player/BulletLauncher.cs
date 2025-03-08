@@ -147,18 +147,4 @@ public class BulletLauncher : MonoBehaviour
         mouseWorldPos.z = 0;
         return mouseWorldPos;
     }
-
-    public void GetPowerUp()
-    {
-        curSkill = powerUpSkill;
-        curSkill.Activate(this);
-        bulletPool = PBulletPool;
-    }
-
-    public void GetFreiKugel()
-    {
-        curSkill = freiKugelSkill;
-        curSkill.Activate(this);
-        bulletPool = FBulletPool;
-    }
 }

@@ -8,8 +8,6 @@ public class StageDataSetter : MonoBehaviour
     public StageData[] stageDatas;
     public StageData curStageData;
     
-    
-    
     //public int stageNo;
     //public string stageName;
     //public RuleTile stageRuletile;
@@ -22,6 +20,8 @@ public class StageDataSetter : MonoBehaviour
     {
         stageDatas = new StageData[StageCount];
         curStageData.stageRoomList = new();
+        curStageData.stageMonsterCount = 0;
+        curStageData.stageKeyCount = 3;
     }
 
     private void Start()
@@ -33,6 +33,8 @@ public class StageDataSetter : MonoBehaviour
     {
         curStageData = stageDatas[stageNo];
         curStageData.stageRoomList = new();
+        curStageData.stageMonsterCount = 0;
+        curStageData.stageKeyCount = 3;
     }
 
     //public void SetMonsterCount()

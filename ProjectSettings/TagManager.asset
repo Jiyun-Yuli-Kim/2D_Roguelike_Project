@@ -11,6 +11,7 @@ TagManager:
   - Skill
   - PlayerBullet
   - MonsterBullet
+  - Key
   layers:
   - Default
   - TransparentFX

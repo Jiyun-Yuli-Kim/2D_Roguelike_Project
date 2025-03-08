@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public abstract class Monster : MonoBehaviour
 {
@@ -27,6 +29,11 @@ public abstract class Monster : MonoBehaviour
         _col = GetComponent<Collider2D>();
         _anim = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.setter.curStageData.stageMonsterCount++;
     }
 
     private void Start()
