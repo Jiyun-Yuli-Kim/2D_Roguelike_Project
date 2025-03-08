@@ -6,12 +6,12 @@ public class Grid : MonoBehaviour
 {
     private MapGenerator _mapGen; // 여기서 생성된 맵의 데이터를 받아옴 
 
-    private List<Cell> Open;
-    private List<Cell> Closed;
+    private List<Node> Open;
+    private List<Node> Closed;
 
-    private Cell current;
-    private Cell start;
-    private Cell target;
+    private Node current;
+    private Node start;
+    private Node target;
 
     private void Awake()
     {

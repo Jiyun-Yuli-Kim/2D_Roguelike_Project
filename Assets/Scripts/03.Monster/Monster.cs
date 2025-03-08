@@ -46,6 +46,7 @@ public abstract class Monster : MonoBehaviour
         {
             _spriteRenderer.flipX = true;
         }
+        
         else if (_rb.velocity.x > 0.3)
         {
             _spriteRenderer.flipX = false;
@@ -93,7 +94,6 @@ public abstract class Monster : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
-            Debug.Log("몬스터 피격");
             _anim.SetTrigger("Hit");
             _monsterHP-=collision.gameObject.GetComponent<Bullet>().bulletDamage;
         }

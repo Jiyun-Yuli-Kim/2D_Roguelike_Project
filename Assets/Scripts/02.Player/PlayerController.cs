@@ -25,9 +25,7 @@ public class PlayerController : MonoBehaviour
     }
     
     public BulletLauncher launcher;
-
-    // public Action OnPlayerSpawned;
-
+    
     private void Awake() => Init();
 
     void FixedUpdate()
@@ -49,16 +47,16 @@ public class PlayerController : MonoBehaviour
         _playerAnimator.SetFloat("MoveY", _rb.velocity.y);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("MonsterBullet"))
-        {
-            TakeDamage(1);
-            
-            //playerHP--;
-            // 피격 애니메이션 또는 이펙트 추가
-        }
-    }
+    // private void OnCollisionEnter2D(Collision2D collision)
+    // {
+    //     if (collision.gameObject.CompareTag("MonsterBullet"))
+    //     {
+    //         TakeDamage(1);
+    //         
+    //         //playerHP--;
+    //         // 피격 애니메이션 또는 이펙트 추가
+    //     }
+    // }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -125,9 +123,6 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerCharacterDie()
     {
-        //_playerAnimator.SetTrigger("Diee");
-            
-        // TODO: TestCode_KimJaeSeong
         _playerAnimator.SetBool("Die", true);
     }
     

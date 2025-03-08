@@ -11,7 +11,6 @@ public class Bat : Monster
     {
         if (!_isAttacking)
         {
-            Debug.Log("박쥐 공격!");
             StartCoroutine(AttackCoroutine());
         }
     }

@@ -7,7 +7,9 @@ public class StageDataSetter : MonoBehaviour
     private int StageCount;
     public StageData[] stageDatas;
     public StageData curStageData;
-
+    
+    
+    
     //public int stageNo;
     //public string stageName;
     //public RuleTile stageRuletile;

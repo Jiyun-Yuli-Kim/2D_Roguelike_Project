@@ -54,9 +54,9 @@ public class MapGenerator : MonoBehaviour
         // _mapSize = new Vector2Int(90, 60);
         FillBG();
         FillMinimapBG(); // 렌더링할 미니맵
-        Node RootNode = new Node(new RectInt(-_mapSize.x / 2, -_mapSize.y / 2, _mapSize.x, _mapSize.y));
+        BSPNode rootBspNode = new BSPNode(new RectInt(-_mapSize.x / 2, -_mapSize.y / 2, _mapSize.x, _mapSize.y));
         // DrawRootNode();
-        SplitNode(RootNode, 0);
+        SplitNode(rootBspNode, 0);
         // 각 방에 대해 스폰할 몬스터 개수 설정
         // 방 생성 완료 후 실행될 로직이므로 일단 여기...
         // GameManager.Instance.setter.SetMonsterCount();
@@ -74,19 +74,19 @@ public class MapGenerator : MonoBehaviour
     //    _lineRenderer.SetPosition(3, new Vector2(_mapSize.x, 0) - _mapSize / 2); // 오른쪽 아래
     //}
 
-    private void SplitNode(Node node, int depth)
+    private void SplitNode(BSPNode bspNode, int depth)
     {
         //var lineRenderer = Instantiate(_line).GetComponent<LineRenderer>();
         //lineRenderer.useWorldSpace = true;
 
         bool isVerticallyCut = Random.value > 0.5f; // 기본적으로는 자르는 방향을 랜덤하게
 
-        if (node.nodeRect.width / node.nodeRect.height > _divideRate) // 가로/세로 비가 특정 비율 이상이면 가로로 자르기
+        if (bspNode.nodeRect.width / bspNode.nodeRect.height > _divideRate) // 가로/세로 비가 특정 비율 이상이면 가로로 자르기
         {
             isVerticallyCut = false;
         }
 
-        else if (node.nodeRect.height / node.nodeRect.width > _divideRate) // 세로/가로 비가 특정 비율 이상이면 세로로 자르기
+        else if (bspNode.nodeRect.height / bspNode.nodeRect.width > _divideRate) // 세로/가로 비가 특정 비율 이상이면 세로로 자르기
         {
             isVerticallyCut = true;
         }
@@ -99,9 +99,9 @@ public class MapGenerator : MonoBehaviour
                 return;
             }
 
-            node._isHorizontalCut = true;
-            int height = node.nodeRect.height;
-            int width = node.nodeRect.width;
+            bspNode._isHorizontalCut = true;
+            int height = bspNode.nodeRect.height;
+            int width = bspNode.nodeRect.width;
             int split = Mathf.RoundToInt(height * Random.Range(_minRate, _maxRate));
 
             //lineRenderer.positionCount = 2;
@@ -109,10 +109,10 @@ public class MapGenerator : MonoBehaviour
             //lineRenderer.SetPosition(1, new Vector3(node.nodeRect.xMin + width, node.nodeRect.yMin + split, 0));
 
             // 자식 노드 생성 및 현재 노드를 부모노드로 설정
-            node.node1 = new Node(new RectInt(node.nodeRect.xMin, node.nodeRect.yMin + split, width, height - split));
-            node.node2 = new Node(new RectInt(node.nodeRect.xMin, node.nodeRect.yMin, width, split));
-            node.node1.parNode = node;
-            node.node2.parNode = node;
+            bspNode.node1 = new BSPNode(new RectInt(bspNode.nodeRect.xMin, bspNode.nodeRect.yMin + split, width, height - split));
+            bspNode.node2 = new BSPNode(new RectInt(bspNode.nodeRect.xMin, bspNode.nodeRect.yMin, width, split));
+            bspNode.node1.ParBspNode = bspNode;
+            bspNode.node2.ParBspNode = bspNode;
 
             // 현재 노드가 리프 노드인지 확인하고, 리프노드라면 방 생성
             if (depth == _maxDepth)
@@ -120,18 +120,18 @@ public class MapGenerator : MonoBehaviour
                 // Debug.Log($"노드 중심 : {node.nodeCenter.x}, {node.nodeCenter.y}");
 
                 // 노드의 높이나 너비가 최소 기준보다 작으면 방 생성 건너뛰기
-                if (node.nodeRect.width < _minAreaWidth + 2 || node.nodeRect.height < _minAreaHeight +3)
+                if (bspNode.nodeRect.width < _minAreaWidth + 2 || bspNode.nodeRect.height < _minAreaHeight +3)
                 {
-                    node = null;
+                    bspNode = null;
                     return;
                 }
 
-                GenerateRoom(node);
+                GenerateRoom(bspNode);
                 // DrawLine(node.nodeCenter, node.parNode.nodeCenter);
 
-                node._hasRoom = true;
+                bspNode._hasRoom = true;
 
-                if (node.parNode.node1._hasRoom && node.parNode.node2._hasRoom)
+                if (bspNode.ParBspNode.node1._hasRoom && bspNode.ParBspNode.node2._hasRoom)
                 {
                     // DrawLine(node.parNode.node1.nodeCenter, node.parNode.node2.nodeCenter);
                     return;
@@ -145,8 +145,8 @@ public class MapGenerator : MonoBehaviour
             //    DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
             //}
 
-            SplitNode(node.node1, depth + 1);
-            SplitNode(node.node2, depth + 1);
+            SplitNode(bspNode.node1, depth + 1);
+            SplitNode(bspNode.node2, depth + 1);
         }
 
 
@@ -157,18 +157,18 @@ public class MapGenerator : MonoBehaviour
             {
                 return;
             }
-            node._isHorizontalCut = false;
-            int width = node.nodeRect.width;
-            int height = node.nodeRect.height;
+            bspNode._isHorizontalCut = false;
+            int width = bspNode.nodeRect.width;
+            int height = bspNode.nodeRect.height;
             int split = Mathf.RoundToInt(width * Random.Range(_minRate, _maxRate));
 
             //lineRenderer.positionCount = 2;
             //lineRenderer.SetPosition(0, new Vector3(node.nodeRect.xMin + split, node.nodeRect.yMin, 0));
             //lineRenderer.SetPosition(1, new Vector3(node.nodeRect.xMin + split, node.nodeRect.yMin + height, 0));
-            node.node1 = new Node(new RectInt(node.nodeRect.xMin, node.nodeRect.yMin, split, height));
-            node.node2 = new Node(new RectInt(node.nodeRect.xMin + split, node.nodeRect.yMin, width - split, height));
-            node.node1.parNode = node;
-            node.node2.parNode = node;
+            bspNode.node1 = new BSPNode(new RectInt(bspNode.nodeRect.xMin, bspNode.nodeRect.yMin, split, height));
+            bspNode.node2 = new BSPNode(new RectInt(bspNode.nodeRect.xMin + split, bspNode.nodeRect.yMin, width - split, height));
+            bspNode.node1.ParBspNode = bspNode;
+            bspNode.node2.ParBspNode = bspNode;
 
             // 현재 노드가 리프 노드인지 확인하고, 리프노드라면 방 생성
             if (depth == _maxDepth)
@@ -176,18 +176,18 @@ public class MapGenerator : MonoBehaviour
                 //Debug.Log($"노드 중심 : {node.nodeCenter.x}, {node.nodeCenter.y}");
 
                 // 노드의 높이나 너비가 최소 기준보다 작으면 방 생성 건너뛰기
-                if (node.nodeRect.width < _minAreaWidth + 2 || node.nodeRect.height < _minAreaHeight + 3)
+                if (bspNode.nodeRect.width < _minAreaWidth + 2 || bspNode.nodeRect.height < _minAreaHeight + 3)
                 {
-                    node = null;
+                    bspNode = null;
                     return;
                 }
 
-                GenerateRoom(node);
+                GenerateRoom(bspNode);
                 // DrawLine(node.nodeCenter, node.parNode.nodeCenter);
 
-                node._hasRoom = true;
+                bspNode._hasRoom = true;
 
-                if (node.parNode.node1._hasRoom && node.parNode.node2._hasRoom)
+                if (bspNode.ParBspNode.node1._hasRoom && bspNode.ParBspNode.node2._hasRoom)
                 {
                     // DrawLine(node.parNode.node1.nodeCenter, node.parNode.node2.nodeCenter);
                     return;
@@ -201,8 +201,8 @@ public class MapGenerator : MonoBehaviour
             //    DrawLine(node.node1.nodeCenter, node.node2.nodeCenter);
             //}
 
-            SplitNode(node.node1, depth + 1);
-            SplitNode(node.node2, depth + 1);
+            SplitNode(bspNode.node1, depth + 1);
+            SplitNode(bspNode.node2, depth + 1);
 
         }
     }
@@ -218,18 +218,18 @@ public class MapGenerator : MonoBehaviour
     //  3) 노드센터를 기준으로 (x-w/2, y-h/2)가 룸의 RectInt의 xMin, yMin이 된다
 
     // 노드 안에 방을 생성한다.
-    private void GenerateRoom(Node node)
+    private void GenerateRoom(BSPNode bspNode)
     {
         //Debug.Log("RoomGen");
 
-        node.room = new Room();
+        bspNode.room = new Room();
 
-        int roomWidth = Mathf.RoundToInt(node.nodeRect.width * Random.Range(_roomMinRate, _roomMaxRate));
+        int roomWidth = Mathf.RoundToInt(bspNode.nodeRect.width * Random.Range(_roomMinRate, _roomMaxRate));
         if (roomWidth < _minAreaWidth)
         {
             roomWidth = _minAreaWidth; // 방의 최소 너비 보장
         }
-        int roomHeight = Mathf.RoundToInt(node.nodeRect.height * Random.Range(_roomMinRate, _roomMaxRate));
+        int roomHeight = Mathf.RoundToInt(bspNode.nodeRect.height * Random.Range(_roomMinRate, _roomMaxRate));
         if (roomHeight < _minAreaHeight)
         {
             roomHeight = _minAreaHeight; // 방의 최소 높이 보장
@@ -238,25 +238,25 @@ public class MapGenerator : MonoBehaviour
         // roomRect의 xMin과 yMin값을 현재는 nodeCenter에서 roomw/2, roomh/2 만큼을 빼주고 있다.
         // 모든 룸이 가운데 정렬되어 단조로워보인다는 단점이 있다.
         // 이에, 방의 시작 좌표에 랜덤성을 부여하고자 한다.
-        int roomX = Mathf.RoundToInt(Random.Range(node.nodeRect.xMin + 1,
-            node.nodeRect.xMin + node.nodeRect.width - roomWidth - 1));
-        int roomY = Mathf.RoundToInt(Random.Range(node.nodeRect.yMin + 1,
-            node.nodeRect.yMin + node.nodeRect.height - roomHeight - 1));
+        int roomX = Mathf.RoundToInt(Random.Range(bspNode.nodeRect.xMin + 1,
+            bspNode.nodeRect.xMin + bspNode.nodeRect.width - roomWidth - 1));
+        int roomY = Mathf.RoundToInt(Random.Range(bspNode.nodeRect.yMin + 1,
+            bspNode.nodeRect.yMin + bspNode.nodeRect.height - roomHeight - 1));
 
-        node.room.roomRect = new RectInt(roomX, roomY, roomWidth, roomHeight);
-        node.room.SetCenter();
+        bspNode.room.roomRect = new RectInt(roomX, roomY, roomWidth, roomHeight);
+        bspNode.room.SetCenter();
         //Debug.Log($"방 중심 : {node.room.roomCenter.x}, {node.room.roomCenter.y}");
-        node.room.CreateSpawnArea();
+        bspNode.room.CreateSpawnArea();
 
         //Debug.Log($"시작점 x좌표 : {node.room.roomRect.xMin}, 시작점 y좌표 : {node.room.roomRect.xMin}," +
         //    $"너비 : {node.room.roomRect.width}, 높이 : {node.room.roomRect.height}");
 
         // 현재 스테이지 내의 방 개수를 확인하기 위함
-        GameManager.Instance.setter.curStageData.stageRoomList.Add(node.room);
+        GameManager.Instance.setter.curStageData.stageRoomList.Add(bspNode.room);
         GameManager.Instance.setter.curStageData.stageRoomCount++;
 
-        DrawRoom(node);
-        DrawMinimapRoom(node);
+        DrawRoom(bspNode);
+        DrawMinimapRoom(bspNode);
 
     }
 
@@ -272,7 +272,7 @@ public class MapGenerator : MonoBehaviour
     //     DrawCorridor(node.node2, depth + 1);
     // }
 
-    private void DrawRoom(Node node)
+    private void DrawRoom(BSPNode bspNode)
     {
         // var lineRenderer = Instantiate(_roomLine).GetComponent<LineRenderer>();
         // lineRenderer.useWorldSpace = true; // 빼먹지 말자
@@ -283,9 +283,9 @@ public class MapGenerator : MonoBehaviour
         // lineRenderer.SetPosition(2, new Vector3(node.roomRect.xMin + node.roomRect.width, node.roomRect.yMin + node.roomRect.height, 0)); // 오른쪽 위
         // lineRenderer.SetPosition(3, new Vector3(node.roomRect.xMin + node.roomRect.width, node.roomRect.yMin, 0)); // 오른쪽 아래
 
-        for (int x = node.room.roomRect.xMin; x < node.room.roomRect.xMin + node.room.roomRect.width; x++)
+        for (int x = bspNode.room.roomRect.xMin; x < bspNode.room.roomRect.xMin + bspNode.room.roomRect.width; x++)
         {
-            for (int y = node.room.roomRect.yMin; y < node.room.roomRect.yMin + node.room.roomRect.height; y++)
+            for (int y = bspNode.room.roomRect.yMin; y < bspNode.room.roomRect.yMin + bspNode.room.roomRect.height; y++)
             {
                 _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
             }
@@ -449,11 +449,11 @@ public class MapGenerator : MonoBehaviour
         }
     }
     
-    private void DrawMinimapRoom(Node node)
+    private void DrawMinimapRoom(BSPNode bspNode)
     {
-        for (int x = node.room.roomRect.xMin; x < node.room.roomRect.xMin + node.room.roomRect.width; x++)
+        for (int x = bspNode.room.roomRect.xMin; x < bspNode.room.roomRect.xMin + bspNode.room.roomRect.width; x++)
         {
-            for (int y = node.room.roomRect.yMin; y < node.room.roomRect.yMin + node.room.roomRect.height; y++)
+            for (int y = bspNode.room.roomRect.yMin; y < bspNode.room.roomRect.yMin + bspNode.room.roomRect.height; y++)
             {
                 _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
             }

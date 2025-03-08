@@ -30,7 +30,7 @@ public class MonsterBullet : MonoBehaviour
         
         if (_coll.gameObject.CompareTag("Player"))
         {
-            // 피격 판정은 플레이어 자체에서?
+            _coll.gameObject.GetComponent<PlayerController>().TakeDamage(1);
         }
         
         Destroy(gameObject);

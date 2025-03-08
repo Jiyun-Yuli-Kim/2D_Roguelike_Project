@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    public void Init() // 스테이지 변경시마다 시행하는 로직
-    {
+    // public void Init() // 스테이지 변경시마다 시행하는 로직
+    // {
         // {
         //     generator = FindAnyObjectByType<MapGenerator>();
         //     Debug.Log($"Find Generator : {generator}");
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
             // spawner.SpawnPlayerAndGoal(setter.curStageData.stageRoomList); // 플레이어 및 목적지 스폰
             // camController.SetSubject(); // 카메라 추적 대상 설정
         // }
-    }
+    // }
 
     public void Reset() // 테스트용 임시함수
     {
@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         // fake loading
-        StartCoroutine(LoadGame());
+        StartCoroutine(Init());
     }
 
     public void LoadScene(int sceneNumber)
@@ -75,15 +75,14 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneNumber);
     }
 
-    private IEnumerator LoadGame()
+    private IEnumerator Init()
     {
         yield return new WaitForSeconds(0.3f);
         
         generator.Init(); // 방 생성
         yield return null;
         
-        spawner.SpawnMonster(setter.curStageData.stageRoomList); // 몬스터 스폰
-        spawner.SpawnPlayerAndGoal(setter.curStageData.stageRoomList); // 플레이어 및 목적지 스폰
+        spawner.Init(setter.curStageData.stageRoomList); // 몬스터, 플레이어, 아이템 스폰
         yield return null;
         
         camController.SetSubject(); // 카메라 추적 대상 설정 
