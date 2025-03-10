@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using UnityEngine.PlayerLoop;
 
-public class CamController : MonoBehaviour
+public class CamController : MonoBehaviour, IInitializable
 {
     [SerializeField] private CinemachineVirtualCamera[] cameras;
 
@@ -18,6 +18,11 @@ public class CamController : MonoBehaviour
         // Init();
     }
 
+    public void SceneInitialize()
+    {
+        Init();
+    }
+
     public void Init()
     {
         SetSubject(); // 카메라 추적 대상 설정
@@ -27,7 +32,6 @@ public class CamController : MonoBehaviour
     {
         cameras[0].Follow = GameManager.Instance.spawner.player.transform;
         cameras[0].LookAt = GameManager.Instance.spawner.player.transform;
-
     }
 
     public void PlayerCamOn()

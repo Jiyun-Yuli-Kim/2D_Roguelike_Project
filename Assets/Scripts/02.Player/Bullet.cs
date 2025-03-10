@@ -36,12 +36,7 @@ public class Bullet : MonoBehaviour
         bulletAnimator.SetTrigger("OnDestroy");
         yield return new WaitForSeconds(0.2f);
 
-        if (_coll.gameObject.CompareTag("Wall"))
-        {
-            bulletPool.Return(this);
-            target = null;
-        }
-        if (_coll.gameObject.CompareTag("Enemy"))
+        if (_coll.gameObject.CompareTag("Wall") || _coll.gameObject.CompareTag("Enemy"))
         {
             bulletPool.Return(this);
             target = null;

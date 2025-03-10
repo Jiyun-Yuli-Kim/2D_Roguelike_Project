@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 7308049454016897085, guid: 865d1bf7c170443498f1e338f2974eff, type: 3}
   - {fileID: 7579181095600648745, guid: 3b4a09e4c9c5afc45965d373ca270e00, type: 3}
   - {fileID: 7240002122602400230, guid: 9e01217f1a321df46b4bba2bbb373556, type: 3}
-  playerPrefab: {fileID: 3252823958456674869, guid: 6e5869ef0f27f994c84df16042dbc472, type: 3}
+  playerPrefab: {fileID: 513035378002054632, guid: 6e5869ef0f27f994c84df16042dbc472, type: 3}
   player: {fileID: 0}
   goalPrefab: {fileID: 7536436971599327217, guid: 82952ff924df8b54c977a8065588795a, type: 3}
+  keyPrefab: {fileID: 1644103327441479720, guid: 0bd8d1486d6ef49f3b67a2c8151ed11b, type: 3}

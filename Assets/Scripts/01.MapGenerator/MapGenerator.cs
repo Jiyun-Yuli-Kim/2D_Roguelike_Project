@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
-public class MapGenerator : MonoBehaviour
+public class MapGenerator : MonoBehaviour, IInitializable
 {
     [SerializeField] Vector2Int _mapSize; // 기본 맵 사이즈
     [SerializeField] int _maxDepth; // 트리의 높이
@@ -484,6 +484,13 @@ public class MapGenerator : MonoBehaviour
                 _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
             }
         }
+    }
+    
+    //TODO : KimJaeSeong -> 초기화 관련 인터페이스 추가
+    public void SceneInitialize()
+    {
+        GenerateMap(); // 방 생성
+        GenerateCorridor(GameManager.Instance.setter.curStageData.stageRoomList); // 복도 생성
     }
 }
  

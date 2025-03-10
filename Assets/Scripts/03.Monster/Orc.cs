@@ -16,7 +16,7 @@ public class Orc : Monster
     {
         _isAttacking = true;
         _anim.SetTrigger("Attack");
-        _player.playerHP--;
+        _player.TakeDamage(1);
         yield return new WaitForSeconds(_attackCoolTime);
         _isAttacking = false;
     }

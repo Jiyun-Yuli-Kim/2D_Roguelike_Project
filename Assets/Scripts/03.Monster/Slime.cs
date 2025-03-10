@@ -20,7 +20,6 @@ public class Slime : Monster
         _isAttacking = true;
         _anim.SetTrigger("Attack");
         var bullet = Instantiate(_monBullet, transform.position, Quaternion.identity);
-        Debug.Log(bullet);
         bullet.GetComponent<MonsterBullet>().Shoot(_player.transform.position);
         yield return new WaitForSeconds(_attackCoolTime);
         _isAttacking = false;

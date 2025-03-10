@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class Spawner : MonoBehaviour, IInitializable
 {
     public List<GameObject> monPatternList;
     private List<GameObject> monSpawnList = new();
-    public GameObject playerPrefab;
-    public GameObject player;
+    public PlayerController playerPrefab;
+    public PlayerController player;
     public GameObject goalPrefab;
     private GameObject goal;
     public GameObject keyPrefab;
@@ -24,17 +24,23 @@ public class Spawner : MonoBehaviour
         // Init();
     }
 
+    public void SceneInitialize()
+    {
+        Init(GameManager.Instance.setter.curStageData.stageRoomList);
+    }
+
     public void Init(List<Room> rooms)
     {
-        SpawnPlayer(rooms); // 플레이어 스폰
+        GameManager.Instance.player = SpawnPlayer(rooms); // 플레이어 스폰
         SpawnGoal(rooms); // 목적지 스폰
         SpawnMonster(rooms); // 몬스터 스폰
         SpawnKey(rooms); // 열쇠 스폰
     }
-
-    public void SpawnPlayer(List<Room> rooms)
+    
+    public PlayerController SpawnPlayer(List<Room> rooms)
     {
         player = Instantiate(playerPrefab, new Vector3(rooms[0].roomCenter.x+0.35f, rooms[0].roomCenter.y, 0), Quaternion.Euler(0, 0, 0));
+        return player;
     }
     
     public void SpawnGoal(List<Room> rooms)
@@ -78,7 +84,7 @@ public class Spawner : MonoBehaviour
 
     public void DestroyPlayerAndGoal()
     {
-        Destroy(player);
+        Destroy(player.gameObject);
         Destroy(goal);
     }
 

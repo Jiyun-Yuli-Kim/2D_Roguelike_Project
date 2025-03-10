@@ -9,7 +9,7 @@ public class BulletLauncher : MonoBehaviour
     private Vector3 targetPos; //불렛 목표 위치
     public string curSkillName;
 
-    public float attackRange = 55;
+    public float attackRange = 65;
     public float coolTime; // 총알 발사 후 쿨타임 측정 
     public GameObject bulletPrefab;
 
@@ -90,15 +90,16 @@ public class BulletLauncher : MonoBehaviour
 
         targetPos = SetMousePos(); // 마우스 현재 위치를 월드좌표로 가져옴
         Vector3 attackDir = targetPos - _player.transform.position; // 플레이어 기준 공격 방향
-        _player.transform.LookAt(targetPos);
-        // float curAngle = Vector3.SignedAngle(_player.orientation, attackDir, _player.orientation);
+        
+        
+        float curAngle = Vector3.SignedAngle(_player.orientation, attackDir, _player.orientation);
 
         // 각도를 계산해서 공격범위 밖의 입력은 무시
-        // if (curAngle > attackRange)
-        // {
-        //     Debug.Log("공격범위 밖입니다.");
-        //     return;
-        // }
+        if (curAngle > attackRange)
+        {
+            Debug.Log("공격범위 밖입니다.");
+            return;
+        }
 
         coolTime = 0;
         Bullet bullet = bulletPool.Get();

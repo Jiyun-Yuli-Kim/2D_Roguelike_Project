@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneTemplate;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Timeline;
@@ -13,20 +14,25 @@ public class PlayerController : MonoBehaviour
     public Vector3 moveDirection { get; private set; }
     public Vector3 orientation { get; private set; }
 
-    [SerializeField] private int _playerHP;
-    public int playerHP
-    {
-        get => _playerHP;
-        set
-        {
-            _playerHP = value;
-            CheckHelthPoint();
-        }
-    }
+    [SerializeField] private int _maxHp = 10;
+    public ObservableProperty<int> PlayerHP;
     
     public BulletLauncher launcher;
     
     private void Awake() => Init();
+
+    private void OnEnable()
+    {
+        GameManager.Instance.player = this;
+        PlayerHP.Value = 10;
+        PlayerHP.Subscribe(CheckPlayerHP);
+    }
+    
+    private void OnDisable()
+    {
+        GameManager.Instance.player = null;
+        PlayerHP.Unsubscribe(CheckPlayerHP);
+    }
 
     void FixedUpdate()
     {
@@ -116,15 +122,15 @@ public class PlayerController : MonoBehaviour
         // 애니메이션 변경
     }
 
-    // TODO: 플레이어가 피격됐을 때, 몬스터가 이 함수를 호출해서 직접 데미지를 주도록 로직 개선
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage)  // Monster에서 호출됨
     {
-        playerHP -= damage;
+        PlayerHP.Value -= damage;
+        // Debug.Log(PlayerHP.Value);
     }
 
-    private void CheckHelthPoint()
+    private void CheckPlayerHP(int hp)
     {
-        if (playerHP <= 0)
+        if (PlayerHP.Value <= 0)
         {
             PlayerCharacterDie();
         }
@@ -144,5 +150,6 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _playerAnimator = GetComponent<Animator>();
         orientation = new Vector3(0, -1, 0);
+        PlayerHP = new ObservableProperty<int>(_maxHp);
     }
 }

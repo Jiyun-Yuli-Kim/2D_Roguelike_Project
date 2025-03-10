@@ -18,6 +18,8 @@ public abstract class Monster : MonoBehaviour
     protected bool _isFollowing;
     protected bool _isAttacking;
     protected PlayerController _player;
+    
+    // protected InGameUI _ui;
 
     protected SpriteRenderer _spriteRenderer;
 
@@ -33,7 +35,12 @@ public abstract class Monster : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.Instance.setter.curStageData.stageMonsterCount++;
+        GameManager.Instance.setter.MonsterCount.Value++;
+    }
+    
+    private void OnDisable()
+    {
+        GameManager.Instance.setter.MonsterCount.Value--;
     }
 
     private void Start()
