@@ -36,11 +36,13 @@ public abstract class Monster : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.setter.MonsterCount.Value++;
+        Debug.Log(GameManager.Instance.setter.MonsterCount.Value);
     }
     
     private void OnDisable()
     {
         GameManager.Instance.setter.MonsterCount.Value--;
+        Debug.Log(GameManager.Instance.setter.MonsterCount.Value);
     }
 
     private void Start()

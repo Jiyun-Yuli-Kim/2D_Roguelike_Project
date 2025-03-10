@@ -24,6 +24,9 @@ public class InGameUI : MonoBehaviour, IInitializable
     {
         _stageDataSetter = GameManager.Instance.setter;
         _player = GameManager.Instance.player;
+        SetMonsterCountUI(_stageDataSetter.MonsterCount.Value);
+        SetKeyCountUI(_stageDataSetter.KeyCount.Value);
+
         SubscribeEvents();
     }
 

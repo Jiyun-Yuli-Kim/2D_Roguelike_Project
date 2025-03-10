@@ -44,7 +44,7 @@ public class LifeUI : MonoBehaviour, IInitializable
     {
         _heartCount = value / 2;
         _halfHeartCount = value % 2;
-        Debug.Log($"heart : {_heartCount}, halfheart : {_halfHeartCount}");
+        // Debug.Log($"heart : {_heartCount}, halfheart : {_halfHeartCount}");
         SetLifeUI(_heartCount, _halfHeartCount);
     }
 
@@ -66,12 +66,6 @@ public class LifeUI : MonoBehaviour, IInitializable
         }
     }
     
-    // hp = 5일 때,
-    // 5/2 = 2개의 하트 활성화
-    // 5%2 = 1개의 반쪽하트 활성화
-    // 5/2 = 2개의 빈칸 활성화
-    
-
     private void OnPlayerHPChanged(int value)
     {
         if (value < 0)

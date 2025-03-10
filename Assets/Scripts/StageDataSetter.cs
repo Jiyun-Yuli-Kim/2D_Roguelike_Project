@@ -48,12 +48,7 @@ public class StageDataSetter : MonoBehaviour, IInitializable
         curStageData.stageMonsterCount = 0;
         curStageData.stageKeyCount = 3;
     }
-
-    public void SubMonsterValue()
-    {
-        curStageData.stageMonsterCount--;
-    }
-    
+   
     // //TODO : TestCode
     // private void Update()
     // {

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPickupable
 {
-    public void OnPickup(BulletLauncher launcher);
+    public void OnPickup(PlayerController player);
 }
