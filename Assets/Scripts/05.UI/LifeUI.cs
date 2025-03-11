@@ -7,48 +7,42 @@ using UnityEngine.Events;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
-public class LifeUI : MonoBehaviour, IInitializable
+public class LifeUI : MonoBehaviour
 {
     [SerializeField] private Image[] hearts; 
     
     private PlayerController _player; 
-    private int _heartCount;
-    private int _halfHeartCount;
 
     [SerializeField] private Sprite  _fullHeartImage;
     [SerializeField] private Sprite  _halfHeartImage;
     [SerializeField] private Sprite  _emptyHeartImage;
-    
-    private void Start()
-    {
-    }
 
     private void OnEnable()
     {
-        Init();
+        // if (_player != null)
+        // {
+        //     _player.PlayerHP.Subscribe(OnPlayerHPChanged);
+        // }
     }
 
     private void OnDisable()
     {
-        _player.PlayerHP.Unsubscribe(OnPlayerHPChanged);
+        // _player.PlayerHP.Unsubscribe(OnPlayerHPChanged);
     }
 
-    public void SceneInitialize()
-    {
-        _player = GameManager.Instance.player;
-        _player.PlayerHP.Subscribe(OnPlayerHPChanged);
-        Debug.Log(_player);
-    }
+    // public void Init()
+    // {
+    // }
 
     public void SetLife(int value)
     {
-        _heartCount = value / 2;
-        _halfHeartCount = value % 2;
-        // Debug.Log($"heart : {_heartCount}, halfheart : {_halfHeartCount}");
-        SetLifeUI(_heartCount, _halfHeartCount);
+        int _heartCount = value / 2;
+        bool _hasHalfHeart = (value % 2==1);
+        Debug.Log($"heart : {_heartCount}, halfheart : {_hasHalfHeart}");
+        SetLifeUI(_heartCount, _hasHalfHeart);
     }
 
-    private void SetLifeUI(int heartCount, int halfHeartCount)
+    private void SetLifeUI(int heartCount, bool hasHalfHeart)
     {
         for (int i = 0; i < heartCount; i++)
         {
@@ -59,14 +53,14 @@ public class LifeUI : MonoBehaviour, IInitializable
         {
             hearts[i].sprite = _emptyHeartImage;
         }
-        
-        if (halfHeartCount == 1)
+
+        if (hasHalfHeart)
         {
             hearts[heartCount].sprite = _halfHeartImage;
         }
     }
     
-    private void OnPlayerHPChanged(int value)
+    public void OnPlayerHPChanged(int value)
     {
         if (value < 0)
         {
@@ -76,11 +70,11 @@ public class LifeUI : MonoBehaviour, IInitializable
         SetLife(value);
     }
 
-    void Init()
-    {
-        foreach (var heart in hearts)
-        {
-            heart.sprite = _fullHeartImage;   
-        }
-    }
+    // void Init()
+    // {
+    //     foreach (var heart in hearts)
+    //     {
+    //         heart.sprite = _fullHeartImage;   
+    //     }
+    // }
 }

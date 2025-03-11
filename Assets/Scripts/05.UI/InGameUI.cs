@@ -13,6 +13,7 @@ public class InGameUI : MonoBehaviour, IInitializable
     [SerializeField] private TextMeshProUGUI _keyCount;
 
     [SerializeField] private StageDataSetter _stageDataSetter;
+    [SerializeField] private LifeUI _lifeUI;
 
     // 플레이어 체력
     private PlayerController _player;
@@ -40,7 +41,7 @@ public class InGameUI : MonoBehaviour, IInitializable
 
         if (_player != null)
         {
-            
+            _player.PlayerHP.Subscribe(_lifeUI.OnPlayerHPChanged);
         }
     }
 
@@ -48,9 +49,9 @@ public class InGameUI : MonoBehaviour, IInitializable
     {
         _stageDataSetter.MonsterCount.Unsubscribe(SetMonsterCountUI);
         _stageDataSetter.KeyCount.Unsubscribe(SetKeyCountUI);
+        _player.PlayerHP.Unsubscribe(_lifeUI.OnPlayerHPChanged);
     }
-
-
+    
     public void SetMonsterCountUI(int value)
     {
         _monsterCount.text = value.ToString();

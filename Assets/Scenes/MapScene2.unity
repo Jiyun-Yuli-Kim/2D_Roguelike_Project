@@ -256,7 +256,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 13 / 50
+  m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4d2923f2cbcc1430fa8bcc3e41576cc9, type: 2}
   m_sharedMaterial: {fileID: 1523384116353718733, guid: 4d2923f2cbcc1430fa8bcc3e41576cc9, type: 2}
@@ -2294,6 +2294,7 @@ MonoBehaviour:
   _monsterCount: {fileID: 1719746446}
   _keyCount: {fileID: 55429748}
   _stageDataSetter: {fileID: 0}
+  _lifeUI: {fileID: 444809188}
 --- !u!224 &774764168
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4331,7 +4332,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 13 / 50
+  m_text: 50
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4d2923f2cbcc1430fa8bcc3e41576cc9, type: 2}
   m_sharedMaterial: {fileID: 1523384116353718733, guid: 4d2923f2cbcc1430fa8bcc3e41576cc9, type: 2}
