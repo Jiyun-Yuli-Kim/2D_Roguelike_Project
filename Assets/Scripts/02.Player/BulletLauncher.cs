@@ -112,7 +112,6 @@ public class BulletLauncher : MonoBehaviour
             if (monsters.Length > 0) 
             {
                 bullet.target = GetNearestMonster(monsters).GetComponent<Monster>(); // 범위 내에 적이 있을 시, 마우스와 가장 가까운 적을 타겟으로 설정
-                Debug.Log(bullet.target);
             }
         }
         

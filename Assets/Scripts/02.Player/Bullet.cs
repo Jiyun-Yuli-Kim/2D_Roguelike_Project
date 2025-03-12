@@ -25,21 +25,22 @@ public class Bullet : MonoBehaviour
         bulletAnimator = GetComponent<Animator>();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision) // 어딘가에 충돌했을 때 반드시 불렛 반납
     {
         _coll = collision;
+        target = null;
+
         StartCoroutine(ReturnBullet());
     }
 
     private IEnumerator ReturnBullet()
     {
         bulletAnimator.SetTrigger("OnDestroy");
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
-        if (_coll.gameObject.CompareTag("Wall") || _coll.gameObject.CompareTag("Enemy"))
+        if (_coll!=null && (_coll.gameObject.CompareTag("Wall") || _coll.gameObject.CompareTag("Enemy")))
         {
             bulletPool.Return(this);
-            target = null;
         }
     }
 

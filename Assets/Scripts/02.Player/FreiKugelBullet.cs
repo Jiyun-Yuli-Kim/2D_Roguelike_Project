@@ -43,11 +43,19 @@ public class FreiKugelBullet : Bullet
     {
         _curTime = 0;
     }
-    
-    
+
+
     public override void ToTarget(Vector3 origin, Vector3 mousePos)
     {
-        StartCoroutine(SetBulletPos(origin, mousePos));
+        if (target == null)
+        {
+            _rb.velocity = mousePos.normalized * bulletSpeed;
+        }
+
+        else if (target != null)
+        {
+            StartCoroutine(SetBulletPos(origin, mousePos));
+        }
     }
 
     private IEnumerator SetBulletPos(Vector3 origin, Vector3 mousePos)
@@ -58,7 +66,7 @@ public class FreiKugelBullet : Bullet
         
         yield return new WaitForSeconds(_estTime/3);
         
-        while (_isActive)
+        while (_isActive&&target!=null)
         {
             Vector3 targetDir = (target.transform.position - this.transform.position).normalized;
             Vector3 straightDir = (target.transform.position - origin).normalized;

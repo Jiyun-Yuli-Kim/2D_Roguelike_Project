@@ -12,6 +12,15 @@ public abstract class Monster : MonoBehaviour
 
     [SerializeField] protected float _attackCoolTime;
     [SerializeField] protected float _monsterHP;
+    public float MonsterHP
+    {
+        get => _monsterHP;
+        set
+        {
+            _monsterHP = value;
+            CheckMonsterHP();
+        }
+    }
 
     protected Rigidbody2D _rb;
     protected Collider2D _col;
@@ -36,13 +45,11 @@ public abstract class Monster : MonoBehaviour
     private void OnEnable()
     {
         GameManager.Instance.setter.MonsterCount.Value++;
-        // Debug.Log(GameManager.Instance.setter.MonsterCount.Value);
     }
     
     private void OnDisable()
     {
         GameManager.Instance.setter.MonsterCount.Value--;
-        // Debug.Log(GameManager.Instance.setter.MonsterCount.Value);
     }
 
     private void Start()
@@ -52,32 +59,9 @@ public abstract class Monster : MonoBehaviour
 
     private void Update()
     {
-        if (_monsterHP <= 0)
-        {
-            _anim.SetTrigger("Hit");
-            Destroy(gameObject);
-        }
-
-        if (_rb.velocity.x < -0.3)
-        {
-            _spriteRenderer.flipX = true;
-        }
-        
-        else if (_rb.velocity.x > 0.3)
-        {
-            _spriteRenderer.flipX = false;
-        }
-
-        if (HasParameter(_anim, "Speed"))
-        {
-            _anim.SetFloat("Speed", _rb.velocity.magnitude);
-        }
-
-        if (_isFollowing)
-        { 
-            Vector3 dir = (_player.transform.position - transform.position).normalized;
-            _rb.velocity = dir * _followSpeed;
-        }
+        SetSpriteDirection();
+        SetAnimSpeed();
+        FollowPlayer();
         
         if(_player != null &&
            (transform.position - _player.transform.position).magnitude < _attackRange)
@@ -106,12 +90,13 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
+    // ToDo: 몬스터가 피격 당했을때 어떻게 처리해야 유도탄 로직과 연동될지
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("PlayerBullet"))
         {
             _anim.SetTrigger("Hit");
-            _monsterHP-=collision.gameObject.GetComponent<Bullet>().bulletDamage;
+            MonsterHP -= collision.gameObject.GetComponent<Bullet>().bulletDamage; // 해당 타입 불렛의 데미지를 불러옴
         }
     }
 
@@ -136,9 +121,50 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
+    private void SetSpriteDirection() // 스프라이트 이미지의 좌우 반전을 처리한다
+    {
+        if (_rb.velocity.x < -0.3)
+        {
+            _spriteRenderer.flipX = true;
+        }
+        
+        else if (_rb.velocity.x > 0.3)
+        {
+            _spriteRenderer.flipX = false;
+        }
+    }
+
+    private void FollowPlayer()
+    {
+        if (!_isFollowing)
+        {
+            return;
+        }
+
+        Vector3 dir = (_player.transform.position - transform.position).normalized;
+        _rb.velocity = dir * _followSpeed;
+    }
+
+    private void SetAnimSpeed()
+    {
+        if (HasParameter(_anim, "Speed"))
+        {
+            _anim.SetFloat("Speed", _rb.velocity.magnitude);
+        }
+    }
+
+    public void CheckMonsterHP()
+    {
+        if (MonsterHP <= 0)
+        {
+            _anim.SetTrigger("Hit");
+            Destroy(gameObject, 1f);
+        }
+    }
+
     public abstract void Attack();
 
-    private bool HasParameter(Animator anim, string name) // 이거 사용자 정의 함수로 따로 보관하자
+    private bool HasParameter(Animator anim, string name)
     {
         bool hasParameter = false;
 

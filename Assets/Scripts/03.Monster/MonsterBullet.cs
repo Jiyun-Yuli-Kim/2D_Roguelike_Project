@@ -28,7 +28,7 @@ public class MonsterBullet : MonoBehaviour
         _anim.SetTrigger("OnDestroy");
         yield return new WaitForSeconds(0.1f);
         
-        if (_coll.gameObject.CompareTag("Player"))
+        if (_coll!=null && _coll.gameObject.CompareTag("Player"))
         {
             _coll.gameObject.GetComponent<PlayerController>().TakeDamage(1);
         }

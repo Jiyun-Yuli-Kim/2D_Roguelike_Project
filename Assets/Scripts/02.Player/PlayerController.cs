@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var pickupable = collision.GetComponent<IPickupable>();
-        Debug.Log(pickupable);
         
         // 스킬 획득
         if (pickupable != null)
