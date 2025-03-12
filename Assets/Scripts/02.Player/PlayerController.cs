@@ -8,13 +8,12 @@ using UnityEngine.Timeline;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float _playerSpeed;
     private Animator _playerAnimator;
     private Rigidbody2D _rb;
-    // public Vector3 moveDirection { get; private set; }
     public Vector3 orientation { get; private set; }
 
-    [SerializeField] private int _maxHp = 10;
+    [SerializeField] private float _playerSpeed;
+    private int _maxHp = 10;
     public ObservableProperty<int> PlayerHP;
     
     public BulletLauncher launcher;
@@ -53,6 +52,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var pickupable = collision.GetComponent<IPickupable>();
+        Debug.Log(pickupable);
         
         // 스킬 획득
         if (pickupable != null)

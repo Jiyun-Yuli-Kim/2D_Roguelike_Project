@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 69461991}
   - component: {fileID: 69461990}
   - component: {fileID: 69461993}
+  - component: {fileID: 69461994}
   m_Layer: 0
   m_Name: FreiKugel
   m_TagString: Skill
@@ -446,6 +447,22 @@ PolygonCollider2D:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
+--- !u!114 &69461994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69461989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d069ec8256b1e4fb9311a77ae70d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: 
+  bulletSpeed: 0
+  bulletDamage: 0
+  bulletCoolTime: 0
 --- !u!1 &136432503
 GameObject:
   m_ObjectHideFlags: 0
@@ -4496,6 +4513,7 @@ GameObject:
   - component: {fileID: 1951271344}
   - component: {fileID: 1951271343}
   - component: {fileID: 1951271346}
+  - component: {fileID: 1951271347}
   m_Layer: 0
   m_Name: PowerUp
   m_TagString: Skill
@@ -4598,6 +4616,22 @@ PolygonCollider2D:
     - - {x: 0, y: 0.5773587}
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
+--- !u!114 &1951271347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951271342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 359abf0ea8b744e44b4e25baf0992917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillName: 
+  bulletSpeed: 0
+  bulletDamage: 0
+  bulletCoolTime: 0
 --- !u!1 &2105018306
 GameObject:
   m_ObjectHideFlags: 3

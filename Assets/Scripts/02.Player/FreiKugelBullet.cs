@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Data;
 using UnityEngine.PlayerLoop;
 
 public class FreiKugelBullet : Bullet
@@ -14,34 +15,28 @@ public class FreiKugelBullet : Bullet
 
     //private Rigidbody2D _rb;
     //private Collider2D _col;
-    private Vector3 _origin;
     private bool _isActive;
     private float _estTime; // 타겟까지 날아가는데 걸릴 것으로 추정되는 시간
-    private float _curTime;
+    private float _curTime; // 불렛이 활성화된 시간
 
     //public Monster target;
 
 
-    private void OnEnable() => ResetStat();
-    
+    private void OnEnable()
+    {
+        _isActive = true;
+        ResetStat();
+    }
+
+    private void OnDisable()
+    {
+        _isActive = false;
+        ResetStat();
+    }
+
     void Update()
     {
-        if (!_isActive)
-        {
-            return;
-        }
-
         _curTime += Time.deltaTime;
-
-        
-        if (_curTime > _estTime / 3)
-        {
-            //Debug.Log($"현재시각 : {_curTime}");
-            Vector3 targetDir = (target.transform.position - this.transform.position).normalized;
-            Vector3 straightDir = (target.transform.position - _origin).normalized;
-            Vector3 newDir = targetDir + straightDir;
-            _rb.velocity = newDir * bulletSpeed;
-        }
     }
 
     private void ResetStat()
@@ -50,15 +45,26 @@ public class FreiKugelBullet : Bullet
     }
     
     
-
     public override void ToTarget(Vector3 origin, Vector3 mousePos)
     {
-        _isActive = true;
-        _origin = origin;
-        
+        StartCoroutine(SetBulletPos(origin, mousePos));
+    }
+
+    private IEnumerator SetBulletPos(Vector3 origin, Vector3 mousePos)
+    {
         Vector3 initDir = (mousePos - this.transform.position).normalized; // 마우스 인풋에 따른 목표방향
         _rb.velocity = initDir * bulletSpeed;
         _estTime = MathF.Abs((target.transform.position - origin).magnitude) / bulletSpeed;
-        //Debug.Log($"기준시각 : {_estTime/2}");
+        
+        yield return new WaitForSeconds(_estTime/3);
+        
+        while (_isActive)
+        {
+            Vector3 targetDir = (target.transform.position - this.transform.position).normalized;
+            Vector3 straightDir = (target.transform.position - origin).normalized;
+            Vector3 newDir = targetDir + straightDir;
+            _rb.velocity = newDir * bulletSpeed;
+            yield return null;
+        }
     }
 }

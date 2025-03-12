@@ -20,13 +20,13 @@ public class MonsterBullet : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         _coll = collision;
-        StartCoroutine(DestroyBullet());
+        StartCoroutine(ReturnBullet());
     }
 
-    private IEnumerator DestroyBullet()
+    private IEnumerator ReturnBullet() // 총알이 플레이어에 충돌했을 때의 루틴
     {
         _anim.SetTrigger("OnDestroy");
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
         
         if (_coll.gameObject.CompareTag("Player"))
         {
