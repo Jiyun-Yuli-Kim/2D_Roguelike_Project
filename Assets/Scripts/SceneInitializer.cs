@@ -18,6 +18,7 @@ public class SceneInitializer : MonoBehaviour, IInitializable
         
         foreach (GameObject i in _initializables)
         {
+            Debug.Log(i.name);
             i.GetComponent<IInitializable>().SceneInitialize();
         }
     }

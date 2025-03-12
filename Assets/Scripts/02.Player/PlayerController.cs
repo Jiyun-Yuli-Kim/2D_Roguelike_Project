@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _playerSpeed;
     private Animator _playerAnimator;
     private Rigidbody2D _rb;
-    public Vector3 moveDirection { get; private set; }
+    // public Vector3 moveDirection { get; private set; }
     public Vector3 orientation { get; private set; }
 
     [SerializeField] private int _maxHp = 10;
@@ -34,23 +34,9 @@ public class PlayerController : MonoBehaviour
         PlayerHP.Unsubscribe(CheckPlayerHP);
     }
 
-    void FixedUpdate()
+    private void Update()
     {
-        // TODO : 입력 및 애니메이션 관련 로직은 프레임마다 검사하고 처리하던지
-        _playerAnimator.SetFloat("Speed", _rb.velocity.magnitude);
-        moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"),0).normalized;
-        
-        if (moveDirection == Vector3.zero)
-        {
-            _rb.velocity = Vector3.zero;
-            return;
-        }
-
-        orientation = moveDirection; // Input이 있을 때만 플레이어의 방향 갱신
-
-        _rb.velocity =  moveDirection * _playerSpeed;
-        _playerAnimator.SetFloat("MoveX", _rb.velocity.x);
-        _playerAnimator.SetFloat("MoveY", _rb.velocity.y);
+        SetMove();
     }
 
     // private void OnCollisionEnter2D(Collision2D collision)
@@ -99,30 +85,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Update()
+    private void SetMove()
     {
-        SetMove();
+        Vector3 dir = GetNormalizedDirection();
+
+        if (dir == Vector3.zero)
+        {   
+            return;
+        }
+        
+        orientation = dir; // Input이 있을 때만 플레이어의 방향 갱신
+
+        _rb.velocity =  dir * _playerSpeed;
+        
+        _playerAnimator.SetFloat("Speed", _rb.velocity.magnitude);
+        _playerAnimator.SetFloat("MoveX", _rb.velocity.x);
+        _playerAnimator.SetFloat("MoveY", _rb.velocity.y);
     }
 
     private Vector3 GetNormalizedDirection()
     {
-        // 임시로 둔 값임
         Vector3 dir = Vector3.zero;
+        dir = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"),0).normalized;
 
         return dir;
     }
-
-    private void SetMove()
-    {
-        Vector3 dir = GetNormalizedDirection();
-        
-        // 입력이 된건 맞는지 검사하고 != Vector3.zero
-        
-        // velocity set 로직
-        
-        // 애니메이션 변경
-    }
-
+    
     public void TakeDamage(int damage)  // Monster에서 호출됨
     {
         PlayerHP.Value -= damage;
