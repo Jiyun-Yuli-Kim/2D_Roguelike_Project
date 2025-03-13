@@ -58,21 +58,13 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneNumber);
     }
 
-    // private IEnumerator Init()
-    // {
-    //     yield return new WaitForSeconds(0.3f);
-    //     
-    //     // setter.
-    //     
-    //     // TODO : KimJaeSeong - 초기화 관련 로직에 관한 인터페이스 추가로 주석처리.
-    //     // generator.Init(); // 방 생성
-    //     
-    //     yield return null;
-    //     
-    //     spawner.Init(setter.curStageData.stageRoomList); // 몬스터, 플레이어, 아이템 스폰
-    //     yield return null;
-    //     
-    //     camController.SetSubject(); // 카메라 추적 대상 설정 
-    // }
-    
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
+
 }
