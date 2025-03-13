@@ -38,14 +38,24 @@ public abstract class Monster : MonoBehaviour
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _col = GetComponent<Collider2D>();
-        _anim = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        // _rb = GetComponent<Rigidbody2D>();
+        // Debug.Log(_rb);
+        // // _col = GetComponent<Collider2D>();
+        // _anim = GetComponent<Animator>();
+        // Debug.Log(_anim);
+        // _spriteRenderer = GetComponent<SpriteRenderer>();
+        // Debug.Log(_spriteRenderer);
     }
 
     private void OnEnable()
     {
+        _rb = GetComponent<Rigidbody2D>();
+        Debug.Log(_rb);
+        // _col = GetComponent<Collider2D>();
+        _anim = GetComponent<Animator>();
+        Debug.Log(_anim);
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        Debug.Log(_spriteRenderer);
         GameManager.Instance.setter.MonsterCount.Value++;
     }
     
@@ -89,16 +99,6 @@ public abstract class Monster : MonoBehaviour
             _player = null;
 
             Move();
-        }
-    }
-
-    // ToDo: 몬스터가 피격 당했을때 어떻게 처리해야 유도탄 로직과 연동될지
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("PlayerBullet"))
-        {
-            _anim.SetTrigger("Hit");
-            MonsterHP -= collision.gameObject.GetComponent<Bullet>().bulletDamage; // 해당 타입 불렛의 데미지를 불러옴
         }
     }
 
@@ -162,6 +162,14 @@ public abstract class Monster : MonoBehaviour
             _anim.SetTrigger("Hit");
             Destroy(gameObject, 1f);
         }
+    }
+
+    public void GetDamage(float damage)
+    {
+        _anim.SetTrigger("Hit");
+        MonsterHP -= damage; // 불렛의 데미지를 받아와서 적용
+        Debug.Log(damage);
+        Debug.Log(MonsterHP);
     }
 
     public abstract void Attack();
