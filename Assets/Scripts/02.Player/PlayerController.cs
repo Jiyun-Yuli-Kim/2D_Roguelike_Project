@@ -20,7 +20,10 @@ public class PlayerController : MonoBehaviour
     
     public BulletLauncher launcher;
 
-    [HideInInspector] public UnityEvent OnPlayerDeath;    
+    [HideInInspector] public UnityEvent OnPlayerDeath; 
+    [HideInInspector] public UnityEvent OnPlayerWin; 
+
+    
     private void Awake() => Init();
 
     private void OnEnable()
@@ -41,17 +44,6 @@ public class PlayerController : MonoBehaviour
         SetMove();
     }
 
-    // private void OnCollisionEnter2D(Collision2D collision)
-    // {
-    //     if (collision.gameObject.CompareTag("MonsterBullet"))
-    //     {
-    //         TakeDamage(1);
-    //         
-    //         //playerHP--;
-    //         // 피격 애니메이션 또는 이펙트 추가
-    //     }
-    // }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var pickupable = collision.GetComponent<IPickupable>();
@@ -62,21 +54,6 @@ public class PlayerController : MonoBehaviour
             if (collision.gameObject.CompareTag("Skill"))
             {
                 pickupable.OnPickup(this);
-                // if (collision.gameObject.name == "PowerUp" &&
-                //     launcher.curSkillName != "PowerUp") // 현재 스킬이 PowerUp이 아닐 때에만 돌입
-                // {
-                //     launcher.curSkill.Deactivate(launcher);
-                //     launcher.powerUpSkill.Activate(launcher);
-                // }
-                //
-                // else if (collision.gameObject.name == "FreiKugel" &&
-                //          launcher.curSkillName != "FreiKugel") // 이름으로 판정하므로 이름 설정시 주의!
-                // {
-                //     launcher.curSkill.Deactivate(launcher);
-                //     launcher.freiKugelSkill.Activate(launcher);
-                // }
-
-                // Destroy(collision.gameObject);
             }
             
             // 열쇠 획득
@@ -120,7 +97,6 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)  // Monster에서 호출됨
     {
         PlayerHP.Value -= damage;
-        // Debug.Log(PlayerHP.Value);
     }
 
     private void CheckPlayerHP(int hp)

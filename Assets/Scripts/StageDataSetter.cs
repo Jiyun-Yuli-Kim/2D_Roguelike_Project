@@ -8,9 +8,7 @@ public class StageDataSetter : MonoBehaviour, IInitializable
     public StageData[] stageDatas;
     public StageData curStageData;
     [SerializeField] private InGameUI _ui;
-
-
-
+    
     public ObservableProperty<int> MonsterCount;
     public ObservableProperty<int> KeyCount;
     
