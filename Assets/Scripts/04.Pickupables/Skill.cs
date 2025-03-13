@@ -15,12 +15,7 @@ public abstract class Skill : MonoBehaviour, IPickupable
         Activate(player.launcher);
         Destroy(gameObject);
     }
-
-    public void OnPickup()
-    {
-        
-    }
-
+    
     public abstract void Activate(BulletLauncher launcher);
 
     public virtual void Deactivate(BulletLauncher launcher)

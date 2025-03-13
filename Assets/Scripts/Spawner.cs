@@ -73,11 +73,11 @@ public class Spawner : MonoBehaviour, IInitializable
             room3 = Random.Range(1, rooms.Count-1);
         } while (room3 == room1 || room3 == room2);
 
-        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[room1].roomCenter.x + 5, rooms[room1].roomCenter.y + 5, 0),
+        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[room1].roomCenter.x + 3, rooms[room1].roomCenter.y + 3, 0),
             Quaternion.Euler(0, 0, 0)));
-        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[room2].roomCenter.x - 5, rooms[room2].roomCenter.y - 5, 0),
+        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[room2].roomCenter.x - 3, rooms[room2].roomCenter.y - 3, 0),
             Quaternion.Euler(0, 0, 0)));
-        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[room3].roomCenter.x + 5, rooms[room3].roomCenter.y - 5, 0),
+        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[room3].roomCenter.x + 3, rooms[room3].roomCenter.y - 3, 0),
             Quaternion.Euler(0, 0, 0)));
     }
 

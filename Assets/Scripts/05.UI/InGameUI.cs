@@ -86,4 +86,10 @@ public class InGameUI : MonoBehaviour, IInitializable
     {
         _winCanvas.gameObject.SetActive(true);
     }
+
+    public void OpenTitleScene()
+    {
+        GameManager.Instance.LoadScene(0);
+        Time.timeScale = 1;
+    }
 }

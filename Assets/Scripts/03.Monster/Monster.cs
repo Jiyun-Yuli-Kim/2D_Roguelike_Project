@@ -72,6 +72,7 @@ public abstract class Monster : MonoBehaviour
         FollowPlayer();
         
         if(_player != null &&
+           !_player.isDead &&
            (transform.position - _player.transform.position).magnitude < _attackRange)
         {
             Attack();    
