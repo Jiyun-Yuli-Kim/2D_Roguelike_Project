@@ -343,7 +343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: FreiKugel
   bulletSpeed: 5
-  bulletDamage: 10
+  bulletDamage: 5
   bulletCoolTime: 1
 --- !u!1 &5414260315500068253
 GameObject:

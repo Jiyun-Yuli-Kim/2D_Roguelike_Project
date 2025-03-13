@@ -459,10 +459,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d069ec8256b1e4fb9311a77ae70d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: 
-  bulletSpeed: 0
-  bulletDamage: 0
-  bulletCoolTime: 0
+  skillName: FreiKugel
+  bulletSpeed: 5
+  bulletDamage: 3
+  bulletCoolTime: 1
 --- !u!1 &136432503
 GameObject:
   m_ObjectHideFlags: 0
@@ -4628,10 +4628,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359abf0ea8b744e44b4e25baf0992917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillName: 
-  bulletSpeed: 0
-  bulletDamage: 0
-  bulletCoolTime: 0
+  skillName: PowerUp
+  bulletSpeed: 3
+  bulletDamage: 5
+  bulletCoolTime: 0.5
 --- !u!1 &2105018306
 GameObject:
   m_ObjectHideFlags: 3
@@ -4976,6 +4976,14 @@ PrefabInstance:
       propertyPath: keyPrefab
       value: 
       objectReference: {fileID: 1644103327441479720, guid: 0bd8d1486d6ef49f3b67a2c8151ed11b, type: 3}
+    - target: {fileID: 8064584449996865736, guid: 24a80923d3f4e4c26ae9e0be87d5b594, type: 3}
+      propertyPath: monPatternList.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8064584449996865736, guid: 24a80923d3f4e4c26ae9e0be87d5b594, type: 3}
+      propertyPath: monPatternList.Array.data[6]
+      value: 
+      objectReference: {fileID: 1881125477728804848, guid: 22de6a6c95778554dadbd45c61e4a7de, type: 3}
     - target: {fileID: 8064584449996865739, guid: 24a80923d3f4e4c26ae9e0be87d5b594, type: 3}
       propertyPath: m_RootOrder
       value: 16
