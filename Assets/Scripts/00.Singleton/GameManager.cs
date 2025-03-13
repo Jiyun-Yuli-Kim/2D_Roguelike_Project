@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        Debug.Log("Init Singleton GameManager");
     }
 
     public void Reset() // 테스트용 임시함수

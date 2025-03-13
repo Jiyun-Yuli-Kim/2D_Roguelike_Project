@@ -67,6 +67,11 @@ public class BulletLauncher : MonoBehaviour
 
     private void Update()
     {
+        if (_player.isDead)
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();

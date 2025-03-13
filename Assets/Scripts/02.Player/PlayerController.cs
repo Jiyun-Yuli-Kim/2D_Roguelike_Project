@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SceneTemplate;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.PlayerLoop;
 using UnityEngine.Timeline;
 
@@ -15,9 +16,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _playerSpeed;
     private int _maxHp = 10;
     public ObservableProperty<int> PlayerHP;
+    public bool isDead;
     
     public BulletLauncher launcher;
-    
+
+    [HideInInspector] public UnityEvent OnPlayerDeath;    
     private void Awake() => Init();
 
     private void OnEnable()
@@ -86,6 +89,10 @@ public class PlayerController : MonoBehaviour
 
     private void SetMove()
     {
+        if (isDead)
+        {
+            return;
+        }
         Vector3 dir = GetNormalizedDirection();
 
         if (dir == Vector3.zero)
@@ -130,7 +137,10 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerCharacterDie()
     {
-        _playerAnimator.SetBool("Die", true);
+        isDead = true; // 이동 및 공격 입력을 그만 받기 위한 변수
+        _rb.constraints = RigidbodyConstraints2D.FreezeAll; // 현재 위치에 플레이어 고정
+        _playerAnimator.SetBool("Die", true); // 사망에 따른 애니메이션
+        Invoke("OpenGameOver", 1.5f);
     }
     
     private void Init()
@@ -139,5 +149,11 @@ public class PlayerController : MonoBehaviour
         _playerAnimator = GetComponent<Animator>();
         orientation = new Vector3(0, -1, 0);
         PlayerHP = new ObservableProperty<int>(_maxHp);
+    }
+
+    private void OpenGameOver()
+    {
+        Time.timeScale = 0;
+        OnPlayerDeath?.Invoke(); // 블러처리 및 팝업 열기
     }
 }
