@@ -7,18 +7,27 @@ using UnityEngine.Events;
 
 public class InGameUI : MonoBehaviour, IInitializable
 {
-    public Action OnMonCountChanged;
-    
     [SerializeField] private TextMeshProUGUI _monsterCount;
     [SerializeField] private TextMeshProUGUI _keyCount;
 
     [SerializeField] private StageDataSetter _stageDataSetter;
     [SerializeField] private LifeUI _lifeUI;
+    
+    [SerializeField] private Canvas _gameOverCanvas;
 
     // 플레이어 체력
     private PlayerController _player;
-    
-    private void OnEnable() => SubscribeEvents();
+
+    private void Awake()
+    {
+        _gameOverCanvas.gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        SubscribeEvents();
+    }
+
     private void OnDisable() => UnsubscribeEvents();
 
     public void SceneInitialize()
@@ -42,6 +51,7 @@ public class InGameUI : MonoBehaviour, IInitializable
         if (_player != null)
         {
             _player.PlayerHP.Subscribe(_lifeUI.OnPlayerHPChanged);
+            _player.OnPlayerDeath.AddListener(OpenGameOverCanvas);
         }
     }
 
@@ -50,6 +60,7 @@ public class InGameUI : MonoBehaviour, IInitializable
         _stageDataSetter.MonsterCount.Unsubscribe(SetMonsterCountUI);
         _stageDataSetter.KeyCount.Unsubscribe(SetKeyCountUI);
         _player.PlayerHP.Unsubscribe(_lifeUI.OnPlayerHPChanged);
+        _player.OnPlayerDeath.RemoveListener(OpenGameOverCanvas);
     }
     
     public void SetMonsterCountUI(int value)
@@ -60,5 +71,10 @@ public class InGameUI : MonoBehaviour, IInitializable
     public void SetKeyCountUI(int value)
     {
         _keyCount.text = value.ToString();
+    }
+
+    public void OpenGameOverCanvas()
+    {
+        _gameOverCanvas.gameObject.SetActive(true);
     }
 }
