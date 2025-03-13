@@ -14,6 +14,7 @@ public class InGameUI : MonoBehaviour, IInitializable
     [SerializeField] private LifeUI _lifeUI;
     
     [SerializeField] private Canvas _gameOverCanvas;
+    [SerializeField] private Canvas _winCanvas;
 
     // 플레이어 체력
     private PlayerController _player;
@@ -21,6 +22,7 @@ public class InGameUI : MonoBehaviour, IInitializable
     private void Awake()
     {
         _gameOverCanvas.gameObject.SetActive(false);
+        _winCanvas.gameObject.SetActive(false);
     }
 
     private void OnEnable()
@@ -52,6 +54,7 @@ public class InGameUI : MonoBehaviour, IInitializable
         {
             _player.PlayerHP.Subscribe(_lifeUI.OnPlayerHPChanged);
             _player.OnPlayerDeath.AddListener(OpenGameOverCanvas);
+            _player.OnPlayerWin.AddListener(OpenWinCanvas);
         }
     }
 
@@ -61,6 +64,7 @@ public class InGameUI : MonoBehaviour, IInitializable
         _stageDataSetter.KeyCount.Unsubscribe(SetKeyCountUI);
         _player.PlayerHP.Unsubscribe(_lifeUI.OnPlayerHPChanged);
         _player.OnPlayerDeath.RemoveListener(OpenGameOverCanvas);
+        _player.OnPlayerWin.RemoveListener(OpenWinCanvas);
     }
     
     public void SetMonsterCountUI(int value)
@@ -76,5 +80,10 @@ public class InGameUI : MonoBehaviour, IInitializable
     public void OpenGameOverCanvas()
     {
         _gameOverCanvas.gameObject.SetActive(true);
+    }
+
+    public void OpenWinCanvas()
+    {
+        _winCanvas.gameObject.SetActive(true);
     }
 }

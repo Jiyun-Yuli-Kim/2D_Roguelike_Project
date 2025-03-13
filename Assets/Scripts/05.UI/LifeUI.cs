@@ -38,7 +38,7 @@ public class LifeUI : MonoBehaviour
     {
         int _heartCount = value / 2;
         bool _hasHalfHeart = (value % 2==1);
-        Debug.Log($"heart : {_heartCount}, halfheart : {_hasHalfHeart}");
+        // Debug.Log($"heart : {_heartCount}, halfheart : {_hasHalfHeart}");
         SetLifeUI(_heartCount, _hasHalfHeart);
     }
 
