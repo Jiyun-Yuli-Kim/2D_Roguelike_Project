@@ -20,8 +20,7 @@ public class FreiKugelBullet : Bullet
     private float _curTime; // 불렛이 활성화된 시간
 
     //public Monster target;
-
-
+    
     private void OnEnable()
     {
         _isActive = true;

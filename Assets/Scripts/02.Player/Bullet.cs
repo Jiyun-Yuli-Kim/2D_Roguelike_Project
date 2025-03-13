@@ -6,7 +6,7 @@ using System;
 public class Bullet : MonoBehaviour
 {
     public float bulletSpeed;
-    public float bulletDamage;
+    private float _bulletDamage;
     public float bulletCoolTime;
     protected CustomPool<Bullet> bulletPool;
     public Animator bulletAnimator;
@@ -20,6 +20,7 @@ public class Bullet : MonoBehaviour
 
     private void Awake()
     {
+        _bulletDamage = 5;
         _rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<Collider2D>();
         bulletAnimator = GetComponent<Animator>();
@@ -38,9 +39,14 @@ public class Bullet : MonoBehaviour
         bulletAnimator.SetTrigger("OnDestroy");
         yield return new WaitForSeconds(0.2f);
 
-        if (_coll!=null && (_coll.gameObject.CompareTag("Wall") || _coll.gameObject.CompareTag("Enemy")))
+        if (_coll!=null && _coll.gameObject.CompareTag("Wall")) 
         {
             bulletPool.Return(this);
+        }
+        else if (_coll != null && _coll.gameObject.CompareTag("Enemy")) // 몬스터 피격시
+        {
+            _coll.gameObject.GetComponent<Monster>().GetDamage(_bulletDamage); // 데미지 부여 및 애니메이션 재생 
+            Debug.Log(_coll.gameObject.GetComponent<Monster>());
         }
     }
 
