@@ -38,7 +38,7 @@ public class StageDataSetter : MonoBehaviour, IInitializable
 
         curStageData.stageRoomList = new();
         MonsterCount = new ObservableProperty<int>(0); 
-        KeyCount = new ObservableProperty<int>(3);
+        KeyCount = new ObservableProperty<int>(0);
     }
 
     public void StageDataInit(int stageNo)
