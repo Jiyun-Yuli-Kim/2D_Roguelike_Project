@@ -50,12 +50,8 @@ public abstract class Monster : MonoBehaviour
     private void OnEnable()
     {
         _rb = GetComponent<Rigidbody2D>();
-        Debug.Log(_rb);
-        // _col = GetComponent<Collider2D>();
         _anim = GetComponent<Animator>();
-        Debug.Log(_anim);
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        Debug.Log(_spriteRenderer);
         GameManager.Instance.setter.MonsterCount.Value++;
     }
     
@@ -168,8 +164,6 @@ public abstract class Monster : MonoBehaviour
     {
         _anim.SetTrigger("Hit");
         MonsterHP -= damage; // 불렛의 데미지를 받아와서 적용
-        Debug.Log(damage);
-        Debug.Log(MonsterHP);
     }
 
     public abstract void Attack();
