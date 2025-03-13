@@ -6,7 +6,7 @@ using System;
 public class Bullet : MonoBehaviour
 {
     public float bulletSpeed;
-    private float _bulletDamage;
+    public float bulletDamage;
     public float bulletCoolTime;
     protected CustomPool<Bullet> bulletPool;
     public Animator bulletAnimator;
@@ -20,7 +20,6 @@ public class Bullet : MonoBehaviour
 
     private void Awake()
     {
-        _bulletDamage = 5;
         _rb = GetComponent<Rigidbody2D>();
         _col = GetComponent<Collider2D>();
         bulletAnimator = GetComponent<Animator>();
@@ -34,20 +33,15 @@ public class Bullet : MonoBehaviour
         StartCoroutine(ReturnBullet());
     }
 
-    // ToDo : 충돌이 됐는데 바로 사라지지 않고 잔상이 남는 경우 발생
     private IEnumerator ReturnBullet()
     {
         bulletAnimator.SetTrigger("OnDestroy");
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
-        if (_coll!=null && _coll.gameObject.CompareTag("Wall")) 
+        if (_coll!=null && (_coll.gameObject.CompareTag("Wall") || _coll.gameObject.CompareTag("Enemy")))
         {
+            bulletPool.Return(this);
         }
-        else if (_coll != null && _coll.gameObject.CompareTag("Enemy")) // 몬스터 피격시
-        {
-            _coll.gameObject.GetComponent<Monster>().GetDamage(_bulletDamage); // 데미지 부여 및 애니메이션 재생 
-        }
-        bulletPool.Return(this); // 일단 충돌했다면 반드시 반납하도록
     }
 
     public virtual void ToTarget(Vector3 origin, Vector3 target)
