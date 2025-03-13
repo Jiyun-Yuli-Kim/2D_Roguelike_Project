@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
             // 열쇠 획득
             else if (collision.gameObject.CompareTag("Key"))
             {
-                
+                pickupable.OnPickup(this);
             }
         }
     }
