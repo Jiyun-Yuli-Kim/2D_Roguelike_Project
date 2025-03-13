@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Orc : Monster
 {
+    private void Awake()
+    {
+        _monName = "Orc";
+    }
     public override void Attack()
     {
         if (!_isAttacking)

@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public abstract class Monster : MonoBehaviour
 {
+    protected string _monName;
+    
     [SerializeField] protected float _moveSpeed;
     [SerializeField] protected float _followSpeed;
     [SerializeField] protected float _attackRange;
@@ -147,7 +149,7 @@ public abstract class Monster : MonoBehaviour
 
     private void SetAnimSpeed()
     {
-        if (HasParameter(_anim, "Speed"))
+        if (_monName == "Orc") // 몬스터의 속도에 따라 애니메이션의 변화가 있는 경우
         {
             _anim.SetFloat("Speed", _rb.velocity.magnitude);
         }
@@ -163,21 +165,4 @@ public abstract class Monster : MonoBehaviour
     }
 
     public abstract void Attack();
-
-    private bool HasParameter(Animator anim, string name)
-    {
-        bool hasParameter = false;
-
-        foreach (AnimatorControllerParameter param in anim.parameters)
-        {
-            if (param.name == name)
-            { 
-                hasParameter = true;
-            }
-        }
-
-        return hasParameter;
-    }
-
-
 }

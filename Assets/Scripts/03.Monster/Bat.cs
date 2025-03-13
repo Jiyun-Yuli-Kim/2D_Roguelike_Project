@@ -7,6 +7,11 @@ public class Bat : Monster
     [SerializeField] private GameObject _monBullet;
     [SerializeField] private float _monBulletSpeed;
 
+    private void Awake()
+    {
+        _monName = "Bat";
+    }
+    
     public override void Attack()
     {
         if (!_isAttacking)
