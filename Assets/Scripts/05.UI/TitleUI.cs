@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class TitleUI : MonoBehaviour
@@ -16,11 +18,22 @@ public class TitleUI : MonoBehaviour
     [SerializeField] private Button _exitYesButton;
     [SerializeField] private Button _exitNoButton;
     
+    [SerializeField] private AudioMixer  _audioMixer;
+    [SerializeField] private Slider _BGMSlider;
+    [SerializeField] private Slider _SFXSlider;
+    [SerializeField] private Button _SFXHandle;
+    
+    private bool isDragging = false;
+    
     private void Awake()
     {
         _settingsCanvas.gameObject.SetActive(false);
         _exitCanvas.gameObject.SetActive(false);
         SoundManager.Instance.PlayBGM(EBGMs.TitleBGM);
+        _BGMSlider.onValueChanged.AddListener(SetBGMVolume);
+        _SFXSlider.onValueChanged.AddListener(SetSFXVolume);
+        _audioMixer.SetFloat("BGMVolume", Mathf.Log10(0.8f) * 15);
+        _audioMixer.SetFloat("SFXVolume", Mathf.Log10(0.8f) * 15);
     }
     
     public void NewGame()
@@ -67,4 +80,34 @@ public class TitleUI : MonoBehaviour
     {
         SoundManager.Instance.PlaySFX(ESFXs.CancelSFX);
     }
+
+    public void SetBGMVolume(float volume) // 0.001 ~ 1
+    {
+        _audioMixer.SetFloat("BGMVolume", Mathf.Log10(volume) * 15); // -3 ~ 0
+    }
+
+    public void SetSFXVolume(float volume)
+    {
+        _audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 15);
+    }
+
+    public void SFXHandleClick()
+    {
+        SoundManager.Instance.PlaySFX(ESFXs.SelectSFX);
+    }
+
+    // // public void OnPointerDown(PointerEventData eventData)
+    // // {
+    // //     isDragging = true;
+    // // }
+    //
+    // public void OnPointerUp(PointerEventData eventData)
+    // {
+    //     // if (isDragging)
+    //     // {
+    //         SoundManager.Instance.PlaySFX(ESFXs.SelectSFX);
+    //     // }
+    //     //
+    //     // isDragging = false;
+    // }
 }
