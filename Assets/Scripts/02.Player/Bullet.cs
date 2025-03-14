@@ -47,6 +47,7 @@ public class Bullet : MonoBehaviour
         else if (_coll.gameObject.CompareTag("Enemy")) // 몬스터 피격시
         {
             _coll.gameObject.GetComponent<Monster>().GetDamage(_bulletDamage); // 데미지 부여 및 애니메이션 재생 
+            SoundManager.Instance.PlaySFX(ESFXs.HitSFX);
         }
         
         bulletPool.Return(this); // 일단 충돌했다면 반드시 반납하도록

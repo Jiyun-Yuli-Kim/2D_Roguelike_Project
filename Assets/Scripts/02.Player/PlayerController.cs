@@ -116,6 +116,7 @@ public class PlayerController : MonoBehaviour
         isDead = true; // 이동 및 공격 입력을 그만 받기 위한 변수
         _rb.constraints = RigidbodyConstraints2D.FreezeAll; // 현재 위치에 플레이어 고정
         _playerAnimator.SetBool("Die", true); // 사망에 따른 애니메이션
+        SoundManager.Instance.PlaySFX(ESFXs.DeathSFX);
         Invoke("OpenGameOver", 1.5f);
     }
     
@@ -131,5 +132,6 @@ public class PlayerController : MonoBehaviour
     {
         Time.timeScale = 0;
         OnPlayerDeath?.Invoke(); // 블러처리 및 팝업 열기
+        SoundManager.Instance.PlaySFX(ESFXs.LoseSFX);
     }
 }

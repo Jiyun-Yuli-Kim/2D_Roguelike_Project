@@ -430,6 +430,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 610402275}
+        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+        m_MethodName: PlaySelectSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &127225772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1472,6 +1484,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 610402275}
+        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+        m_MethodName: PlaySelectSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &657914185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1564,6 +1588,74 @@ PrefabInstance:
     - target: {fileID: 506414020753330652, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
       propertyPath: m_Name
       value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _BGMAudio
+      value: 
+      objectReference: {fileID: 1491794699}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _SFXAudio
+      value: 
+      objectReference: {fileID: 1482577498}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _bgms.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _sfxs.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _bgms.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _bgms.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 466f7ce0edba30549bebcb8e96e931dd, type: 3}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _sfxs.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 326bdd055ff7db14a9053f8d214f4111, type: 3}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _sfxs.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 87d63da2135e7094981a30cdfea99d32, type: 3}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _sfxs.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 39689ef5b2606a34383a52ff9d33970c, type: 3}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _sfxs.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: a4cc3aa4970ba4469b76c20bb163371f, type: 3}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _sfxs.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: 58ccec2859d7544f5880b3202cc15dc1, type: 3}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _sfxs.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 524fb3698f9864ea4a953e57aefc11ad, type: 3}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _sfxs.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: adcbbbae313cb40978e30faf82938987, type: 3}
+    - target: {fileID: 506414020753330653, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: _sfxs.Array.data[7]
+      value: 
+      objectReference: {fileID: 8300000, guid: 4668d9fcf8d264f3693f23878a14042b, type: 3}
+    - target: {fileID: 506414020829286876, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 506414020829286876, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 506414020829286876, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
@@ -2074,6 +2166,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 610402275}
+        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+        m_MethodName: PlaySelectSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1392250085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2189,6 +2293,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480598624}
   m_CullTransparentMesh: 1
+--- !u!82 &1482577498 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 506414019045332976, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+  m_PrefabInstance: {fileID: 712825447}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1491794699 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 506414020829286876, guid: 3505fcd2e1a93438298ec9570e6cb94d, type: 3}
+  m_PrefabInstance: {fileID: 712825447}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1496416959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2456,6 +2570,18 @@ MonoBehaviour:
       - m_Target: {fileID: 610402275}
         m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
         m_MethodName: CloseSettingsPopup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 610402275}
+        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+        m_MethodName: PlayCancelSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3123,6 +3249,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 610402275}
+        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+        m_MethodName: PlayStartSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1860163360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3227,6 +3365,18 @@ MonoBehaviour:
       - m_Target: {fileID: 610402275}
         m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
         m_MethodName: CloseExitPopup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 610402275}
+        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
+        m_MethodName: PlayCancelSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

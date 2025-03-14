@@ -20,6 +20,7 @@ public class TitleUI : MonoBehaviour
     {
         _settingsCanvas.gameObject.SetActive(false);
         _exitCanvas.gameObject.SetActive(false);
+        SoundManager.Instance.PlayBGM(EBGMs.TitleBGM);
     }
     
     public void NewGame()
@@ -50,5 +51,20 @@ public class TitleUI : MonoBehaviour
     public void ExitGame()
     {
         GameManager.Instance.ExitGame();
+    }
+
+    public void PlayStartSound()
+    {
+        SoundManager.Instance.PlaySFX(ESFXs.StartSFX);
+    }
+    
+    public void PlaySelectSound()
+    {
+        SoundManager.Instance.PlaySFX(ESFXs.SelectSFX);
+    }
+
+    public void PlayCancelSound()
+    {
+        SoundManager.Instance.PlaySFX(ESFXs.CancelSFX);
     }
 }

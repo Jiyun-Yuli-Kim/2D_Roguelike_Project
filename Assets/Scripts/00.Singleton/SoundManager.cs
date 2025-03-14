@@ -2,9 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EBGMs
+{
+    TitleBGM,
+    Stage1BGM
+}
+    
+public enum ESFXs
+{
+    SelectSFX,
+    CancelSFX,
+    StartSFX,
+    ShootSFX,
+    HitSFX,
+    WinSFX,
+    LoseSFX,
+    DeathSFX,
+}
+
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
+    [SerializeField] private AudioSource _BGMAudio;
+    [SerializeField] private AudioSource _SFXAudio;
+    
+    [SerializeField] private AudioClip[] _bgms;
+    [SerializeField] private AudioClip[] _sfxs;
     
     private void Awake()
     {
@@ -19,25 +42,16 @@ public class SoundManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-
-    [SerializeField] private AudioSource _BGMAudio;
-    [SerializeField] private AudioSource _SFXAudio;
     
-    [SerializeField] private AudioClip[] _bgms;
-    [SerializeField] private AudioClip[] _sfxs;
-    
-    public enum EBgms
+    public void PlayBGM(EBGMs bgm)
     {
-        BGM1,
-        BGM2,
-        MAX
-    }
-    
-    public Dictionary<string, AudioClip> SFXs = new Dictionary<string, AudioClip>();
+        if (_BGMAudio.isPlaying)
+        {
+            _BGMAudio.Stop();
+        }
 
-    public void PlayBGM(EBgms bgm)
-    {
-        _BGMAudio.PlayOneShot(_bgms[(int)bgm]);               
+        _BGMAudio.PlayOneShot(_bgms[(int)bgm]);  
+        _BGMAudio.loop = true;
     }
 
     public void StopBGM()
@@ -54,9 +68,9 @@ public class SoundManager : MonoBehaviour
         _BGMAudio.Pause();
     }
 
-    public void PlaySFX(string sfx)
+    public void PlaySFX(ESFXs sfx)
     {
-        _SFXAudio.PlayOneShot(SFXs["sfx"]);               
+        _SFXAudio.PlayOneShot(_sfxs[(int)sfx]);               
     }
 
     public void StopSFX()

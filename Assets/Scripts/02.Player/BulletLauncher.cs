@@ -120,6 +120,7 @@ public class BulletLauncher : MonoBehaviour
             }
         }
         
+        SoundManager.Instance.PlaySFX(ESFXs.ShootSFX);
         bullet.ToTarget(transform.position, targetPos);
     }
 
