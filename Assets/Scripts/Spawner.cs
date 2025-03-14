@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour, IInitializable
 {
-    public List<GameObject> monPatternList;
+    [SerializeField] private List<GameObject> monPatternList;
+    [SerializeField] private List<GameObject> itemList; // 하트, 무적, 길찾기
+    [SerializeField] private List<GameObject> skillList; // PowerUP, FreiKugel
+    
     private List<GameObject> monSpawnList = new();
     public PlayerController playerPrefab;
-    public PlayerController player;
+    // public PlayerController player;
     public GameObject goalPrefab;
     private GameObject goal;
     public GameObject keyPrefab;
     private GameObject key;
     private List<GameObject> keySpawnList = new();
-
-    private void Awake()
-    {
-    }
-
+    
     private void Start()
     {
         GameManager.Instance.spawner = this;
-        // Init();
     }
 
     public void SceneInitialize()
@@ -31,20 +29,20 @@ public class Spawner : MonoBehaviour, IInitializable
 
     public void Init(List<Room> rooms)
     {
-        GameManager.Instance.player = SpawnPlayer(rooms); // 플레이어 스폰
+        SpawnPlayer(rooms); // 플레이어 스폰
         SpawnGoal(rooms); // 목적지 스폰
         SpawnMonster(rooms); // 몬스터 스폰
         SpawnKey(rooms); // 열쇠 스폰
     }
     
-    public PlayerController SpawnPlayer(List<Room> rooms)
+    public void SpawnPlayer(List<Room> rooms)
     {
-        player = Instantiate(playerPrefab, new Vector3(rooms[0].roomCenter.x+0.35f, rooms[0].roomCenter.y, 0), Quaternion.Euler(0, 0, 0));
-        return player;
+        GameManager.Instance.player = Instantiate(playerPrefab, new Vector3(rooms[0].roomCenter.x+0.35f, rooms[0].roomCenter.y, 0), Quaternion.Euler(0, 0, 0));
     }
     
     public void SpawnGoal(List<Room> rooms)
     {
+        // goal 변수는 테스트용. 추후 삭제
         goal = Instantiate(goalPrefab, new Vector3(rooms[rooms.Count-1].roomCenter.x, rooms[rooms.Count - 1].roomCenter.y, 0), Quaternion.Euler(0, 0, 0));
     }
 
@@ -59,32 +57,58 @@ public class Spawner : MonoBehaviour, IInitializable
 
     public void SpawnKey(List<Room> rooms)
     {
-        int room1 = Random.Range(1, rooms.Count-1);
-        int room2;
-        int room3;
-
-        do
+        // int room1 = Random.Range(1, rooms.Count-1);
+        // int room2;
+        // int room3;
+        //
+        // do
+        // {
+        //     room2 = Random.Range(1, rooms.Count-1);
+        // } while (room2 == room1);
+        //
+        // do
+        // {
+        //     room3 = Random.Range(1, rooms.Count-1);
+        // } while (room3 == room1 || room3 == room2);
+        
+        List<int> randRooms = GetRandomRooms(rooms.Count, 3);
+        foreach (int room in randRooms)
         {
-            room2 = Random.Range(1, rooms.Count-1);
-        } while (room2 == room1);
+            Debug.Log(room);
+        }
 
-        do
-        {
-            room3 = Random.Range(1, rooms.Count-1);
-        } while (room3 == room1 || room3 == room2);
-
-        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[room1].roomCenter.x + 3, rooms[room1].roomCenter.y + 3, 0),
+        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[randRooms[0]].roomCenter.x + 3, rooms[randRooms[0]].roomCenter.y + 3, 0),
             Quaternion.Euler(0, 0, 0)));
-        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[room2].roomCenter.x - 3, rooms[room2].roomCenter.y - 3, 0),
+        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[randRooms[1]].roomCenter.x - 3, rooms[randRooms[1]].roomCenter.y - 3, 0),
             Quaternion.Euler(0, 0, 0)));
-        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[room3].roomCenter.x + 3, rooms[room3].roomCenter.y - 3, 0),
+        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[randRooms[2]].roomCenter.x + 3, rooms[randRooms[2]].roomCenter.y - 3, 0),
             Quaternion.Euler(0, 0, 0)));
     }
 
+    public List<int> GetRandomRooms(int roomCount, int resultCount)
+    {
+        List<int> rooms = new();
+        for (int i = 0; i < roomCount; i++)
+        {
+            rooms.Add(i);
+        }
+        Shuffle(rooms);
+        return rooms.GetRange(0, resultCount);
+    }
+
+    private List<int> Shuffle(List<int> numbers)
+    {
+        for (int i = 0; i < numbers.Count; i++)
+        {
+            int r = Random.Range(0, numbers.Count);
+            (numbers[i], numbers[r]) = (numbers[r], numbers[i]);
+        }
+        return numbers;
+    }
 
     public void DestroyPlayerAndGoal()
     {
-        Destroy(player.gameObject);
+        Destroy(GameManager.Instance.player.gameObject);
         Destroy(goal);
     }
 
