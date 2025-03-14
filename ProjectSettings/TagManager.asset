@@ -12,6 +12,7 @@ TagManager:
   - PlayerBullet
   - MonsterBullet
   - Key
+  - Item
   layers:
   - Default
   - TransparentFX
