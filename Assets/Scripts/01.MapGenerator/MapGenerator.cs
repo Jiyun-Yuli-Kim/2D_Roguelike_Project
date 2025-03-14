@@ -15,14 +15,14 @@ public class MapGenerator : MonoBehaviour, IInitializable
     [SerializeField] float _roomMaxRate; // 방 생성 시 노드 대비 최대비율
     [SerializeField] float _divideRate; // 랜덤 분할 시 기준이 되는 가로/세로 혹은 세로/가로 비율의 최대값.
     [SerializeField] int _minAreaHeight;
-    [SerializeField] int _minAreaWidth; // 노드의 최소 넓이. 이것보다 작은 노드는 생성되지 않음.
+    [SerializeField] int _minAreaWidth; // 노드의 최소 너비. 이것보다 작은 노드는 생성되지 않음.
 
     [SerializeField] Tilemap _tilemap;
     
     [SerializeField] Tile _outTile; // 외부를 나타내는 타일
-    [SerializeField] RuleTile _ruleTile;
+    [SerializeField] RuleTile _ruleTile; // 스테이지의 룰타일
     
-    [SerializeField] Tilemap _minimap;
+    [SerializeField] Tilemap _minimap; // 미니맵을 위한 별도의 타일맵
     [SerializeField] RuleTile  _MMOutTile;
     [SerializeField] RuleTile _MMInTile;
 
@@ -46,7 +46,7 @@ public class MapGenerator : MonoBehaviour, IInitializable
     public void Init()
     {
         GenerateMap(); // 방 생성
-        GenerateCorridor(GameManager.Instance.setter.curStageData.stageRoomList); // 복도 생성
+        GenerateCorridor(GameManager.Instance.setter.stageRoomList); // 복도 생성
     }
 
     public void GenerateMap()
@@ -252,8 +252,8 @@ public class MapGenerator : MonoBehaviour, IInitializable
         //    $"너비 : {node.room.roomRect.width}, 높이 : {node.room.roomRect.height}");
 
         // 현재 스테이지 내의 방 개수를 확인하기 위함
-        GameManager.Instance.setter.curStageData.stageRoomList.Add(bspNode.room);
-        GameManager.Instance.setter.curStageData.stageRoomCount++;
+        GameManager.Instance.setter.stageRoomList.Add(bspNode.room);
+        GameManager.Instance.setter.stageRoomCount++;
 
         DrawRoom(bspNode);
         DrawMinimapRoom(bspNode);
@@ -490,7 +490,7 @@ public class MapGenerator : MonoBehaviour, IInitializable
     public void SceneInitialize()
     {
         GenerateMap(); // 방 생성
-        GenerateCorridor(GameManager.Instance.setter.curStageData.stageRoomList); // 복도 생성
+        GenerateCorridor(GameManager.Instance.setter.stageRoomList); // 복도 생성
     }
 }
  

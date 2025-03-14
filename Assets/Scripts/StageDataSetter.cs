@@ -9,6 +9,11 @@ public class StageDataSetter : MonoBehaviour, IInitializable
     public StageData curStageData;
     [SerializeField] private InGameUI _ui;
     
+    public List<GameObject> stageMonsterList;
+    public List<Room> stageRoomList; // 수량 확인 위해 리스트로 관리
+    public int stageRoomCount;
+
+    
     public ObservableProperty<int> MonsterCount;
     public ObservableProperty<int> KeyCount;
     
@@ -17,15 +22,11 @@ public class StageDataSetter : MonoBehaviour, IInitializable
     //public RuleTile stageRuletile;
     //public int stageMonsterCount;
     //public List<GameObject> stageMonsterList;
-    //public int stageRoomCount;
     //public List<Room> stageRoomList;
 
     private void Awake()
     {
-        // stageDatas = new StageData[StageCount];
-        curStageData.stageRoomList = new();
-        curStageData.stageMonsterCount = 0;
-        curStageData.stageKeyCount = 3;
+        stageRoomList = new();
     }
 
     public void SceneInitialize()
@@ -33,21 +34,12 @@ public class StageDataSetter : MonoBehaviour, IInitializable
         // int stagenum = Random.Range(0, stageDatas.Length);
         // curStageData = stageDatas[stagenum];
         curStageData = stageDatas[0];
-
-        curStageData.stageRoomList = new();
+        stageRoomList = new();
         MonsterCount = new ObservableProperty<int>(0); 
         KeyCount = new ObservableProperty<int>(0);
-    }
-
-    public void StageDataInit(int stageNo)
-    {
-        curStageData = stageDatas[stageNo];
-        curStageData.stageRoomList = new();
-        curStageData.stageMonsterCount = 0;
-        curStageData.stageKeyCount = 3;
+        SoundManager.Instance.PlayBGM((EBGMs)curStageData.stageNo);
     }
    
-    // //TODO : TestCode
     // private void Update()
     // {
     //     if (Input.GetKeyDown(KeyCode.Z))

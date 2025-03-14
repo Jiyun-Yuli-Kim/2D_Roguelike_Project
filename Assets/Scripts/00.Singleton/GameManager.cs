@@ -38,9 +38,8 @@ public class GameManager : MonoBehaviour
 
     public void Reset() // 테스트용 임시함수
     {
-        setter.curStageData.stageRoomCount = 0;
-        setter.curStageData.stageRoomList = null;
-        setter.curStageData.stageRoomList = new();
+        setter.stageRoomList = null;
+        setter.stageRoomList = new();
         spawner.DestroyMonsters();
         spawner.DestroyPlayerAndGoal();
     }

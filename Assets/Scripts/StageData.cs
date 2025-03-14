@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 [CreateAssetMenu(fileName = "StageData", menuName = "Data/StageData")]
 public class StageData : ScriptableObject
@@ -10,9 +11,6 @@ public class StageData : ScriptableObject
     public int stageNo;
     public string stageName;
     public RuleTile stageRuletile;
-    public int stageMonsterCount;
-    public List<GameObject> stageMonsterList;
-    public int stageKeyCount;
-    public int stageRoomCount;
-    public List<Room> stageRoomList; // 수량 확인 위해 리스트로 관리
+    public Tile stageOutTile; // 외부를 나타내는 타일
+
 }

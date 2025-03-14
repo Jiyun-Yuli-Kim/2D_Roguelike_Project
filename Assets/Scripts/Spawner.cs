@@ -26,7 +26,7 @@ public class Spawner : MonoBehaviour, IInitializable
 
     public void SceneInitialize()
     {
-        Init(GameManager.Instance.setter.curStageData.stageRoomList);
+        Init(GameManager.Instance.setter.stageRoomList);
     }
 
     public void Init(List<Room> rooms)
