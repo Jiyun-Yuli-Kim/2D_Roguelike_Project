@@ -12,6 +12,7 @@ public class Key : MonoBehaviour, IPickupable
     public void OnPickup()
     {
         GameManager.Instance.setter.KeyCount.Value--;
+        SoundManager.Instance.PlaySFX(ESFXs.GetKeySFX);
         Destroy(gameObject);
     }
 }

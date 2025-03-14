@@ -13,6 +13,7 @@ public abstract class Skill : MonoBehaviour, IPickupable
     public void OnPickup()
     {
         Activate(GameManager.Instance.player.launcher);
+        SoundManager.Instance.PlaySFX(ESFXs.GetSkillSFX);
         Destroy(gameObject);
     }
     

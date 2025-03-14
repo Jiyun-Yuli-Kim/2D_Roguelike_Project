@@ -18,6 +18,11 @@ public enum ESFXs
     WinSFX,
     LoseSFX,
     DeathSFX,
+    GetSkillSFX,
+    GetItemSFX,
+    GetCoinSFX,
+    GetKeySFX,
+    GetPowerSFX
 }
 
 public class SoundManager : MonoBehaviour
@@ -45,12 +50,12 @@ public class SoundManager : MonoBehaviour
     
     public void PlayBGM(EBGMs bgm)
     {
-        if (_BGMAudio.isPlaying)
-        {
-            _BGMAudio.Stop();
-        }
-
-        _BGMAudio.PlayOneShot(_bgms[(int)bgm]);  
+        // if (_BGMAudio.isPlaying)
+        // {
+        //     _BGMAudio.Stop();
+        // }
+        _BGMAudio.clip = _bgms[(int)bgm];
+        _BGMAudio.Play();  
         _BGMAudio.loop = true;
     }
 

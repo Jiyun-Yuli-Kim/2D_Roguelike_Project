@@ -24,5 +24,7 @@ public class Heart : Item
         {
             GameManager.Instance.player.PlayerHP.Value += 2;
         }
+        SoundManager.Instance.PlaySFX(ESFXs.GetPowerSFX);
+        Destroy(gameObject);
     }
 }
