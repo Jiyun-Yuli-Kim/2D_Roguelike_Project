@@ -33,6 +33,8 @@ public class Spawner : MonoBehaviour, IInitializable
         SpawnGoal(rooms); // 목적지 스폰
         SpawnMonster(rooms); // 몬스터 스폰
         SpawnKey(rooms); // 열쇠 스폰
+        SpawnSkill(rooms); // 스킬 스폰
+        SpawnItem(rooms); // 아이템 스폰
     }
     
     public void SpawnPlayer(List<Room> rooms)
@@ -57,35 +59,41 @@ public class Spawner : MonoBehaviour, IInitializable
 
     public void SpawnKey(List<Room> rooms)
     {
-        // int room1 = Random.Range(1, rooms.Count-1);
-        // int room2;
-        // int room3;
-        //
-        // do
+        List<int> randRooms = GetRandomRooms(rooms.Count-2, 3); // 첫방과 마지막방 제외
+        // foreach (int room in randRooms)
         // {
-        //     room2 = Random.Range(1, rooms.Count-1);
-        // } while (room2 == room1);
-        //
-        // do
-        // {
-        //     room3 = Random.Range(1, rooms.Count-1);
-        // } while (room3 == room1 || room3 == room2);
-        
-        List<int> randRooms = GetRandomRooms(rooms.Count, 3);
-        foreach (int room in randRooms)
-        {
-            Debug.Log(room);
-        }
+        //     Debug.Log(room);
+        // }
 
-        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[randRooms[0]].roomCenter.x + 3, rooms[randRooms[0]].roomCenter.y + 3, 0),
+        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[randRooms[0]+1].roomCenter.x + 1.2f, rooms[randRooms[0]+1].roomCenter.y + 1.2f, 0),
             Quaternion.Euler(0, 0, 0)));
-        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[randRooms[1]].roomCenter.x - 3, rooms[randRooms[1]].roomCenter.y - 3, 0),
+        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[randRooms[1]+1].roomCenter.x + 1.2f, rooms[randRooms[1]+1].roomCenter.y - 1.2f, 0),
             Quaternion.Euler(0, 0, 0)));
-        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[randRooms[2]].roomCenter.x + 3, rooms[randRooms[2]].roomCenter.y - 3, 0),
+        keySpawnList.Add(Instantiate(keyPrefab, new Vector3(rooms[randRooms[2]+1].roomCenter.x + 1.2f, rooms[randRooms[2]+1].roomCenter.y - 1.2f, 0),
             Quaternion.Euler(0, 0, 0)));
     }
 
-    public List<int> GetRandomRooms(int roomCount, int resultCount)
+    public void SpawnSkill(List<Room> rooms)
+    {
+        List<int> randRooms = GetRandomRooms(rooms.Count-2, 2); // 첫방과 마지막방 제외
+        Instantiate(skillList[0], new Vector3(rooms[randRooms[0]+1].roomCenter.x - 2f, rooms[randRooms[0]+1].roomCenter.y + 2f, 0),
+        Quaternion.Euler(0, 0, 0));
+        Instantiate(skillList[1], new Vector3(rooms[randRooms[1]+1].roomCenter.x - 2f, rooms[randRooms[1]+1].roomCenter.y - 2f, 0), 
+            Quaternion.Euler(0, 0, 0));
+    }
+    
+    public void SpawnItem(List<Room> rooms)
+    {
+        List<int> randRooms = GetRandomRooms(rooms.Count-2, 2); // 첫방과 마지막방 제외
+        Debug.Log(randRooms[0]);
+        Debug.Log(randRooms[1]);
+        Instantiate(itemList[0], new Vector3(rooms[randRooms[0]+1].roomCenter.x + 2f, rooms[randRooms[0]+1].roomCenter.y - 2f, 0),
+            Quaternion.Euler(0, 0, 0));
+        Instantiate(itemList[0], new Vector3(rooms[randRooms[1]+1].roomCenter.x + 2f, rooms[randRooms[1]+1].roomCenter.y + 2f, 0), 
+            Quaternion.Euler(0, 0, 0));
+    }
+
+    private List<int> GetRandomRooms(int roomCount, int resultCount)
     {
         List<int> rooms = new();
         for (int i = 0; i < roomCount; i++)
