@@ -292,7 +292,7 @@ public class MapGenerator : MonoBehaviour, IInitializable
         }
     }
 
-    private void DrawLine(Vector2Int start, Vector2Int end)
+    private void DrawLine(Vector2Int start, Vector2Int end) // 직선만 그린다는 점 유의
     {
         // var lineRenderer = Instantiate(_corridorLine).GetComponent<LineRenderer>();
         // lineRenderer.useWorldSpace = true;
@@ -300,81 +300,130 @@ public class MapGenerator : MonoBehaviour, IInitializable
         //
         // lineRenderer.SetPosition(0, new Vector3(start.x, start.y,0));
         // lineRenderer.SetPosition(1, new Vector3(end.x, end.y,0));
-        if (start.x >= end.x && start.y >= end.y)
+
+        if (start.x == end.x) // 세로줄 그리기
         {
-            for (int x = end.x; x < start.x; x++)
+            if (start.y > end.y)
             {
-                for (int y = end.y - 1; y <= start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
+                for (int y = end.y; y < start.y; y++)
                 {
-                    _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                    for (int x = start.x - 1; x <= start.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
+                    {
+                        _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                    }
                 }
             }
-
-            for (int y = end.y; y < start.y; y++)
+            else if (start.y < end.y)
             {
-                for (int x = end.x - 1; x <= start.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
+                for (int y = start.y; y < end.y; y++)
                 {
-                    _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                    for (int x = start.x - 1; x <= start.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
+                    {
+                        _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                    }
                 }
             }
         }
         
-        if (start.x >= end.x && start.y < end.y)
+        if (start.y == end.y) // 가로줄 그리기
         {
-            for (int x = end.x; x < start.x; x++)
+            if (start.x > end.x)
             {
-                for (int y = start.y - 1; y <= end.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
+                for (int x = end.x; x <= start.x; x++)
                 {
-                    _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                    for (int y = start.y - 1; y <= start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
+                    {
+                        _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                    }
                 }
             }
-
-            for (int y = start.y; y < end.y; y++)
+            else if (start.x < end.x)
             {
-                for (int x = end.x - 1; x <= start.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
+                for (int x = start.x; x <= end.x; x++)
                 {
-                    _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                    for (int y = start.y - 1; y <= start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
+                    {
+                        _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+                    }
                 }
             }
         }
-        
-        if (start.x < end.x && start.y >= end.y)
-        {
-            for (int x = start.x; x < end.x; x++)
-            {
-                for (int y = end.y - 1; y <= start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
-                {
-                    _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-                }
-            }
 
-            for (int y = end.y; y < start.y; y++)
-            {
-                for (int x = start.x - 1; x <= end.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
-                {
-                    _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-                }
-            }
-        }
-        
-        if (start.x < end.x && start.y < end.y)
-        {
-            for (int x = start.x; x < end.x; x++)
-            {
-                for (int y = start.y - 1; y <= end.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
-                {
-                    _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-                }
-            }
-
-            for (int y = end.y; y > start.y; y--)
-            {
-                for (int x = start.x - 1; x <= end.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
-                {
-                    _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-                }
-            }
-        }
+        // if (start.x >= end.x && start.y >= end.y)
+        // {
+        //     for (int x = end.x; x < start.x; x++)
+        //     {
+        //         for (int y = end.y - 1; y <= start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
+        //         {
+        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+        //         }
+        //     }
+        //
+        //     for (int y = end.y; y < start.y; y++)
+        //     {
+        //         for (int x = end.x - 1; x <= start.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
+        //         {
+        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+        //         }
+        //     }
+        // }
+        //
+        // if (start.x >= end.x && start.y < end.y)
+        // {
+        //     for (int x = end.x; x < start.x; x++)
+        //     {
+        //         for (int y = start.y - 1; y <= end.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
+        //         {
+        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+        //         }
+        //     }
+        //
+        //     for (int y = start.y; y < end.y; y++)
+        //     {
+        //         for (int x = end.x - 1; x <= start.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
+        //         {
+        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+        //         }
+        //     }
+        // }
+        //
+        // if (start.x < end.x && start.y >= end.y)
+        // {
+        //     for (int x = start.x; x < end.x; x++)
+        //     {
+        //         for (int y = end.y - 1; y <= start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
+        //         {
+        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+        //         }
+        //     }
+        //
+        //     for (int y = end.y; y < start.y; y++)
+        //     {
+        //         for (int x = start.x - 1; x <= end.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
+        //         {
+        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+        //         }
+        //     }
+        // }
+        //
+        // if (start.x < end.x && start.y < end.y)
+        // {
+        //     for (int x = start.x; x < end.x; x++)
+        //     {
+        //         for (int y = start.y - 1; y <= end.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
+        //         {
+        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+        //         }
+        //     }
+        //
+        //     for (int y = start.y; y < end.y; y++)
+        //     {
+        //         for (int x = start.x - 1; x <= end.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
+        //         {
+        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
+        //         }
+        //     }
+        // }
     }
 
     // 배경 타일을 채움
