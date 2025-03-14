@@ -9,7 +9,7 @@ public class Key : MonoBehaviour, IPickupable
         GameManager.Instance.setter.KeyCount.Value++;
     }
 
-    public void OnPickup(PlayerController player)
+    public void OnPickup()
     {
         GameManager.Instance.setter.KeyCount.Value--;
         Destroy(gameObject);

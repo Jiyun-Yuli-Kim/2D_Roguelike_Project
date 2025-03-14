@@ -10,9 +10,9 @@ public abstract class Skill : MonoBehaviour, IPickupable
     public float bulletDamage;
     public float bulletCoolTime;
 
-    public void OnPickup(PlayerController player)
+    public void OnPickup()
     {
-        Activate(player.launcher);
+        Activate(GameManager.Instance.player.launcher);
         Destroy(gameObject);
     }
     

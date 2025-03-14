@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IPickupable
 {
-    public void OnPickup(PlayerController player);
+    public void OnPickup();
 }

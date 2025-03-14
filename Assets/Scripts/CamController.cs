@@ -30,8 +30,8 @@ public class CamController : MonoBehaviour, IInitializable
 
     public void SetSubject()
     {
-        cameras[0].Follow = GameManager.Instance.spawner.player.transform;
-        cameras[0].LookAt = GameManager.Instance.spawner.player.transform;
+        cameras[0].Follow = GameManager.Instance.player.transform;
+        cameras[0].LookAt = GameManager.Instance.player.transform;
     }
 
     public void PlayerCamOn()

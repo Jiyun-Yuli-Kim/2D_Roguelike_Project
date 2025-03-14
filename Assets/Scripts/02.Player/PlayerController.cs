@@ -48,19 +48,10 @@ public class PlayerController : MonoBehaviour
     {
         var pickupable = collision.GetComponent<IPickupable>();
         
-        // 스킬 획득
         if (pickupable != null)
         {
-            if (collision.gameObject.CompareTag("Skill"))
-            {
-                pickupable.OnPickup(this);
-            }
-            
-            // 열쇠 획득
-            else if (collision.gameObject.CompareTag("Key"))
-            {
-                pickupable.OnPickup(this);
-            }
+            // 스킬, 열쇠, 아이템 한번에 처리
+            pickupable.OnPickup();
         }
     }
 
