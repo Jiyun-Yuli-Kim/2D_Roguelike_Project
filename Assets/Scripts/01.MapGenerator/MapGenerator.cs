@@ -40,26 +40,28 @@ public class MapGenerator : MonoBehaviour, IInitializable
     private void Start()
     {
         GameManager.Instance.generator = this;
-        // Init();
     }
 
-    public void Init()
+    public void SceneInitialize()
     {
-        GenerateMap(); // 방 생성
+        do
+        {
+            GenerateMap(); // 방 생성
+        } 
+        while 
+            (GameManager.Instance.setter.stageRoomCount < 5); // 최소한 5개의 방을 갖도록 강제함
+        
         GenerateCorridor(GameManager.Instance.setter.stageRoomList); // 복도 생성
     }
 
     public void GenerateMap()
     {
         // _mapSize = new Vector2Int(90, 60);
-        FillBG();
-        FillMinimapBG(); // 렌더링할 미니맵
+        FillBG(); // 배경 채우기
+        FillMinimapBG(); // 렌더링할 미니맵 배경 채우기
         BSPNode rootBspNode = new BSPNode(new RectInt(-_mapSize.x / 2, -_mapSize.y / 2, _mapSize.x, _mapSize.y));
         // DrawRootNode();
         SplitNode(rootBspNode, 0);
-        // 각 방에 대해 스폰할 몬스터 개수 설정
-        // 방 생성 완료 후 실행될 로직이므로 일단 여기...
-        // GameManager.Instance.setter.SetMonsterCount();
     }
     
 
@@ -305,7 +307,7 @@ public class MapGenerator : MonoBehaviour, IInitializable
         {
             if (start.y > end.y)
             {
-                for (int y = end.y; y < start.y; y++)
+                for (int y = end.y; y < start.y + 2; y++)
                 {
                     for (int x = start.x - 1; x <= start.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
                     {
@@ -315,7 +317,7 @@ public class MapGenerator : MonoBehaviour, IInitializable
             }
             else if (start.y < end.y)
             {
-                for (int y = start.y; y < end.y; y++)
+                for (int y = start.y; y < end.y + 2; y++)
                 {
                     for (int x = start.x - 1; x <= start.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
                     {
@@ -329,9 +331,9 @@ public class MapGenerator : MonoBehaviour, IInitializable
         {
             if (start.x > end.x)
             {
-                for (int x = end.x; x <= start.x; x++)
+                for (int x = end.x; x <= start.x + 1; x++)
                 {
-                    for (int y = start.y - 1; y <= start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
+                    for (int y = start.y - 2; y < start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
                     {
                         _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
                     }
@@ -339,91 +341,15 @@ public class MapGenerator : MonoBehaviour, IInitializable
             }
             else if (start.x < end.x)
             {
-                for (int x = start.x; x <= end.x; x++)
+                for (int x = start.x; x <= end.x + 1; x++)
                 {
-                    for (int y = start.y - 1; y <= start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
+                    for (int y = start.y - 2; y < start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
                     {
                         _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
                     }
                 }
             }
         }
-
-        // if (start.x >= end.x && start.y >= end.y)
-        // {
-        //     for (int x = end.x; x < start.x; x++)
-        //     {
-        //         for (int y = end.y - 1; y <= start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
-        //         {
-        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-        //         }
-        //     }
-        //
-        //     for (int y = end.y; y < start.y; y++)
-        //     {
-        //         for (int x = end.x - 1; x <= start.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
-        //         {
-        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-        //         }
-        //     }
-        // }
-        //
-        // if (start.x >= end.x && start.y < end.y)
-        // {
-        //     for (int x = end.x; x < start.x; x++)
-        //     {
-        //         for (int y = start.y - 1; y <= end.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
-        //         {
-        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-        //         }
-        //     }
-        //
-        //     for (int y = start.y; y < end.y; y++)
-        //     {
-        //         for (int x = end.x - 1; x <= start.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
-        //         {
-        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-        //         }
-        //     }
-        // }
-        //
-        // if (start.x < end.x && start.y >= end.y)
-        // {
-        //     for (int x = start.x; x < end.x; x++)
-        //     {
-        //         for (int y = end.y - 1; y <= start.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
-        //         {
-        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-        //         }
-        //     }
-        //
-        //     for (int y = end.y; y < start.y; y++)
-        //     {
-        //         for (int x = start.x - 1; x <= end.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
-        //         {
-        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-        //         }
-        //     }
-        // }
-        //
-        // if (start.x < end.x && start.y < end.y)
-        // {
-        //     for (int x = start.x; x < end.x; x++)
-        //     {
-        //         for (int y = start.y - 1; y <= end.y + 2; y++) // 위아래 경계 타일 3개에 대한 오프셋
-        //         {
-        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-        //         }
-        //     }
-        //
-        //     for (int y = start.y; y < end.y; y++)
-        //     {
-        //         for (int x = start.x - 1; x <= end.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
-        //         {
-        //             _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-        //         }
-        //     }
-        // }
     }
 
     // 배경 타일을 채움
@@ -447,8 +373,6 @@ public class MapGenerator : MonoBehaviour, IInitializable
         for (int i = 0; i < rooms.Count - 1; i++)
         {
             DrawCorridor(rooms[i], rooms[i + 1]);
-            //DrawLine(new Vector2Int(rooms[i].roomCenter.x, rooms[i].roomCenter.y), new Vector2Int(rooms[i + 1].roomCenter.x, rooms[i].roomCenter.y));
-            //DrawLine(new Vector2Int(rooms[i + 1].roomCenter.x, rooms[i].roomCenter.y), new Vector2Int(rooms[i + 1].roomCenter.x, rooms[i+1].roomCenter.y));
         }
         // DrawCorridor(rooms[1], rooms[4]);
         // DrawCorridor(rooms[0], rooms[rooms.Count - 1]); // 끝방과 첫방 연결
@@ -518,28 +442,69 @@ public class MapGenerator : MonoBehaviour, IInitializable
         // lineRenderer.SetPosition(0, new Vector3(start.x, start.y,0));
         // lineRenderer.SetPosition(1, new Vector3(end.x, end.y,0));
 
-        for (int x = start.x; x < end.x; x++)
+        // for (int x = start.x; x < end.x; x++)
+        // {
+        //     for (int y = start.y; y <= end.y; y++)
+        //     {
+        //         _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+        //     }
+        // }
+        //
+        // for (int y = start.y; y > end.y; y--)
+        // {
+        //     for (int x = start.x; x <= end.x; x++) 
+        //     {
+        //         _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+        //     }
+        // }
+        
+        if (start.x == end.x) // 세로줄 그리기
         {
-            for (int y = start.y; y <= end.y; y++)
+            if (start.y > end.y)
             {
-                _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+                for (int y = end.y; y < start.y; y++)
+                {
+                    for (int x = start.x; x <= start.x; x++)
+                    {
+                        _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+                    }
+                }
+            }
+            else if (start.y < end.y)
+            {
+                for (int y = start.y; y < end.y; y++)
+                {
+                    for (int x = start.x; x <= start.x; x++)
+                    {
+                        _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+                    }
+                }
             }
         }
-
-        for (int y = start.y; y > end.y; y--)
+        
+        if (start.y == end.y) // 가로줄 그리기
         {
-            for (int x = start.x; x <= end.x; x++) 
+            if (start.x > end.x)
             {
-                _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+                for (int x = end.x; x <= start.x; x++)
+                {
+                    for (int y = start.y - 1; y < start.y; y++) // 위아래 경계 타일 3개에 대한 오프셋
+                    {
+                        _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+                    }
+                }
+            }
+            else if (start.x < end.x)
+            {
+                for (int x = start.x; x <= end.x; x++)
+                {
+                    for (int y = start.y - 1; y < start.y; y++) // 위아래 경계 타일 3개에 대한 오프셋
+                    {
+                        _minimap.SetTile(new Vector3Int(x, y, 0), _MMInTile);
+                    }
+                }
             }
         }
-    }
-    
-    //TODO : KimJaeSeong -> 초기화 관련 인터페이스 추가
-    public void SceneInitialize()
-    {
-        GenerateMap(); // 방 생성
-        GenerateCorridor(GameManager.Instance.setter.stageRoomList); // 복도 생성
     }
 }
  
