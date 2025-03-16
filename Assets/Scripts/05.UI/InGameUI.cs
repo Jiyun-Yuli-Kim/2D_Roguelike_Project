@@ -50,6 +50,7 @@ public class InGameUI : MonoBehaviour, IInitializable
 
     public void SceneInitialize()
     {
+        Cursor.visible = false;
         _stageDataSetter = GameManager.Instance.setter;
         _player = GameManager.Instance.player;
         SetMonsterCountUI(_stageDataSetter.MonsterCount.Value);

@@ -23,6 +23,7 @@ public class Goal : MonoBehaviour
     private void OpenWinPopup()
     {
         Time.timeScale = 0; // 게임 정지
+        Cursor.visible = true;
         GameManager.Instance.player.OnPlayerWin?.Invoke(); // 승리 팝업 오픈
     }
 }

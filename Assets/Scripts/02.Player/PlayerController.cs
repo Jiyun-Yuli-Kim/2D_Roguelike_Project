@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)  // Monster에서 호출됨
     {
         PlayerHP.Value -= damage;
+        _playerAnimator.SetTrigger("Hit");
     }
 
     private void CheckPlayerHP(int hp)
@@ -110,6 +111,7 @@ public class PlayerController : MonoBehaviour
         SoundManager.Instance.StopBGM();
         SoundManager.Instance.PlaySFX(ESFXs.DeathSFX);
         Invoke("OpenGameOver", 1.5f);
+        Cursor.visible = true;
     }
     
     private void Init()

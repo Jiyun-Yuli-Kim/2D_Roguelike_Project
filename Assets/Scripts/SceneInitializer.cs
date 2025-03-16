@@ -23,7 +23,6 @@ public class SceneInitializer : MonoBehaviour, IInitializable
         }
     }
     
-    // TODO: KimJaeSeong - 초기화를 담당하는 객체 또한 초기화 작업이 필요할 수 있으므로 인터페이스 추가해놨음. 삭제해도 됨
     public void SceneInitialize()
     {
     }
