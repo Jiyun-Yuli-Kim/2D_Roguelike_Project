@@ -6,7 +6,7 @@ public class BulletLauncher : MonoBehaviour
 {
     public CustomPool<Bullet> bulletPool;
     public Transform spawnPos; // 불렛 생성 위치
-    private Vector3 targetPos; //불렛 목표 위치
+    public Vector3 targetPos; //불렛 목표 위치
     public string curSkillName;
 
     public float attackRange = 65;

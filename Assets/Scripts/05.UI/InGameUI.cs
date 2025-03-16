@@ -18,6 +18,9 @@ public class InGameUI : MonoBehaviour, IInitializable
 
     // 플레이어 체력
     private PlayerController _player;
+    [SerializeField] private Camera _mainCamera;
+
+    [SerializeField] private GameObject _mouseAim; // 에임 표시
 
     private void Awake()
     {
@@ -31,6 +34,19 @@ public class InGameUI : MonoBehaviour, IInitializable
     }
 
     private void OnDisable() => UnsubscribeEvents();
+
+
+    private void Update()
+    {
+        SetAimUI();
+    }
+
+    private void SetAimUI()
+    {
+        Vector3 mouseWorldPos = Input.mousePosition;
+        mouseWorldPos.z = 0;
+        _mouseAim.transform.position = mouseWorldPos;
+    }
 
     public void SceneInitialize()
     {
