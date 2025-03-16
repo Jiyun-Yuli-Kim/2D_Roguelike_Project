@@ -44,22 +44,22 @@ public class FreiKugelBullet : Bullet
     }
 
 
-    public override void ToTarget(Vector3 origin, Vector3 mousePos)
+    public override void ToTarget(Vector3 origin, Vector3 targetPos)
     {
         if (target == null)
         {
-            _rb.velocity = mousePos.normalized * bulletSpeed;
+            _rb.velocity = targetPos.normalized * bulletSpeed;
         }
 
         else if (target != null)
         {
-            StartCoroutine(SetBulletPos(origin, mousePos));
+            StartCoroutine(SetBulletPos(origin, targetPos));
         }
     }
 
-    private IEnumerator SetBulletPos(Vector3 origin, Vector3 mousePos)
+    private IEnumerator SetBulletPos(Vector3 origin, Vector3 targetPos)
     {
-        Vector3 initDir = (mousePos - this.transform.position).normalized; // 마우스 인풋에 따른 목표방향
+        Vector3 initDir = (targetPos - this.transform.position).normalized; // 목표방향
         _rb.velocity = initDir * bulletSpeed;
         _estTime = MathF.Abs((target.transform.position - origin).magnitude) / bulletSpeed;
         

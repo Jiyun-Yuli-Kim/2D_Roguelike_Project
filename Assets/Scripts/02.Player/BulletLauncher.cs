@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -72,40 +73,29 @@ public class BulletLauncher : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Shoot();
         }
 
         coolTime += Time.deltaTime;
     }
+    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, radius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + 3*_player.orientation);
+    }
 
-    // 스킬에 따라 불렛이 다른 양상으로 움직여야 하는데 이걸 어떻게 구현할지(스킬과 오브젝트풀 연동의 문제)
-
-    //public void SetBullet() // 현재 스킬에 따른 불렛 설정
-    //{
-    //    bulletPrefab = curSkill.skillBullet;
-    //}
     public void Shoot() // 인풋 직접 받아 불렛 발사
     {
         if (coolTime < curSkill.bulletCoolTime)
         {
             return;
         }
-
-        targetPos = SetMousePos(); // 마우스 현재 위치를 월드좌표로 가져옴
-        Vector3 attackDir = targetPos - _player.transform.position; // 플레이어 기준 공격 방향
         
-        
-        float curAngle = Vector3.SignedAngle(_player.orientation, attackDir, _player.orientation);
-
-        // 각도를 계산해서 공격범위 밖의 입력은 무시
-        if (curAngle > attackRange)
-        {
-            Debug.Log("공격범위 밖입니다.");
-            return;
-        }
-
         coolTime = 0;
         Bullet bullet = bulletPool.Get();
         bullet.transform.position = transform.position; // 현재 플레이어 위치에 불렛 활성화
@@ -113,7 +103,7 @@ public class BulletLauncher : MonoBehaviour
         if (curSkill.skillName == "FreiKugel") // 현재 스킬의 이름으로 판정
         {
             
-            Collider2D[] monsters = Physics2D.OverlapCircleAll(targetPos, radius, _targetLayer); // 마우스 기준 특정 범위 내의 적을 모두 반환
+            Collider2D[] monsters = Physics2D.OverlapCircleAll(transform.position + 3*_player.orientation, radius, _targetLayer); // 마우스 기준 특정 범위 내의 적을 모두 반환
             if (monsters.Length > 0) 
             {
                 bullet.target = GetNearestMonster(monsters).GetComponent<Monster>(); // 범위 내에 적이 있을 시, 마우스와 가장 가까운 적을 타겟으로 설정
@@ -121,7 +111,8 @@ public class BulletLauncher : MonoBehaviour
         }
         
         SoundManager.Instance.PlaySFX(ESFXs.ShootSFX);
-        bullet.ToTarget(transform.position, targetPos);
+        Debug.Log(_player.orientation);
+        bullet.ToTarget(transform.position, transform.position + 3*_player.orientation);
     }
 
 
@@ -141,12 +132,6 @@ public class BulletLauncher : MonoBehaviour
         return Col;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, radius);
-    }
-
     public Vector3 SetMousePos()
     {
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -154,3 +139,62 @@ public class BulletLauncher : MonoBehaviour
         return mouseWorldPos;
     }
 }
+
+// private void Update()
+// {
+//     if (_player.isDead)
+//     {
+//         return;
+//     }
+//
+//     if (Input.GetMouseButtonDown(0))
+//     {
+//         Shoot();
+//     }
+//
+//     coolTime += Time.deltaTime;
+// }
+//
+// // 스킬에 따라 불렛이 다른 양상으로 움직여야 하는데 이걸 어떻게 구현할지(스킬과 오브젝트풀 연동의 문제)
+//
+// //public void SetBullet() // 현재 스킬에 따른 불렛 설정
+// //{
+// //    bulletPrefab = curSkill.skillBullet;
+// //}
+// public void Shoot() // 인풋 직접 받아 불렛 발사
+// {
+//     if (coolTime < curSkill.bulletCoolTime)
+//     {
+//         return;
+//     }
+//
+//     targetPos = SetMousePos(); // 마우스 현재 위치를 월드좌표로 가져옴
+//     Vector3 attackDir = targetPos - _player.transform.position; // 플레이어 기준 공격 방향
+//         
+//         
+//     float curAngle = Vector3.SignedAngle(_player.orientation, attackDir, _player.orientation);
+//
+//     // 각도를 계산해서 공격범위 밖의 입력은 무시
+//     if (curAngle > attackRange)
+//     {
+//         Debug.Log("공격범위 밖입니다.");
+//         return;
+//     }
+//
+//     coolTime = 0;
+//     Bullet bullet = bulletPool.Get();
+//     bullet.transform.position = transform.position; // 현재 플레이어 위치에 불렛 활성화
+//
+//     if (curSkill.skillName == "FreiKugel") // 현재 스킬의 이름으로 판정
+//     {
+//             
+//         Collider2D[] monsters = Physics2D.OverlapCircleAll(targetPos, radius, _targetLayer); // 마우스 기준 특정 범위 내의 적을 모두 반환
+//         if (monsters.Length > 0) 
+//         {
+//             bullet.target = GetNearestMonster(monsters).GetComponent<Monster>(); // 범위 내에 적이 있을 시, 마우스와 가장 가까운 적을 타겟으로 설정
+//         }
+//     }
+//         
+//     SoundManager.Instance.PlaySFX(ESFXs.ShootSFX);
+//     bullet.ToTarget(transform.position, targetPos);
+// }
