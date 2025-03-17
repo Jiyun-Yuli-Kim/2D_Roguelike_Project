@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class InGameUI : MonoBehaviour, IInitializable
 {
@@ -22,10 +23,15 @@ public class InGameUI : MonoBehaviour, IInitializable
 
     [SerializeField] private GameObject _mouseAim; // 에임 표시
 
+    // 남은 열쇠 팝업 : 열쇠를 다 못 찾고 골인 지점에 도달했을 때 띄울 팝업
+    [SerializeField] private GameObject _keyCountPopup;
+    [SerializeField] private TextMeshProUGUI _leftKeyCountText;
+    
     private void Awake()
     {
         _gameOverCanvas.gameObject.SetActive(false);
         _winCanvas.gameObject.SetActive(false);
+        _keyCountPopup.SetActive(false);
     }
 
     private void OnEnable()
@@ -108,5 +114,17 @@ public class InGameUI : MonoBehaviour, IInitializable
     {
         GameManager.Instance.LoadScene(0);
         Time.timeScale = 1;
+    }
+
+    public void ShowLeftKeyCount()
+    {
+        _leftKeyCountText.text = GameManager.Instance.setter.KeyCount.Value.ToString();
+        _keyCountPopup.SetActive(true);
+        Invoke("HideKeyCountPopup", 2f);
+    }
+
+    private void HideKeyCountPopup()
+    {
+        _keyCountPopup.SetActive(false);
     }
 }
