@@ -13,9 +13,7 @@ public class Bullet : MonoBehaviour
 
     protected Rigidbody2D _rb;
     protected Collider2D _col;
-
-    private Collision2D _coll;
-
+    
     public Monster target;
 
     private void Awake()
@@ -28,29 +26,30 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision) // 어딘가에 충돌했을 때 반드시 불렛 반납
     {
-        _coll = collision;
         target = null;
 
-        StartCoroutine(ReturnBullet());
+        StartCoroutine(ReturnBullet(collision));
     }
 
-    private IEnumerator ReturnBullet()
+    // 문제가 뭘까?
+    // 가설 1. 총알이 반납되면서 collider가 깨지고 이 사이클 자체가 문제가 된다.
+    // 가설 2. 피격된 몬스터가 제거되며 콜라이더가 사라지고 참조를 잃는다.
+    private IEnumerator ReturnBullet(Collision2D curCol)
     {
-        bulletAnimator.SetTrigger("OnDestroy");
-        yield return new WaitForSeconds(0.2f);
+            var colObj = curCol.gameObject;
+            bulletAnimator.SetTrigger("OnDestroy");
+            yield return new WaitForSeconds(0.2f);
 
-        if (_coll.gameObject.CompareTag("Wall"))
-        {
-            bulletPool.Return(this);
-        }
-        
-        else if (_coll.gameObject.CompareTag("Enemy")) // 몬스터 피격시
-        {
-            _coll.gameObject.GetComponent<Monster>().GetDamage(_bulletDamage); // 데미지 부여 및 애니메이션 재생 
-            SoundManager.Instance.PlaySFX(ESFXs.HitSFX);
-        }
-        
-        bulletPool.Return(this); // 일단 충돌했다면 반드시 반납하도록
+            if (colObj != null && colObj.CompareTag("Enemy")) // 몬스터 피격시
+            {
+                colObj.GetComponent<Monster>().GetDamage(_bulletDamage); // 데미지 부여 및 애니메이션 재생 
+                SoundManager.Instance.PlaySFX(ESFXs.HitSFX);
+                yield return new WaitForSeconds(0.5f);
+                Destroy(colObj);
+            }
+            
+            bulletPool.Return(this); // 일단 충돌했다면 반드시 반납하도록
+
     }
 
     public virtual void ToTarget(Vector3 origin, Vector3 target)

@@ -98,6 +98,11 @@ public class BulletLauncher : MonoBehaviour
         
         coolTime = 0;
         Bullet bullet = bulletPool.Get();
+        if (bullet == null)
+        {
+            return; // 스택이 비었을 경우, 리턴
+        }
+
         bullet.transform.position = transform.position; // 현재 플레이어 위치에 불렛 활성화
 
         if (curSkill.skillName == "FreiKugel") // 현재 스킬의 이름으로 판정
@@ -111,7 +116,7 @@ public class BulletLauncher : MonoBehaviour
         }
         
         SoundManager.Instance.PlaySFX(ESFXs.ShootSFX);
-        Debug.Log(_player.orientation);
+        // Debug.Log(_player.orientation);
         bullet.ToTarget(transform.position, transform.position + 3*_player.orientation);
     }
 
