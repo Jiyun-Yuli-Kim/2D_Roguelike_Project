@@ -84,13 +84,13 @@ public class Spawner : MonoBehaviour, IInitializable
     
     public void SpawnItem(List<Room> rooms)
     {
-        List<int> randRooms = GetRandomRooms(rooms.Count-2, 2); // 첫방과 마지막방 제외
-        Debug.Log(randRooms[0]);
-        Debug.Log(randRooms[1]);
+        List<int> randRooms = GetRandomRooms(rooms.Count-2, 3); // 첫방과 마지막방 제외
         Instantiate(itemList[0], new Vector3(rooms[randRooms[0]+1].roomCenter.x + 2f, rooms[randRooms[0]+1].roomCenter.y - 2f, 0),
             Quaternion.Euler(0, 0, 0));
         Instantiate(itemList[0], new Vector3(rooms[randRooms[1]+1].roomCenter.x + 2f, rooms[randRooms[1]+1].roomCenter.y + 2f, 0), 
             Quaternion.Euler(0, 0, 0));
+        Instantiate(itemList[0], new Vector3(rooms[randRooms[2]+1].roomCenter.x + 2f, rooms[randRooms[2]+1].roomCenter.y + 2f, 0), 
+            Quaternion.Euler(0, 0, 0)); // HP포션 스폰
     }
 
     private List<int> GetRandomRooms(int roomCount, int resultCount)

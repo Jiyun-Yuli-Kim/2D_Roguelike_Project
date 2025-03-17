@@ -56,6 +56,9 @@ public class MapGenerator : MonoBehaviour, IInitializable
 
     public void GenerateMap()
     {
+        GameManager.Instance.setter.stageRoomList.Clear();
+        GameManager.Instance.setter.stageRoomCount = 0;
+
         // _mapSize = new Vector2Int(90, 60);
         FillBG(); // 배경 채우기
         FillMinimapBG(); // 렌더링할 미니맵 배경 채우기

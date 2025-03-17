@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7681843432777002067}
   - component: {fileID: 7681843432777002062}
   - component: {fileID: 7681843432777002063}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: 03_PowerUp
   m_TagString: Skill
   m_Icon: {fileID: 0}
