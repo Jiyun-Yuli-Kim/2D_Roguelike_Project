@@ -7,26 +7,15 @@ public class Grid : MonoBehaviour
     private MapGenerator _mapGen; // 여기서 생성된 맵의 데이터를 받아옴 
 
     public Transform testPlayer; 
+    public List<Node> path;
     
     public Vector2 gridSize;
     public Node[,] grid;
     public float nodeRadius;
     public LayerMask unwalkableMask;
-    
-    private List<Node> Open;
-    private List<Node> Closed;
-
-    private Node current;
-    private Node start;
-    private Node target;
 
     private int cellCountX, cellCountY;
     private float nodeWidth;
-    
-    private void Awake()
-    {
-        // Open.Add(start);
-    }
 
     private void Start()
     {
@@ -48,18 +37,40 @@ public class Grid : MonoBehaviour
             {
                 Vector3 worldPoint = origin + Vector3.right * ( x * nodeWidth + nodeRadius) + Vector3.up * ( y  * nodeWidth + nodeRadius );
                 bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
-                grid [x, y] = new Node(walkable, worldPoint);
+                grid [x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
     }
 
-    public Node GetPlayerCurNode(Vector3 playerPos)
+    public Node WorldToNode(Vector3 worldPos) // 플레이어, 목적지에 활용
     {
-        var pos = playerPos + Vector3.right * gridSize.x / 2 +  Vector3.up * gridSize.y / 2; // 그리드 원점(좌측 하단) 기준 플레이어 위치를 받기 위해 보정
+        var pos = worldPos + Vector3.right * gridSize.x / 2 +  Vector3.up * gridSize.y / 2; // 그리드 원점(좌측 하단) 기준 플레이어 위치를 받기 위해 보정
         int x = Mathf.FloorToInt(pos.x / nodeWidth); // 노드의 너비가 1이 아닐 때도 사용할 수 있도록 보정
         int y = Mathf.FloorToInt(pos.y / nodeWidth);
         Debug.Log(x + "," + y);
         return grid[x, y];
+    }
+
+    public List<Node> GetNeighbours(Node node)
+    {
+        List<Node> neighbours = new List<Node>();
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                if (x == 0 && y == 0)
+                    continue;
+
+                int checkX = node.gridX + x; // 이웃 노드의 x좌표
+                int checkY = node.gridY + y; // 이웃 노드의 y좌표
+
+                if (checkX >= 0 && checkX < gridSize.x && checkY >= 0 && checkY < gridSize.y) // 그리드 안에 있을 때만 추가
+                {
+                    neighbours.Add(grid[node.gridX + x, node.gridY + y]);
+                }
+            }
+        }
+        return neighbours;
     }
 
     private void OnDrawGizmos()
@@ -68,7 +79,7 @@ public class Grid : MonoBehaviour
         Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, gridSize.y, 1));
         if (grid != null)
         {
-            Node playerNode = GetPlayerCurNode(testPlayer.position);
+            Node playerNode = WorldToNode(testPlayer.position);
             foreach (Node n in grid)
             {
                 Gizmos.color = (n.isWalkable)? Color.white : Color.red;
@@ -76,47 +87,14 @@ public class Grid : MonoBehaviour
                 {
                     Gizmos.color = Color.cyan;
                 }
+
+                if (path != null && path.Contains(n))
+                {
+                    Gizmos.color = Color.black;
+                }
+
                 Gizmos.DrawCube(n.position, Vector3.one * (nodeWidth - 0.1f));
             }
         }
     }
-
-
-
-
-
-    /*
-public void FindPath()
-{
-    while (true) // 일단 조건은 임의로 설정
-    {
-        if (current == target)
-        {
-            return;
-        }
-
-        current = Open에서 가장 f가 작은 Cell
-        Open.Remove(current);
-        Closed.Add(current);
-
-        if (current == target)
-        {
-            return;
-        }
-
-        foreach(neighbour in current.neighbours)
-        {
-            if (!isWalkable || Closed에 있을 시)
-            다음 노드로 넘어가기
-
-            if (new path가 최단거리이거나 Open에 없을 시)
-            set f of neighbour
-            set parent of neighbour to current
-            if n is not in Open
-            Open.Add(n);
-        }
-    }
-}
-*/
-
 }
