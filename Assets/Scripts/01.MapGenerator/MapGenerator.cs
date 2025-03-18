@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 
 public class MapGenerator : MonoBehaviour, IInitializable
 {
-    [SerializeField] Vector2Int _mapSize; // 기본 맵 사이즈
+    [FormerlySerializedAs("_mapSize")] public Vector2Int mapSize; // 기본 맵 사이즈
     [SerializeField] int _maxDepth; // 트리의 높이
     [SerializeField] float _minRate; // 이등분 할 때의 최소비율
     [SerializeField] float _maxRate; // 이등분 할 때의 최대비율
@@ -35,11 +36,11 @@ public class MapGenerator : MonoBehaviour, IInitializable
 
     private void Awake()
     {
+        GameManager.Instance.generator = this;
     }
 
     private void Start()
     {
-        GameManager.Instance.generator = this;
     }
 
     public void SceneInitialize()
@@ -62,7 +63,7 @@ public class MapGenerator : MonoBehaviour, IInitializable
         // _mapSize = new Vector2Int(90, 60);
         FillBG(); // 배경 채우기
         FillMinimapBG(); // 렌더링할 미니맵 배경 채우기
-        BSPNode rootBspNode = new BSPNode(new RectInt(-_mapSize.x / 2, -_mapSize.y / 2, _mapSize.x, _mapSize.y));
+        BSPNode rootBspNode = new BSPNode(new RectInt(-mapSize.x / 2, -mapSize.y / 2, mapSize.x, mapSize.y));
         // DrawRootNode();
         SplitNode(rootBspNode, 0);
     }
@@ -358,8 +359,8 @@ public class MapGenerator : MonoBehaviour, IInitializable
     // 배경 타일을 채움
     private void FillBG()
     {
-        int w = _mapSize.x / 2;
-        int h = _mapSize.y / 2;
+        int w = mapSize.x / 2;
+        int h = mapSize.y / 2;
         for (int i = -w - 10; i < w + 10; i++)
         {
             for (int j = -h - 10; j < h + 10; j++)
@@ -414,8 +415,8 @@ public class MapGenerator : MonoBehaviour, IInitializable
     // 미니맵 배경 타일을 채움
     private void FillMinimapBG()
     {
-        int w = _mapSize.x / 2;
-        int h = _mapSize.y / 2;
+        int w = mapSize.x / 2;
+        int h = mapSize.y / 2;
         for (int i = -w - 10; i < w + 10; i++)
         {
             for (int j = -h - 10; j < h + 10; j++)
