@@ -5,6 +5,8 @@ using UnityEngine;
 public class Navigator : MonoBehaviour, IPickupable
 {
     private Grid grid;
+
+    [SerializeField] private bool isPickedUp;
         
     private List<Node> Open;
     private List<Node> Closed;
@@ -18,11 +20,27 @@ public class Navigator : MonoBehaviour, IPickupable
     private void Awake()
     {
         grid = GetComponent<Grid>(); // 임시로 이렇게 진행
+        grid.ClearPath();
+        // isPickedUp = true;
+    }
+
+    private void Start()
+    {
+        seeker = GameManager.Instance.player.transform;
+        goal = GameManager.Instance.spawner.goal.transform;
     }
 
     private void Update()
     {
-        FindPath(seeker.position, goal.position);
+        if (isPickedUp)
+        {
+            FindPath(seeker.position, goal.position);
+        }
+
+        if (grid.path != null)
+        {
+            grid.DrawPath(grid.path);
+        }
     }
 
     public void FindPath(Vector3 startPos, Vector3 targetPos)
@@ -117,45 +135,11 @@ public class Navigator : MonoBehaviour, IPickupable
         
         path.Reverse();
         grid.path = path;
+        // grid.DrawPath(path);
     }
 
     public void OnPickup()
     {
-        
+        isPickedUp = true;
     }
-
-    /*
-public void FindPath()
-{
-while (true) // 일단 조건은 임의로 설정
-{
-    if (current == target)
-    {
-        return;
-    }
-
-    current = Open에서 가장 f가 작은 Cell
-    Open.Remove(current);
-    Closed.Add(current);
-
-    if (current == target) 왜 여기서 할까요? 가장짧으니까 얘가 curNode -> 어 근데 타겟이네? -> 종료
-    {
-        return;
-    }
-
-    foreach(neighbour in current.neighbours)
-    {
-        if (!isWalkable || Closed에 있을 시)
-        다음 노드로 넘어가기
-
-        if (new path가 최단거리이거나 Open에 없을 시)
-        set f of neighbour
-        set parent of neighbour to current
-        if n is not in Open
-        Open.Add(n);
-    }
-}
-}
-*/
-
 }

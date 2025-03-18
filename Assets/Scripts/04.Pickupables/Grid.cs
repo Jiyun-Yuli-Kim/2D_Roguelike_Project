@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class Grid : MonoBehaviour, IInitializable
 {
     private MapGenerator _mapGen; // 여기서 생성된 맵의 데이터를 받아옴 
 
-    public Transform testPlayer; 
+    public Transform player; 
     public List<Node> path;
     
     public Vector2 gridSize;
@@ -17,16 +17,31 @@ public class Grid : MonoBehaviour
     private int cellCountX, cellCountY;
     private float nodeWidth;
 
-    private void Start()
+    public bool gridOn;
+
+    [SerializeField] private LineRenderer _pathLine;
+
+    private void Awake()
     {
-        // gridSize = GameManager.Instance.generator.mapSize; // MapGenerator에서 맵 크기에 대한 정보 받아옴
+        // _pathLine.positionCount = 0;
+    }
+
+    public void SceneInitialize()
+    {
+        ClearPath();
+        gridSize = GameManager.Instance.generator.mapSize; // MapGenerator에서 맵 크기에 대한 정보 받아옴
+        player = GameManager.Instance.player.transform;
         nodeWidth = nodeRadius * 2;
         cellCountX = Mathf.RoundToInt(gridSize.x/nodeWidth);
         cellCountY = Mathf.RoundToInt(gridSize.y/nodeWidth);
-        CreateGrid();
+    }
+    
+    private void Start()
+    {
+        Invoke("CreateGrid", 0.5f);
     }
 
-    private void CreateGrid()
+    public void CreateGrid()
     {
         grid = new Node[cellCountX, cellCountY]; // 노드들을 담는 2차원 배열로서의 그리드
         Vector3 origin = transform.position - Vector3.right * gridSize.x/2 -  Vector3.up * gridSize.y/2; // 그리드 좌측하단의 기준점
@@ -36,8 +51,9 @@ public class Grid : MonoBehaviour
             for (int y = 0; y < cellCountY; y++)
             {
                 Vector3 worldPoint = origin + Vector3.right * ( x * nodeWidth + nodeRadius) + Vector3.up * ( y  * nodeWidth + nodeRadius );
-                bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius, unwalkableMask));
+                bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius - 0.1f, unwalkableMask));
                 grid [x, y] = new Node(walkable, worldPoint, x, y);
+                Debug.Log($"{x},{y},{worldPoint},{walkable}");
             }
         }
     }
@@ -47,7 +63,7 @@ public class Grid : MonoBehaviour
         var pos = worldPos + Vector3.right * gridSize.x / 2 +  Vector3.up * gridSize.y / 2; // 그리드 원점(좌측 하단) 기준 플레이어 위치를 받기 위해 보정
         int x = Mathf.FloorToInt(pos.x / nodeWidth); // 노드의 너비가 1이 아닐 때도 사용할 수 있도록 보정
         int y = Mathf.FloorToInt(pos.y / nodeWidth);
-        Debug.Log(x + "," + y);
+        // Debug.Log(x + "," + y);
         return grid[x, y];
     }
 
@@ -73,28 +89,55 @@ public class Grid : MonoBehaviour
         return neighbours;
     }
 
-    private void OnDrawGizmos()
+    public void DrawPath(List<Node> path)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, gridSize.y, 1));
-        if (grid != null)
+        _pathLine.positionCount = path.Count;
+        for (int i = 0; i < path.Count; i++)
         {
-            Node playerNode = WorldToNode(testPlayer.position);
-            foreach (Node n in grid)
-            {
-                Gizmos.color = (n.isWalkable)? Color.white : Color.red;
-                if (playerNode == n)
-                {
-                    Gizmos.color = Color.cyan;
-                }
-
-                if (path != null && path.Contains(n))
-                {
-                    Gizmos.color = Color.black;
-                }
-
-                Gizmos.DrawCube(n.position, Vector3.one * (nodeWidth - 0.1f));
-            }
+            _pathLine.SetPosition(i, path[i].position);
         }
     }
+
+    public void ClearPath()
+    {
+        _pathLine.positionCount = 0;
+    }
+
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, gridSize.y, 1));
+    //     if (grid != null)
+    //     {
+    //         Node playerNode = WorldToNode(player.position);
+    //         foreach (Node n in grid)
+    //         {
+    //             Gizmos.color = (n.isWalkable)? Color.white : Color.red;
+    //             
+    //             if (playerNode == n)
+    //             {
+    //                 Gizmos.color = Color.cyan;
+    //             }
+    //
+    //             if (path != null && path.Contains(n))
+    //             {
+    //                 Gizmos.color = Color.black;
+    //             }
+    //
+    //             Gizmos.DrawCube(n.position, Vector3.one * (nodeWidth - 0.1f));
+    //         }
+    //         
+    //         // Vector3 origin = transform.position - Vector3.right * gridSize.x/2 -  Vector3.up * gridSize.y/2;
+    //         // Gizmos.color = Color.green;
+    //         //
+    //         // for (int x = 0; x < cellCountX; x++)
+    //         // {
+    //         //     for (int y = 0; y < cellCountY; y++)
+    //         //     {
+    //         //         Vector3 worldPoint = origin + Vector3.right * ( x * nodeWidth + nodeRadius) + Vector3.up * ( y  * nodeWidth + nodeRadius );
+    //         //         Gizmos.DrawWireSphere(worldPoint,  nodeRadius);
+    //         //     }
+    //         // }
+    //     }
+    // }
 }

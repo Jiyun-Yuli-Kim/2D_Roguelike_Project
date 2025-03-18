@@ -394,22 +394,6 @@ public class MapGenerator : MonoBehaviour, IInitializable
         
         DrawMinimapLine(new Vector2Int(x1, y1), new Vector2Int(x2, y1));
         DrawMinimapLine(new Vector2Int(x2, y1), new Vector2Int(x2, y2));
-
-        //for (int i = x1; i < x2; i++)
-        //{
-        //    for (int j = y1 - 1; j <= y2 + 2; j++) // 위아래 경계 타일 3개에 대한 오프셋
-        //    {
-        //        _tilemap.SetTile(new Vector3Int(i, j, 0), _ruleTile);
-        //    }
-        //}
-
-        //for (int y = start.y; y > end.y; y--)
-        //{
-        //    for (int x = start.x - 1; x <= end.x + 1; x++) // 양옆 경계 타일 2개에 대한 오프셋
-        //    {
-        //        _tilemap.SetTile(new Vector3Int(x, y, 0), _ruleTile);
-        //    }
-        //}
     }
 
     // 미니맵 배경 타일을 채움

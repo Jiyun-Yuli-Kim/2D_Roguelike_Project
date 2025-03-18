@@ -12,7 +12,7 @@ public class Spawner : MonoBehaviour, IInitializable
     public PlayerController playerPrefab;
     // public PlayerController player;
     public GameObject goalPrefab;
-    private GameObject goal;
+    public GameObject goal;
     public GameObject keyPrefab;
     private GameObject key;
     private List<GameObject> keySpawnList = new();
