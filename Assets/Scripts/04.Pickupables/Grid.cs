@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Grid : MonoBehaviour, IInitializable
 {
@@ -17,9 +18,9 @@ public class Grid : MonoBehaviour, IInitializable
     private int cellCountX, cellCountY;
     private float nodeWidth;
 
-    public bool gridOn;
+    // public bool gridOn;
 
-    [SerializeField] private LineRenderer _pathLine;
+    [FormerlySerializedAs("_pathLine")] [SerializeField] public LineRenderer pathLine;
 
     private void Awake()
     {
@@ -53,7 +54,7 @@ public class Grid : MonoBehaviour, IInitializable
                 Vector3 worldPoint = origin + Vector3.right * ( x * nodeWidth + nodeRadius) + Vector3.up * ( y  * nodeWidth + nodeRadius );
                 bool walkable = !(Physics2D.OverlapCircle(worldPoint, nodeRadius - 0.1f, unwalkableMask));
                 grid [x, y] = new Node(walkable, worldPoint, x, y);
-                Debug.Log($"{x},{y},{worldPoint},{walkable}");
+                // Debug.Log($"{x},{y},{worldPoint},{walkable}");
             }
         }
     }
@@ -91,16 +92,16 @@ public class Grid : MonoBehaviour, IInitializable
 
     public void DrawPath(List<Node> path)
     {
-        _pathLine.positionCount = path.Count;
+        pathLine.positionCount = path.Count;
         for (int i = 0; i < path.Count; i++)
         {
-            _pathLine.SetPosition(i, path[i].position);
+            pathLine.SetPosition(i, path[i].position);
         }
     }
 
     public void ClearPath()
     {
-        _pathLine.positionCount = 0;
+        pathLine.positionCount = 0;
     }
 
     // private void OnDrawGizmos()

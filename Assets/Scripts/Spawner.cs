@@ -16,6 +16,8 @@ public class Spawner : MonoBehaviour, IInitializable
     public GameObject keyPrefab;
     private GameObject key;
     private List<GameObject> keySpawnList = new();
+    public PathFinder pathFinder;
+
     
     private void Start()
     {
@@ -86,9 +88,11 @@ public class Spawner : MonoBehaviour, IInitializable
     {
         List<int> randRooms = GetRandomRooms(rooms.Count-2, 3); // 첫방과 마지막방 제외
         Instantiate(itemList[0], new Vector3(rooms[randRooms[0]+1].roomCenter.x + 2f, rooms[randRooms[0]+1].roomCenter.y - 2f, 0),
-            Quaternion.Euler(0, 0, 0));
+            Quaternion.Euler(0, 0, 0)); // HP포션 스폰
         Instantiate(itemList[0], new Vector3(rooms[randRooms[1]+1].roomCenter.x + 2f, rooms[randRooms[1]+1].roomCenter.y + 2f, 0), 
-            Quaternion.Euler(0, 0, 0));
+            Quaternion.Euler(0, 0, 0)); // HP포션 스폰
+        pathFinder = Instantiate(itemList[1], new Vector3(rooms[randRooms[1]+1].roomCenter.x + 2f, rooms[randRooms[1]+1].roomCenter.y - 2f, 0), 
+            Quaternion.Euler(0, 0, 0)).GetComponent<PathFinder>(); // 길찾기 아이템 스폰          
         Instantiate(itemList[0], new Vector3(rooms[randRooms[2]+1].roomCenter.x + 2f, rooms[randRooms[2]+1].roomCenter.y + 2f, 0), 
             Quaternion.Euler(0, 0, 0)); // HP포션 스폰
     }
