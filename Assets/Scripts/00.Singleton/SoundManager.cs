@@ -47,6 +47,11 @@ public class SoundManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+
+    // private void Start()
+    // {
+    //     PlayBGM(EBGMs.TitleBGM);
+    // }
     
     public void PlayBGM(EBGMs bgm)
     {

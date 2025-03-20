@@ -266,7 +266,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &513035378002054631
 CircleCollider2D:
@@ -281,9 +281,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.0071262256, y: 0.005344643}
   serializedVersion: 2
-  m_Radius: 0.12999998
+  m_Radius: 0.16028643
 --- !u!114 &513035378002054632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 386202bda034c51498760e65c49661fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpeed: 4.5
+  _playerSpeed: 5
   isDead: 0
   launcher: {fileID: 513035377552781454}
   OnPlayerDeath:
