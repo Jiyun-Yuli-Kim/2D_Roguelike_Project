@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting;
 
+[Preserve]
 public class Navigator : Item
 {
     void Awake()
     {
-        name = "Navigator";
+        itemName = "Navigator";
     }
 
     public override void OnPickup()

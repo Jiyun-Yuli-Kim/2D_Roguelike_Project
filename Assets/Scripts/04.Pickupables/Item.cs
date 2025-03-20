@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Item : MonoBehaviour, IPickupable
 {
-    protected string name;
+    protected string itemName;
 
     public abstract void OnPickup();
 }

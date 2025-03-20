@@ -11,7 +11,6 @@ public class Goal : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _inGameUI = FindObjectOfType<InGameUI>();
-        Debug.Log(_inGameUI);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Grid : MonoBehaviour, IInitializable
+public class Grid : MonoBehaviour
 {
     private MapGenerator _mapGen; // 여기서 생성된 맵의 데이터를 받아옴 
 
@@ -27,7 +27,7 @@ public class Grid : MonoBehaviour, IInitializable
         // _pathLine.positionCount = 0;
     }
 
-    public void SceneInitialize()
+    public void Init()
     {
         ClearPath();
         gridSize = GameManager.Instance.generator.mapSize; // MapGenerator에서 맵 크기에 대한 정보 받아옴

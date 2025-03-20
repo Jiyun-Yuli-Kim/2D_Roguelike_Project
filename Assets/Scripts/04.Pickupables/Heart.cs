@@ -6,7 +6,7 @@ public class Heart : Item
 {
     private void Awake()
     {
-        name = "Heart";
+        itemName = "Heart";
     }
 
     public override void OnPickup()

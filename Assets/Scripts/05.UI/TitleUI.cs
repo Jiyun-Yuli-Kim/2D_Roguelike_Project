@@ -29,13 +29,17 @@ public class TitleUI : MonoBehaviour
     {
         _settingsCanvas.gameObject.SetActive(false);
         _exitCanvas.gameObject.SetActive(false);
-        SoundManager.Instance.PlayBGM(EBGMs.TitleBGM);
         _BGMSlider.onValueChanged.AddListener(SetBGMVolume);
         _SFXSlider.onValueChanged.AddListener(SetSFXVolume);
         _audioMixer.SetFloat("BGMVolume", Mathf.Log10(0.8f) * 15);
         _audioMixer.SetFloat("SFXVolume", Mathf.Log10(0.8f) * 15);
     }
-    
+
+    private void Start()
+    {
+        SoundManager.Instance.PlayBGM(EBGMs.TitleBGM);
+    }
+
     public void NewGame()
     {
         GameManager.Instance.StartGame();

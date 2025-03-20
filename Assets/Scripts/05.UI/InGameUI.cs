@@ -56,6 +56,8 @@ public class InGameUI : MonoBehaviour, IInitializable
 
     public void SceneInitialize()
     {
+        Debug.Log("InGameUI : Scene Initialize");
+
         Cursor.visible = false;
         _stageDataSetter = GameManager.Instance.setter;
         _player = GameManager.Instance.player;
@@ -112,6 +114,7 @@ public class InGameUI : MonoBehaviour, IInitializable
 
     public void OpenTitleScene()
     {
+        SoundManager.Instance.StopSFX();
         GameManager.Instance.LoadScene(0);
         Time.timeScale = 1;
     }
@@ -127,4 +130,5 @@ public class InGameUI : MonoBehaviour, IInitializable
     {
         _keyCountPopup.SetActive(false);
     }
+    
 }

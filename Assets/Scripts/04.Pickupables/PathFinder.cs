@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Scripting;
 
-public class PathFinder : MonoBehaviour
+[Preserve]
+public class PathFinder : MonoBehaviour , IInitializable
 {
     private Grid grid;
 
@@ -21,12 +23,13 @@ public class PathFinder : MonoBehaviour
     {
         grid = GetComponent<Grid>(); // 임시로 이렇게 진행
         grid.ClearPath();
-        Debug.Log(grid.pathLine.positionCount);
+        // Debug.Log(grid.pathLine.positionCount);
         // isPickedUp = true;
     }
 
-    private void Start()
+    public void SceneInitialize()
     {
+        grid.Init();
         seeker = GameManager.Instance.player.transform;
         goal = GameManager.Instance.spawner.goal.transform;
         GameManager.Instance.spawner.pathFinder = this;
@@ -138,10 +141,5 @@ public class PathFinder : MonoBehaviour
         path.Reverse();
         grid.path = path;
         // grid.DrawPath(path);
-    }
-
-    public void OnPickup()
-    {
-        isPickedUp = true;
     }
 }

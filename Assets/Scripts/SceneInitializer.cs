@@ -7,7 +7,7 @@ public class SceneInitializer : MonoBehaviour, IInitializable
 {
     [SerializeField] private List<GameObject> _initializables = new();
 
-    private void Awake()
+    private void Start()
     {
         Initialize();
     }
